@@ -35,8 +35,11 @@ data class IppPacket constructor(
         vararg groups: AttributeGroup
     ) : this(versionNumber, code, requestId, groups.toList())
 
-    constructor(code: Code, requestId: Int, vararg groups: AttributeGroup):
-            this(code = code.code, requestId = requestId, attributeGroups = groups.toList())
+    constructor(status: Status, requestId: Int, vararg groups: AttributeGroup):
+            this(code = status.code, requestId = requestId, attributeGroups = groups.toList())
+
+    constructor(operation: Operation, requestId: Int, vararg groups: AttributeGroup):
+        this(code = operation.code, requestId = requestId, attributeGroups = groups.toList())
 
     /**
      * Return this response packet's Status code
@@ -74,7 +77,7 @@ data class IppPacket constructor(
 
     private fun prefix(): String {
         return "IppPacket(v=x" + Integer.toHexString(versionNumber) +
-                " code=" + getCode(Code.Encoder) +
+                " code=" + getCode(OperationOrStatusEncoder) +
                 " rId=x" + Integer.toHexString(requestId) +
                 ")"
     }
@@ -102,6 +105,11 @@ data class IppPacket constructor(
     companion object {
         /** Default version number to be sent in a packet (0x0101 for IPP 1.1)  */
         const val DEFAULT_VERSION_NUMBER = 0x0101
+
+        val OperationOrStatusEncoder = EnumType.Encoder("Code", Status.Encoder.map.values +
+            Operation.Encoder.map.values) {
+            code: Int, name: String -> Status(code, name)
+        }
 
         @Throws(IOException::class)
         private fun readPacket(input: IppInputStream): IppPacket {

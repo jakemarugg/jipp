@@ -5,8 +5,6 @@ package com.hp.jipp.model
 
 import com.hp.jipp.encoding.Cycler.cycle
 import com.hp.jipp.util.KotlinTest
-import junit.framework.TestCase.assertFalse
-import junit.framework.TestCase.assertTrue
 import org.junit.Test
 
 class EnumsTest {
@@ -15,9 +13,6 @@ class EnumsTest {
         KotlinTest.cover(Types.jobState.of(JobState.Code.pendingHeld),
             cycle<JobState>(Types.jobState.of(JobState.pendingHeld)),
             Types.jobState.of(JobState.Encoder[77]))
-
-        assertTrue(JobState.aborted.isFinal)
-        assertFalse(JobState.pendingHeld.isFinal)
     }
 
     @Test

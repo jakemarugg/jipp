@@ -19,9 +19,9 @@ object Types {
     @JvmField val documentFormat = StringType(Tag.mimeMediaType, "document-format")
     @JvmField val documentFormatSupported = StringType(Tag.mimeMediaType, "document-format-supported")
     @JvmField val documentName = StringType(Tag.nameWithoutLanguage, "document-name")
-    @JvmField val finishings = Finishings.Type("finishings")
-    @JvmField val finishingsDefault = Finishings.Type("finishings-default")
-    @JvmField val finishingsSupported = Finishings.Type("finishings-supported")
+    @JvmField val finishings = Finishing.Type("finishings")
+    @JvmField val finishingsDefault = Finishing.Type("finishings-default")
+    @JvmField val finishingsSupported = Finishing.Type("finishings-supported")
     @JvmField val generatedNaturalLanguageSupported = StringType(Tag.naturalLanguage,
         "generated-natural-language-supported")
     @JvmField val identifyActions = IdentifyAction.Type("identify-actions")

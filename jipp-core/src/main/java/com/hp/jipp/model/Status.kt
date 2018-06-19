@@ -3,12 +3,13 @@
 
 package com.hp.jipp.model
 
+import com.hp.jipp.encoding.Enum
 import com.hp.jipp.encoding.EnumType
 
 /**
  * A status code, as found in a response packet. See RFC2911 section 13.1.
  */
-data class Status(override val code: Int, override val name: String) : Code() {
+data class Status(override val code: Int, override val name: String) : Enum() {
 
     override fun toString() = "$name(x${Integer.toHexString(code)})"
 
