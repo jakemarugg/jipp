@@ -11,9 +11,9 @@ import com.hp.jipp.encoding.Enum
 import com.hp.jipp.encoding.EnumType
 
 /**
- * "job-collation-type" enum as defined in
- * [APPLE20150505-1](http://www.pwg.org/pipermail/ipp/2015/018517.html),
- *  [RFC3381](http://www.iana.org/go/rfc3381)
+ * "job-collation-type" enum as defined in:
+ *   * [APPLE20150505-1](http://www.pwg.org/pipermail/ipp/2015/018517.html)
+ *   * [RFC3381](http://www.iana.org/go/rfc3381)
  */
 data class JobCollationType(override val code: Int, override val name: String) : Enum() {
 

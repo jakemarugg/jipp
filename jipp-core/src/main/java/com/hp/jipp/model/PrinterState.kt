@@ -11,8 +11,8 @@ import com.hp.jipp.encoding.Enum
 import com.hp.jipp.encoding.EnumType
 
 /**
- * "printer-state" enum as defined in
- * [RFC8011](http://www.iana.org/go/rfc8011)
+ * "printer-state" enum as defined in:
+ *   * [RFC8011](http://www.iana.org/go/rfc8011)
  */
 data class PrinterState(override val code: Int, override val name: String) : Enum() {
 

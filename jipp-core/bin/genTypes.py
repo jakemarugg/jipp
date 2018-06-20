@@ -203,36 +203,48 @@ def camel_member(string):
 def upper(string):
     return string.upper()
 
-def emit_code(updated):
+def emit_enum(template, enum):
+    if not enum['values']:
+        warn("enum " + enum['name'] + " has no values defined")
+        return
+
+    # Remove -supported and -requested
+    enum['name'] = re.sub('-(supported|requested)$', '', enum['name'])
+
+    # Lop off the plural for certain cases
+    if enum['name'] == "finishings" or enum['name'] == "operations":
+        enum['name'] = enum['name'][:-1]
+
+    out_file = proj_dir + 'src/main/java/com/hp/jipp/model/' + camel_class(enum['name']) + ".kt"
+    if not os.path.exists(os.path.dirname(out_file)):
+        os.makedirs(out_file)
+    print "Writing " + out_file
+    with open(out_file, "w") as file:
+        file.write(template.render(enum=enum, app=os.path.basename(sys.argv[0]), updated=updated, specs=specs))
+
+def emit_kind(env, template_name, items, emit_func):
+    template = env.get_template(template_name)
+    for item in items.values():
+        if 'ref' in item:
+            if item['ref'] not in items:
+                warn(item['name'] + " has bad ref=" + item['ref'])
+            continue
+
+        item['refs'] = []
+        for ref_item in items.values():
+            if 'ref' in ref_item and ref_item['ref'] == item['name']:
+                item['refs'].append(ref_item['name'])
+
+        emit_func(template, item)
+
+def emit_code():
     env = Environment(loader=FileSystemLoader(proj_dir + 'bin'))
     env.filters['camel_class'] = camel_class
     env.filters['camel_member'] = camel_member
     env.filters['spaced_title'] = spaced_title
     env.filters['upper'] = upper
-    enum_kt = env.get_template('enum.kt.tmpl')
-    for enum in enums.values():
-        if 'ref' in enum:
-            if enum['ref'] not in enums:
-                warn("enum " + enum['name'] + " has bad ref=" + enum['ref'])
-            continue
 
-        if not enum['values']:
-            warn("enum " + enum['name'] + " has no values defined")
-            continue
-
-        # Remove -supported and -requested
-        enum['name'] = re.sub('-(supported|requested)$', '', enum['name'])
-
-        # Lop off the plural for certain cases
-        if enum['name'] == "finishings" or enum['name'] == "operations":
-            enum['name'] = enum['name'][:-1]
-
-        out_file = proj_dir + 'src/main/java/com/hp/jipp/model/' + camel_class(enum['name']) + ".kt"
-        if not os.path.exists(os.path.dirname(out_file)):
-            os.makedirs(out_file)
-        print "Writing " + out_file
-        with open(out_file, "w") as file:
-            file.write(enum_kt.render(enum=enum, app=os.path.basename(sys.argv[0]), updated=updated, specs=specs))
+    emit_kind(env, 'enum.kt.tmpl', enums, emit_enum)
 
 # MAIN
 
@@ -247,7 +259,7 @@ if not os.path.isfile(xml_file):
 # Parse from file
 tree = etree.parse(xml_file)
 
-# TODO: Capture registry/updated date and emit that into all generated files
+# Capture the update date to be added to all files
 for elem in tree.iter('{*}registry'):
     if elem.find('{*}title').text == "Internet Printing Protocol (IPP) Registrations":
         updated = elem.find('{*}updated').text
@@ -260,11 +272,11 @@ parse_records(tree, "Status Codes", parse_status_code)
 pp = pprint.PrettyPrinter(indent=2)
 #print "\nCollections: "
 #pp.pprint(collections)
-#print "\nKeywords: "
-#pp.pprint(keywords)
+print "\nKeywords: "
+pp.pprint(keywords.keys())
 #print "\nEnums: "
 #pp.pprint(enums)
 #print "\nSpecifications: "
 #pp.pprint(specs)
 
-emit_code(updated)
+emit_code()

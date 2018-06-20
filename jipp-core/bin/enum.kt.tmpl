@@ -11,9 +11,11 @@ import com.hp.jipp.encoding.Enum
 import com.hp.jipp.encoding.EnumType
 
 /**
- * "{{ enum.name }}" enum as defined in
- * {%- for spec in enum.specs | sort %} [{{ spec | upper }}]({{ specs[spec] }}){% if not loop.last %},
- * {% endif %}{%- endfor %}
+ * "{{ enum.name }}" enum as defined in:{%- for spec in enum.specs | sort %}
+ *   * [{{ spec | upper }}]({{ specs[spec] }}){%- endfor %}{%- if enum['refs']%}
+ *
+ * Also used by:{%- for ref in enum['refs'] | sort %}
+ *   * `{{ ref }}`{%- endfor%}{%- endif %}
  */
 data class {{ enum.name | camel_class }}(override val code: Int, override val name: String) : Enum() {
 

@@ -11,8 +11,11 @@ import com.hp.jipp.encoding.Enum
 import com.hp.jipp.encoding.EnumType
 
 /**
- * "job-state" enum as defined in
- * [RFC8011](http://www.iana.org/go/rfc8011)
+ * "job-state" enum as defined in:
+ *   * [RFC8011](http://www.iana.org/go/rfc8011)
+ *
+ * Also used by:
+ *   * `output-device-job-states`
  */
 data class JobState(override val code: Int, override val name: String) : Enum() {
 

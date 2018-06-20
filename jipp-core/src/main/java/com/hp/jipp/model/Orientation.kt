@@ -11,9 +11,16 @@ import com.hp.jipp.encoding.Enum
 import com.hp.jipp.encoding.EnumType
 
 /**
- * "orientation" enum as defined in
- * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf),
- *  [RFC8011](http://www.iana.org/go/rfc8011)
+ * "orientation" enum as defined in:
+ *   * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
+ *   * [RFC8011](http://www.iana.org/go/rfc8011)
+ *
+ * Also used by:
+ *   * `input-orientation-requested`
+ *   * `input-orientation-requested-supported`
+ *   * `media-source-feed-orientation`
+ *   * `orientation-requested-default`
+ *   * `orientation-requested-supported`
  */
 data class Orientation(override val code: Int, override val name: String) : Enum() {
 
