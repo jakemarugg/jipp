@@ -14,9 +14,12 @@ keywords = { }
 collections = { }
 proj_dir = os.path.dirname(os.path.realpath(__file__)) + "/../"
 
+def warn(output):
+    print "    WARN: " + output
+
 # Given a record attempt to grab the referenced specification out of its xref.
 # Return the short id of the spec or None if not found.
-def parse_spec(record):
+def parse_spec(record, target):
     xref = record.find('{*}xref')
     if xref is None:
         return None
@@ -32,21 +35,20 @@ def parse_spec(record):
         uri = xref.attrib['data']
 
     if spec is None or uri is None:
-        print "WARN: unparseable spec reference " + etree.tostring(xref)
+        warn("unparseable spec reference " + etree.tostring(xref))
     else:
         if spec not in specs:
             specs[spec] = uri
-    return spec
+
+    if spec is not None and spec not in target['specs']:
+        target['specs'].append(spec)
 
 # Parse a single enum record into the global list of enums
 def parse_enum(record):
     attribute = record.find('{*}attribute').text
     enum = enums.setdefault(attribute, { 'name': attribute, 'values': { }, 'specs': [ ],
                                          'syntax': record.find('{*}syntax').text })
-
-    spec = parse_spec(record)
-    if spec is not None and spec not in enum['specs']:
-        enum['specs'].append(spec)
+    parse_spec(record, enum)
 
     value = record.find('{*}value')
     if value is not None:
@@ -61,6 +63,15 @@ def parse_enum(record):
                 value = "any " + m.group(1) + " enum value"
                 name = None
 
+    # Special case: These are all grouped together in the XML
+    if enum['name'].startswith("job-finishings"):
+        enum['ref'] = 'finishings'
+
+    # Special case: this has a strange value
+    if enum['name'] == 'fetch-status-code':
+        enum['ref'] = 'status'
+        return
+
     if value is None:
         return
 
@@ -72,28 +83,43 @@ def parse_enum(record):
                 value = int(value, 0)
                 enum['values'][name] = value
             except ValueError:
-                print "WARN: enum " + attribute + " has non-integer value " + value
+                warn("enum " + attribute + " has non-integer value " + value)
     else:
-        # Correct some known typos
-        value = value.replace("status code", "status-code")
+        # Special case: Correct some known typos
+        value = value.replace("status code", "status")
         value = value.replace("any finishings enum value", "<any finishings enum value>")
 
         m = re.search("< ?(?:[aA]ny |all )\"?([a-z-]+)\"?( enum)? (value(s?)|name(s?)) ?>", value)
         if m and m.group(1):
             enum['ref'] = m.group(1)
         else:
-            print "WARN: enum " + attribute + " has unparseable value '" + value + "'"
+            warn("enum " + attribute + " has unparseable value '" + value + "'")
 
 
+# Parse a single status code
+def parse_status_code(record):
+    enum = enums.setdefault('status', { 'name': 'status', 'values': { }, 'specs': [ ], 'hex': True })
+    value = record.find('{*}value').text
+    name = record.find('{*}name').text
+    parse_spec(record, enum)
+    if name == "Unassigned" or name.startswith("Reserved") or '-' in value:
+        return
+    try:
+        value = int(value, 0)
+        enum['values'][name] = value
+    except ValueError:
+        warn("status code has non-integer value " + value)
 
 # Parse a single keyword record
 def parse_keyword(record):
     attribute = record.find('{*}attribute').text
     keyword = keywords.setdefault(attribute, { 'name': attribute, 'values': [ ], 'specs': [ ],
                                                'syntax': record.find('{*}syntax').text })
-    spec = parse_spec(record)
-    if spec is not None and spec not in keyword['specs']:
-        keyword['specs'].append(spec)
+    parse_spec(record, keyword)
+
+    # Some values have an additional type specifier (e.g. media "size name" vs "media name" or "input tray")
+    # TODO: Are these actually separate keywords? And how should refs be handled to these?
+    type = record.find('{*}type')
 
     value = record.find('{*}value')
     if value is not None:
@@ -103,22 +129,26 @@ def parse_keyword(record):
         if ' ' not in value:
             keyword['values'].append(value)
         else:
+            # Special case: Correct some known irregularities
+            value = value.replace('"media" color', "media-color")
+
             m = re.search("< ?(?:[aA]ny |all )\"?([a-z-]+)\"?( keyword)? (value(s?)|name(s?)) ?>", value)
             if m and m.group(1):
                 keyword['ref'] = m.group(1)
             else:
-                print "WARN: keyword " + attribute + " has unparseable value '" + value + "'"
+                warn("keyword " + attribute + " has unparseable value '" + value + "'")
 
 # Parse a single attribute record
 def parse_attribute(record):
     attr_name = record.find('{*}name').text
     collection_name = record.find('{*}collection').text
     syntax = record.find('{*}syntax').text
-    spec = parse_spec(record)
 
     collection = collections.setdefault(collection_name, { })
     attr = collection.setdefault(attr_name, {
         'name': attr_name, 'specs': [ ], 'syntax': syntax, 'members': { } } )
+
+    parse_spec(record, attr)
 
     member_name = record.find('{*}member_attribute')
     if member_name is not None:
@@ -140,19 +170,15 @@ def parse_attribute(record):
                 attr['ref'] = m.group(1)
                 return
 
-            print("WARN: Unparseable member '" + attr_name + "' member_attribute: '" + member_name + "'")
+            warn("Unparseable member '" + attr_name + "' member_attribute: '" + member_name + "'")
             return
 
         attr = attr['members'].setdefault(member_name, {
                 'name': member_name, 'specs': [ ], 'syntax': syntax, 'members': { } } )
 
         if submember_name is not None:
-            attr = attr['members'].setdefault(submember_name, {
+            attr['members'].setdefault(submember_name, {
                 'name': submember_name, 'specs': [ ], 'syntax': syntax, 'members': { } } )
-
-    if spec is not None and spec not in attr['specs']:
-        attr['specs'].append(spec)
-
 
 # For each record entity in sections titled with "name", invoke parse()
 def parse_records(root, name, parse):
@@ -177,7 +203,7 @@ def camel_member(string):
 def upper(string):
     return string.upper()
 
-def emit_code():
+def emit_code(updated):
     env = Environment(loader=FileSystemLoader(proj_dir + 'bin'))
     env.filters['camel_class'] = camel_class
     env.filters['camel_member'] = camel_member
@@ -186,10 +212,12 @@ def emit_code():
     enum_kt = env.get_template('enum.kt.tmpl')
     for enum in enums.values():
         if 'ref' in enum:
+            if enum['ref'] not in enums:
+                warn("enum " + enum['name'] + " has bad ref=" + enum['ref'])
             continue
 
         if not enum['values']:
-            print "NOTE: " + enum['name'] + " has no values defined, ignoring"
+            warn("enum " + enum['name'] + " has no values defined")
             continue
 
         # Remove -supported and -requested
@@ -204,7 +232,7 @@ def emit_code():
             os.makedirs(out_file)
         print "Writing " + out_file
         with open(out_file, "w") as file:
-            file.write(enum_kt.render(enum=enum, app=os.path.basename(sys.argv[0]), specs=specs))
+            file.write(enum_kt.render(enum=enum, app=os.path.basename(sys.argv[0]), updated=updated, specs=specs))
 
 # MAIN
 
@@ -219,20 +247,24 @@ if not os.path.isfile(xml_file):
 # Parse from file
 tree = etree.parse(xml_file)
 
+# TODO: Capture registry/updated date and emit that into all generated files
+for elem in tree.iter('{*}registry'):
+    if elem.find('{*}title').text == "Internet Printing Protocol (IPP) Registrations":
+        updated = elem.find('{*}updated').text
+
 parse_records(tree, "Enum Attribute Values", parse_enum)
 parse_records(tree, "Keyword Attribute Values", parse_keyword)
 parse_records(tree, "Attributes", parse_attribute)
-
-# TODO: Parse Status Code as if it was another enum
+parse_records(tree, "Status Codes", parse_status_code)
 
 pp = pprint.PrettyPrinter(indent=2)
-print "\nCollections: "
+#print "\nCollections: "
 #pp.pprint(collections)
 #print "\nKeywords: "
 #pp.pprint(keywords)
 #print "\nEnums: "
 #pp.pprint(enums)
-print "\nSpecifications: "
-pp.pprint(specs)
+#print "\nSpecifications: "
+#pp.pprint(specs)
 
-emit_code()
+emit_code(updated)
