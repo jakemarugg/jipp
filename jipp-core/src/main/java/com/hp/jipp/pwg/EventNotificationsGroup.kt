@@ -52,6 +52,12 @@ object EventNotificationsGroup {
     @JvmField val notifyCharset = StringType(Tag.charset, "notify-charset")
 
     /**
+     * "notify-natural-language" as defined in:
+     * [RFC3996](http://www.iana.org/go/rfc3996)
+     */
+    @JvmField val notifyNaturalLanguage = StringType(Tag.naturalLanguage, "notify-natural-language")
+
+    /**
      * "notify-printer-uri" as defined in:
      * [RFC3996](http://www.iana.org/go/rfc3996)
      */
@@ -80,6 +86,18 @@ object EventNotificationsGroup {
      * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
      */
     @JvmField val notifySubscriptionUuid = UriType("notify-subscription-uuid")
+
+    /**
+     * "notify-text" as defined in:
+     * [RFC3995](http://www.iana.org/go/rfc3995)
+     */
+    @JvmField val notifyText = TextType("notify-text")
+
+    /**
+     * "notify-user-data" as defined in:
+     * [RFC3996](http://www.iana.org/go/rfc3996)
+     */
+    @JvmField val notifyUserData = OctetStringType(63, "notify-user-data")
 
     /**
      * "printer-is-accepting-jobs" as defined in:

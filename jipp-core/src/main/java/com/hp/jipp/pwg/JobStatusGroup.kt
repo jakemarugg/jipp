@@ -22,6 +22,12 @@ object JobStatusGroup {
     @JvmField val attributesCharset = StringType(Tag.charset, "attributes-charset")
 
     /**
+     * "attributes-natural-language" as defined in:
+     * [RFC8011](http://www.iana.org/go/rfc8011)
+     */
+    @JvmField val attributesNaturalLanguage = StringType(Tag.naturalLanguage, "attributes-natural-language")
+
+    /**
      * "copies-actual" as defined in:
      * [PWG5100.8](http://ftp.pwg.org/pub/pwg/candidates/cs-ippactuals10-20030313-5100.8.pdf)
      */
@@ -64,6 +70,30 @@ object JobStatusGroup {
     @JvmField val documentFormatSupplied = StringType(Tag.mimeMediaType, "document-format-supplied")
 
     /**
+     * "document-format-version-supplied" as defined in:
+     * [PWG5100.7](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobext10-20031031-5100.7.pdf)
+     */
+    @JvmField val documentFormatVersionSupplied = TextType(127, "document-format-version-supplied")
+
+    /**
+     * "document-message-supplied" as defined in:
+     * [PWG5100.7](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobext10-20031031-5100.7.pdf)
+     */
+    @JvmField val documentMessageSupplied = TextType("document-message-supplied")
+
+    /**
+     * "document-name-supplied" as defined in:
+     * [PWG5100.7](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobext10-20031031-5100.7.pdf)
+     */
+    @JvmField val documentNameSupplied = NameType("document-name-supplied")
+
+    /**
+     * "document-natural-language-supplied" as defined in:
+     * [PWG5100.7](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobext10-20031031-5100.7.pdf)
+     */
+    @JvmField val documentNaturalLanguageSupplied = StringType(Tag.naturalLanguage, "document-natural-language-supplied")
+
+    /**
      * "document-overrides-actual" as defined in:
      * [PWG5100.8](http://ftp.pwg.org/pub/pwg/candidates/cs-ippactuals10-20030313-5100.8.pdf)
      */
@@ -88,18 +118,6 @@ object JobStatusGroup {
     @JvmField val finishingsColActual = CollectionType("finishings-col-actual")
 
     /**
-     * "force-front-side-actual" as defined in:
-     * [PWG5100.8](http://ftp.pwg.org/pub/pwg/candidates/cs-ippactuals10-20030313-5100.8.pdf)
-     */
-    @JvmField val forceFrontSideActual = IntegerType("force-front-side-actual")
-
-    /**
-     * "imposition-template-actual" as defined in:
-     * [PWG5100.8](http://ftp.pwg.org/pub/pwg/candidates/cs-ippactuals10-20030313-5100.8.pdf)
-     */
-    @JvmField val impositionTemplateActual = ImpositionTemplate.Type("imposition-template-actual")
-
-    /**
      * "impressions-completed-current-copy" as defined in:
      * [RFC3381](http://www.iana.org/go/rfc3381)
      */
@@ -116,12 +134,6 @@ object JobStatusGroup {
      * [PWG5100.8](http://ftp.pwg.org/pub/pwg/candidates/cs-ippactuals10-20030313-5100.8.pdf)
      */
     @JvmField val insertSheetActual = CollectionType("insert-sheet-actual")
-
-    /**
-     * "job-account-type-actual" as defined in:
-     * [PWG5100.16](http://ftp.pwg.org/pub/pwg/candidates/cs-ipptrans10-20131108-5100.16.pdf)
-     */
-    @JvmField val jobAccountTypeActual = JobAccountType.Type("job-account-type-actual")
 
     /**
      * "job-accounting-sheets-actual" as defined in:
@@ -160,6 +172,18 @@ object JobStatusGroup {
     @JvmField val jobCoverFrontActual = CollectionType("job-cover-front-actual")
 
     /**
+     * "job-detailed-status-messages" as defined in:
+     * [RFC8011](http://www.iana.org/go/rfc8011)
+     */
+    @JvmField val jobDetailedStatusMessages = TextType("job-detailed-status-messages")
+
+    /**
+     * "job-document-access-errors" as defined in:
+     * [RFC8011](http://www.iana.org/go/rfc8011)
+     */
+    @JvmField val jobDocumentAccessErrors = TextType("job-document-access-errors")
+
+    /**
      * "job-error-sheet-actual" as defined in:
      * [PWG5100.8](http://ftp.pwg.org/pub/pwg/candidates/cs-ippactuals10-20030313-5100.8.pdf)
      */
@@ -176,12 +200,6 @@ object JobStatusGroup {
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
      */
     @JvmField val jobFinishingsColActual = CollectionType("job-finishings-col-actual")
-
-    /**
-     * "job-hold-until-actual" as defined in:
-     * [PWG5100.8](http://ftp.pwg.org/pub/pwg/candidates/cs-ippactuals10-20030313-5100.8.pdf)
-     */
-    @JvmField val jobHoldUntilActual = JobHoldUntil.Type("job-hold-until-actual")
 
     /**
      * "job-id" as defined in:
@@ -256,6 +274,12 @@ object JobStatusGroup {
     @JvmField val jobMoreInfo = UriType("job-more-info")
 
     /**
+     * "job-originating-user-name" as defined in:
+     * [RFC8011](http://www.iana.org/go/rfc8011)
+     */
+    @JvmField val jobOriginatingUserName = NameType("job-originating-user-name")
+
+    /**
      * "job-originating-user-uri" as defined in:
      * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
      */
@@ -310,10 +334,10 @@ object JobStatusGroup {
     @JvmField val jobPriorityActual = IntegerType("job-priority-actual")
 
     /**
-     * "job-sheets-actual" as defined in:
+     * "job-sheet-message-actual" as defined in:
      * [PWG5100.8](http://ftp.pwg.org/pub/pwg/candidates/cs-ippactuals10-20030313-5100.8.pdf)
      */
-    @JvmField val jobSheetsActual = JobSheet.Type("job-sheets-actual")
+    @JvmField val jobSheetMessageActual = TextType("job-sheet-message-actual")
 
     /**
      * "job-sheets-col-actual" as defined in:
@@ -322,10 +346,10 @@ object JobStatusGroup {
     @JvmField val jobSheetsColActual = CollectionType("job-sheets-col-actual")
 
     /**
-     * "job-state" as defined in:
+     * "job-state-message" as defined in:
      * [RFC8011](http://www.iana.org/go/rfc8011)
      */
-    @JvmField val jobState = JobState.Type("job-state")
+    @JvmField val jobStateMessage = TextType("job-state-message")
 
     /**
      * "job-state-reasons" as defined in:
@@ -350,12 +374,6 @@ object JobStatusGroup {
      * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
      */
     @JvmField val materialsColActual = CollectionType("materials-col-actual")
-
-    /**
-     * "media-actual" as defined in:
-     * [PWG5100.8](http://ftp.pwg.org/pub/pwg/candidates/cs-ippactuals10-20030313-5100.8.pdf)
-     */
-    @JvmField val mediaActual = Media.Type("media-actual")
 
     /**
      * "media-col-actual" as defined in:
@@ -400,16 +418,34 @@ object JobStatusGroup {
     @JvmField val orientationRequestedActual = Orientation.Type("orientation-requested-actual")
 
     /**
+     * "original-requesting-user-name" as defined in:
+     * [RFC3998](http://www.iana.org/go/rfc3998)
+     */
+    @JvmField val originalRequestingUserName = NameType("original-requesting-user-name")
+
+    /**
      * "output-attributes-actual" as defined in:
      * [PWG5100.17](http://ftp.pwg.org/pub/pwg/candidates/cs-ippscan10-20140918-5100.17.pdf)
      */
     @JvmField val outputAttributesActual = CollectionType("output-attributes-actual")
 
     /**
-     * "output-bin-actual" as defined in:
-     * [PWG5100.8](http://ftp.pwg.org/pub/pwg/candidates/cs-ippactuals10-20030313-5100.8.pdf)
+     * "output-device-actual" as defined in:
+     * [PWG5100.7](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobext10-20031031-5100.7.pdf)
      */
-    @JvmField val outputBinActual = OutputBin.Type("output-bin-actual")
+    @JvmField val outputDeviceActual = NameType(127, "output-device-actual")
+
+    /**
+     * "output-device-assigned" as defined in:
+     * [RFC8011](http://www.iana.org/go/rfc8011)
+     */
+    @JvmField val outputDeviceAssigned = NameType(127, "output-device-assigned")
+
+    /**
+     * "output-device-job-state-message" as defined in:
+     * [PWG5100.18](http://ftp.pwg.org/pub/pwg/candidates/cs-ippinfra10-20150619-5100.18.pdf)
+     */
+    @JvmField val outputDeviceJobStateMessage = TextType("output-device-job-state-message")
 
     /**
      * "output-device-uuid-assigned" as defined in:
@@ -538,22 +574,10 @@ object JobStatusGroup {
     @JvmField val sidesActual = Sides.Type("sides-actual")
 
     /**
-     * "time-at-completed" as defined in:
-     * [RFC8011](http://www.iana.org/go/rfc8011)
-     */
-    @JvmField val timeAtCompleted = IntegerType("time-at-completed")
-
-    /**
      * "time-at-creation" as defined in:
      * [RFC8011](http://www.iana.org/go/rfc8011)
      */
     @JvmField val timeAtCreation = IntegerType("time-at-creation")
-
-    /**
-     * "time-at-processing" as defined in:
-     * [RFC8011](http://www.iana.org/go/rfc8011)
-     */
-    @JvmField val timeAtProcessing = IntegerType("time-at-processing")
 
     /**
      * "warnings-count" as defined in:

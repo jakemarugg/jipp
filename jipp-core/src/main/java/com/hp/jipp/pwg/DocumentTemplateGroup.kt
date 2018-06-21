@@ -52,6 +52,12 @@ object DocumentTemplateGroup {
     @JvmField val finishingsCol = CollectionType("finishings-col")
 
     /**
+     * "font-name-requested" as defined in:
+     * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     */
+    @JvmField val fontNameRequested = NameType("font-name-requested")
+
+    /**
      * "font-size-requested" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
      */
@@ -64,12 +70,6 @@ object DocumentTemplateGroup {
     @JvmField val forceFrontSide = IntegerType("force-front-side")
 
     /**
-     * "imposition-template" as defined in:
-     * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
-     */
-    @JvmField val impositionTemplate = ImpositionTemplate.Type("imposition-template")
-
-    /**
      * "insert-sheet" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
      */
@@ -80,12 +80,6 @@ object DocumentTemplateGroup {
      * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
      */
     @JvmField val materialsCol = CollectionType("materials-col")
-
-    /**
-     * "media" as defined in:
-     * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
-     */
-    @JvmField val media = Media.Type("media")
 
     /**
      * "media-col" as defined in:
@@ -140,12 +134,6 @@ object DocumentTemplateGroup {
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
      */
     @JvmField val pdlInitFile = CollectionType("pdl-init-file")
-
-    /**
-     * "platform-temperature" as defined in:
-     * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
-     */
-    @JvmField val platformTemperature = IntegerType("platform-temperature")
 
     /**
      * "presentation-direction-number-up" as defined in:

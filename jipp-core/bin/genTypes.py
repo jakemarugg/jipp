@@ -52,6 +52,8 @@ def parse_spec(record, target):
         target['specs'].append(spec)
 
 def clean_syntax(syntax):
+    if syntax is None:
+        return None
     if syntax.startswith('(') and syntax.endswith(')'):
         syntax = syntax[1:-1]
     syntax = " | ".join(sorted(syntax.split(" | ")))
@@ -172,7 +174,7 @@ def parse_keyword(record):
 def parse_attribute(record):
     attr_name = record.find('{*}name').text
     collection_name = record.find('{*}collection').text
-    syntax = record.find('{*}syntax').text
+    syntax = clean_syntax(record.find('{*}syntax').text)
 
     # Ignore (UnderReview) (Deprecated) etc
     if re.search("\(.*\)", attr_name):
@@ -334,31 +336,37 @@ def emit_collections(env):
     for name, values in collections.items():
         types = []
         for typeName, desc in sorted(values.items(), key=lambda (k, v): k):
-            # TODO: Watch out for members and submember here
+            # TODO: Watch out for members and submembers here, which should live in sub-objects
             type = copy.deepcopy(desc)
             syntax = type['syntax']
 
-            # we could be a lot more strict about 1setof, but not yet. Trim it
+            # we could be a lot more strict about 1setof, but not yet. Trim it.
             if syntax.startswith("1setOf "):
                 syntax = syntax[len("1setOf "):]
             # Special case: fix up XML
             if syntax.startswith("1set Of "):
                 syntax = syntax[len("1set Of "):]
+            syntax = syntax.strip()
+
+            # no-value cases mean the attribute can be empty which is usually not the case.
 
             # Special case: job-collation-type-actual should point to enum, not keyword
             if typeName == "job-collation-type-actual" and syntax == "type2 keyword":
                 syntax = "type2 enum"
 
+            if syntax.startswith("(") and syntax.endswith(")"):
+                syntax = syntax[1:-1]
+
             intro = None
-            if re.search('uri(\([0-9]+\))?', syntax):
+            if re.search('^uri(\([0-9]+\))?$', syntax):
                 intro = "UriType("
-            elif re.search('(type[12] )?keyword', syntax):
+            elif re.search('^(type[12] )?keyword$', syntax):
                 intro = get_intro(keywords, type['name'])
-            elif re.search('(type[12] )?enum', syntax):
+            elif re.search('^(type[12] )?enum$', syntax):
                 intro = get_intro(enums, type['name'])
-            elif re.search('rangeOfInteger(\([0-9MINAX:-]*\))?', syntax):
+            elif re.search('^rangeOfInteger(\([0-9MINAX:-]*\))?$', syntax):
                 intro = "RangeOfIntegerType("
-            elif re.search('integer(\([0-9MINAX:-]*\))?', syntax):
+            elif re.search('^integer(\([0-9MINAX:-]*\))?$', syntax):
                 intro = "IntegerType("
             elif syntax == "boolean":
                 intro = "BooleanType("
@@ -366,10 +374,29 @@ def emit_collections(env):
                 intro = "StringType(Tag.charset, "
             elif syntax == "mimeMediaType":
                 intro = "StringType(Tag.mimeMediaType, "
+            elif syntax == "naturalLanguage":
+                intro = "StringType(Tag.naturalLanguage, "
             elif syntax == "resolution":
                 intro = "ResolutionType("
             elif syntax == "collection":
                 intro = "CollectionType("
+            elif syntax == 'name(MAX)':
+                intro = "NameType("
+            elif re.search('^name\(([0-9]+)\)$', syntax):
+                m = re.search('name\(([0-9]+)\)', syntax)
+                intro = "NameType(" + m.group(1) + ", "
+            elif syntax == 'text':
+                intro = "TextType("
+            elif syntax == 'text(MAX)':
+                intro = "TextType("
+            elif re.search('^text\(([0-9]+)\)$', syntax):
+                m = re.search('text\(([0-9]+)\)', syntax)
+                intro = "TextType(" + m.group(1) + ", "
+            elif syntax == 'octetString(MAX)':
+                intro = "OctetStringType("
+            elif re.search('^octetString\(([0-9]+)\)$', syntax):
+                m = re.search('octetString\(([0-9]+)\)', syntax)
+                intro = "OctetStringType(" + m.group(1) + ", "
             if not intro:
                 warn("Could not identify " + name + " type " + typeName + " with syntax '" + syntax + "'")
                 continue

@@ -46,6 +46,12 @@ object SubscriptionStatusGroup {
     @JvmField val notifySequenceNumber = IntegerType("notify-sequence-number")
 
     /**
+     * "notify-subscriber-user-name" as defined in:
+     * [RFC3995](http://www.iana.org/go/rfc3995)
+     */
+    @JvmField val notifySubscriberUserName = NameType("notify-subscriber-user-name")
+
+    /**
      * "notify-subscriber-user-uri" as defined in:
      * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
      */

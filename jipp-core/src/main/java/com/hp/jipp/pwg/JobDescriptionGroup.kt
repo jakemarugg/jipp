@@ -22,10 +22,46 @@ object JobDescriptionGroup {
     @JvmField val currentPageOrder = PageOrderReceived.Type("current-page-order")
 
     /**
+     * "document-metadata" as defined in:
+     * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
+     */
+    @JvmField val documentMetadata = OctetStringType("document-metadata")
+
+    /**
+     * "job-charge-info" as defined in:
+     * [PWG5100.16](http://ftp.pwg.org/pub/pwg/candidates/cs-ipptrans10-20131108-5100.16.pdf)
+     */
+    @JvmField val jobChargeInfo = TextType("job-charge-info")
+
+    /**
      * "job-collation-type" as defined in:
      * [RFC3381](http://www.iana.org/go/rfc3381)
      */
     @JvmField val jobCollationType = JobCollationType.Type("job-collation-type")
+
+    /**
+     * "job-message-from-operator" as defined in:
+     * [RFC8011](http://www.iana.org/go/rfc8011)
+     */
+    @JvmField val jobMessageFromOperator = TextType(127, "job-message-from-operator")
+
+    /**
+     * "job-message-to-operator-actual" as defined in:
+     * [PWG5100.8](http://ftp.pwg.org/pub/pwg/candidates/cs-ippactuals10-20030313-5100.8.pdf)
+     */
+    @JvmField val jobMessageToOperatorActual = TextType("job-message-to-operator-actual")
+
+    /**
+     * "job-name" as defined in:
+     * [RFC8011](http://www.iana.org/go/rfc8011)
+     */
+    @JvmField val jobName = NameType("job-name")
+
+    /**
+     * "job-save-printer-make-and-model" as defined in:
+     * [PWG5100.11](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext10-20101030-5100.11.pdf)
+     */
+    @JvmField val jobSavePrinterMakeAndModel = TextType(127, "job-save-printer-make-and-model")
 
     /** All known attributes */
     @JvmField

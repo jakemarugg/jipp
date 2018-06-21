@@ -7,6 +7,8 @@ import com.hp.jipp.util.BuildError
 
 import java.io.IOException
 
+// TODO: REMOVE in favor of Text and Name types
+
 /** An language-encoded string attribute type  */
 class LangStringType(tag: Tag, override val name: String) : AttributeType<LangString>(Encoder, tag) {
 

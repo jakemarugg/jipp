@@ -17,32 +17,36 @@ abstract class AttributeType<T>(val encoder: Encoder<T>, val tag: Tag) {
         }
     }
 
-    /** Create an attribute of this attribute type with supplied values */
-    open operator fun invoke(values: List<T>) = Attribute(tag, name, values, encoder)
-
-    operator fun invoke(value: T, vararg values: T): Attribute<T> =
-            if (values.isEmpty()) invoke(value) else invoke(listOf(value) + values)
-
-    operator fun invoke(value: T) = invoke(listOf(value))
-
     fun empty() = Attribute(tag, name, listOf(), encoder)
 
-    // "of()" for java uses...
+    /** Create an attribute of this attribute type with supplied values. */
+    open fun of(values: List<T>) = Attribute(tag, name, values, encoder)
 
-    open fun of(values: List<T>) = invoke(values)
+    /** Create an attribute of this attribute type with supplied values. */
+    operator fun invoke(values: List<T>) = of(values)
 
-    fun of(values: Array<T>) = invoke(values.toList())
+    /** Create an attribute of this attribute type with supplied values. */
+    operator fun invoke(value: T, vararg values: T): Attribute<T> =
+            if (values.isEmpty()) of(value) else of(listOf(value) + values)
 
+    /** Create an attribute of this attribute type with supplied values. */
+    operator fun invoke(value: T) = of(listOf(value))
+
+    /** Create an attribute of this attribute type with supplied values. */
+    fun of(values: Array<T>) = of(values.toList())
+
+    // Note: this is open for values of T which are themselves generic
+    /** Create an attribute of this attribute type with supplied values. */
     open fun of(value: T, vararg values: T): Attribute<T> = if (values.isEmpty()) {
-        invoke(listOf(value))
+        of(listOf(value))
     } else {
-        invoke(listOf(value) + values)
+        of(listOf(value) + values)
     }
 
     /** If possible, convert the supplied attribute into an attribute of this type. */
     open fun convert(attribute: Attribute<*>): Attribute<T>? =
         if (attribute.encoder === encoder) {
-            invoke(attribute.values.map {
+            of(attribute.values.map {
                 @Suppress("UNCHECKED_CAST")
                 it as T
             })

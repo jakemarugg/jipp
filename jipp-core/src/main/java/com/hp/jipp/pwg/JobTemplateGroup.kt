@@ -80,6 +80,12 @@ object JobTemplateGroup {
     @JvmField val finishingsCol = CollectionType("finishings-col")
 
     /**
+     * "font-name-requested" as defined in:
+     * [PWG5100.11](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext10-20101030-5100.11.pdf)
+     */
+    @JvmField val fontNameRequested = NameType("font-name-requested")
+
+    /**
      * "font-size-requested" as defined in:
      * [PWG5100.11](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext10-20101030-5100.11.pdf)
      */
@@ -92,12 +98,6 @@ object JobTemplateGroup {
     @JvmField val forceFrontSide = IntegerType("force-front-side")
 
     /**
-     * "imposition-template" as defined in:
-     * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
-     */
-    @JvmField val impositionTemplate = ImpositionTemplate.Type("imposition-template")
-
-    /**
      * "insert-sheet" as defined in:
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
      * [RFC8011](http://www.iana.org/go/rfc8011)
@@ -105,10 +105,10 @@ object JobTemplateGroup {
     @JvmField val insertSheet = CollectionType("insert-sheet")
 
     /**
-     * "job-account-type" as defined in:
-     * [PWG5100.16](http://ftp.pwg.org/pub/pwg/candidates/cs-ipptrans10-20131108-5100.16.pdf)
+     * "job-account-id" as defined in:
+     * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
      */
-    @JvmField val jobAccountType = JobAccountType.Type("job-account-type")
+    @JvmField val jobAccountId = NameType("job-account-id")
 
     /**
      * "job-accounting-sheets" as defined in:
@@ -116,6 +116,12 @@ object JobTemplateGroup {
      * [RFC8011](http://www.iana.org/go/rfc8011)
      */
     @JvmField val jobAccountingSheets = CollectionType("job-accounting-sheets")
+
+    /**
+     * "job-accounting-user-id" as defined in:
+     * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
+     */
+    @JvmField val jobAccountingUserId = NameType("job-accounting-user-id")
 
     /**
      * "job-copies" as defined in:
@@ -134,12 +140,6 @@ object JobTemplateGroup {
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
      */
     @JvmField val jobCoverFront = CollectionType("job-cover-front")
-
-    /**
-     * "job-delay-output-until" as defined in:
-     * [PWG5100.11](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext10-20101030-5100.11.pdf)
-     */
-    @JvmField val jobDelayOutputUntil = JobDelayOutputUntil.Type("job-delay-output-until")
 
     /**
      * "job-error-action" as defined in:
@@ -166,10 +166,10 @@ object JobTemplateGroup {
     @JvmField val jobFinishingsCol = CollectionType("job-finishings-col")
 
     /**
-     * "job-hold-until" as defined in:
-     * [RFC8011](http://www.iana.org/go/rfc8011)
+     * "job-message-to-operator" as defined in:
+     * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
      */
-    @JvmField val jobHoldUntil = JobHoldUntil.Type("job-hold-until")
+    @JvmField val jobMessageToOperator = TextType("job-message-to-operator")
 
     /**
      * "job-pages-per-set" as defined in:
@@ -190,16 +190,22 @@ object JobTemplateGroup {
     @JvmField val jobPriority = IntegerType("job-priority")
 
     /**
+     * "job-recipient-name" as defined in:
+     * [PWG5100.11](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext10-20101030-5100.11.pdf)
+     */
+    @JvmField val jobRecipientName = NameType("job-recipient-name")
+
+    /**
      * "job-save-disposition" as defined in:
      * [PWG5100.11](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext10-20101030-5100.11.pdf)
      */
     @JvmField val jobSaveDisposition = CollectionType("job-save-disposition")
 
     /**
-     * "job-sheets" as defined in:
-     * [RFC8011](http://www.iana.org/go/rfc8011)
+     * "job-sheet-message" as defined in:
+     * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
      */
-    @JvmField val jobSheets = JobSheet.Type("job-sheets")
+    @JvmField val jobSheetMessage = TextType("job-sheet-message")
 
     /**
      * "job-sheets-col" as defined in:
@@ -213,12 +219,6 @@ object JobTemplateGroup {
      * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
      */
     @JvmField val materialsCol = CollectionType("materials-col")
-
-    /**
-     * "media" as defined in:
-     * [RFC8011](http://www.iana.org/go/rfc8011)
-     */
-    @JvmField val media = Media.Type("media")
 
     /**
      * "media-col" as defined in:
@@ -259,10 +259,16 @@ object JobTemplateGroup {
     @JvmField val orientationRequested = Orientation.Type("orientation-requested")
 
     /**
-     * "output-bin" as defined in:
-     * [PWG5100.2](http://ftp.pwg.org/pub/pwg/candidates/cs-ippoutputbin10-20010207-5100.2.pdf)
+     * "output-device" as defined in:
+     * [PWG5100.7](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobext10-20031031-5100.7.pdf)
      */
-    @JvmField val outputBin = OutputBin.Type("output-bin")
+    @JvmField val outputDevice = NameType(127, "output-device")
+
+    /**
+     * "overrides" as defined in:
+     * [PWG5100.6](http://ftp.pwg.org/pub/pwg/candidates/cs-ipppageoverride10-20031031-5100.6.pdf)
+     */
+    @JvmField val overrides = CollectionType("overrides")
 
     /**
      * "page-delivery" as defined in:
@@ -293,12 +299,6 @@ object JobTemplateGroup {
      * [PWG5100.11](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext10-20101030-5100.11.pdf)
      */
     @JvmField val pdlInitFile = CollectionType("pdl-init-file")
-
-    /**
-     * "platform-temperature" as defined in:
-     * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
-     */
-    @JvmField val platformTemperature = IntegerType("platform-temperature")
 
     /**
      * "presentation-direction-number-up" as defined in:

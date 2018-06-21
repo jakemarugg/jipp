@@ -40,16 +40,64 @@ object PrinterStatusGroup {
     @JvmField val pagesPerMinuteColor = IntegerType("pages-per-minute-color")
 
     /**
+     * "printer-alert" as defined in:
+     * [PWG5100.9](http://ftp.pwg.org/pub/pwg/candidates/cs-ippstate10-20090731-5100.9.pdf)
+     */
+    @JvmField val printerAlert = OctetStringType("printer-alert")
+
+    /**
+     * "printer-alert-description" as defined in:
+     * [PWG5100.9](http://ftp.pwg.org/pub/pwg/candidates/cs-ippstate10-20090731-5100.9.pdf)
+     */
+    @JvmField val printerAlertDescription = TextType("printer-alert-description")
+
+    /**
      * "printer-config-change-time" as defined in:
      * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
      */
     @JvmField val printerConfigChangeTime = IntegerType("printer-config-change-time")
 
     /**
+     * "printer-detailed-status-messages" as defined in:
+     * [PWG5100.11](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext10-20101030-5100.11.pdf)
+     */
+    @JvmField val printerDetailedStatusMessages = TextType("printer-detailed-status-messages")
+
+    /**
+     * "printer-finisher" as defined in:
+     * [PWG5100.1](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfinishings10-20010205-5100.1.pdf)
+     */
+    @JvmField val printerFinisher = OctetStringType("printer-finisher")
+
+    /**
+     * "printer-finisher-description" as defined in:
+     * [PWG5100.1](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfinishings10-20010205-5100.1.pdf)
+     */
+    @JvmField val printerFinisherDescription = TextType("printer-finisher-description")
+
+    /**
+     * "printer-finisher-supplies-description" as defined in:
+     * [PWG5100.1](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfinishings10-20010205-5100.1.pdf)
+     */
+    @JvmField val printerFinisherSuppliesDescription = TextType("printer-finisher-supplies-description")
+
+    /**
+     * "printer-input-tray" as defined in:
+     * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
+     */
+    @JvmField val printerInputTray = OctetStringType("printer-input-tray")
+
+    /**
      * "printer-is-accepting-jobs" as defined in:
      * [RFC8011](http://www.iana.org/go/rfc8011)
      */
     @JvmField val printerIsAcceptingJobs = BooleanType("printer-is-accepting-jobs")
+
+    /**
+     * "printer-message-from-operator" as defined in:
+     * [RFC8011](http://www.iana.org/go/rfc8011)
+     */
+    @JvmField val printerMessageFromOperator = TextType(127, "printer-message-from-operator")
 
     /**
      * "printer-message-time" as defined in:
@@ -64,6 +112,12 @@ object PrinterStatusGroup {
     @JvmField val printerMoreInfo = UriType("printer-more-info")
 
     /**
+     * "printer-output-tray" as defined in:
+     * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
+     */
+    @JvmField val printerOutputTray = OctetStringType("printer-output-tray")
+
+    /**
      * "printer-state" as defined in:
      * [RFC8011](http://www.iana.org/go/rfc8011)
      */
@@ -76,6 +130,12 @@ object PrinterStatusGroup {
     @JvmField val printerStateChangeTime = IntegerType("printer-state-change-time")
 
     /**
+     * "printer-state-message" as defined in:
+     * [RFC8011](http://www.iana.org/go/rfc8011)
+     */
+    @JvmField val printerStateMessage = TextType("printer-state-message")
+
+    /**
      * "printer-state-reasons" as defined in:
      * [RFC8011](http://www.iana.org/go/rfc8011)
      */
@@ -86,6 +146,18 @@ object PrinterStatusGroup {
      * [PWG5100.18](http://ftp.pwg.org/pub/pwg/candidates/cs-ippinfra10-20150619-5100.18.pdf)
      */
     @JvmField val printerStaticResourceKOctetsFree = IntegerType("printer-static-resource-k-octets-free")
+
+    /**
+     * "printer-supply" as defined in:
+     * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
+     */
+    @JvmField val printerSupply = OctetStringType("printer-supply")
+
+    /**
+     * "printer-supply-description" as defined in:
+     * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
+     */
+    @JvmField val printerSupplyDescription = TextType("printer-supply-description")
 
     /**
      * "printer-supply-info-uri" as defined in:
@@ -128,12 +200,6 @@ object PrinterStatusGroup {
      * [RFC3380](http://www.iana.org/go/rfc3380)
      */
     @JvmField val xriSecuritySupported = XriSecurity.Type("xri-security-supported")
-
-    /**
-     * "xri-uri-scheme-supported" as defined in:
-     * [RFC3380](http://www.iana.org/go/rfc3380)
-     */
-    @JvmField val xriUriSchemeSupported = UriType("xri-uri-scheme-supported")
 
     /** All known attributes */
     @JvmField

@@ -22,6 +22,12 @@ object DocumentStatusGroup {
     @JvmField val attributesCharset = StringType(Tag.charset, "attributes-charset")
 
     /**
+     * "attributes-natural-language" as defined in:
+     * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     */
+    @JvmField val attributesNaturalLanguage = StringType(Tag.naturalLanguage, "attributes-natural-language")
+
+    /**
      * "compression" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
      */
@@ -50,6 +56,18 @@ object DocumentStatusGroup {
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
      */
     @JvmField val currentPageOrder = PageOrderReceived.Type("current-page-order")
+
+    /**
+     * "detailed-status-messages" as defined in:
+     * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     */
+    @JvmField val detailedStatusMessages = TextType("detailed-status-messages")
+
+    /**
+     * "document-access-errors" as defined in:
+     * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     */
+    @JvmField val documentAccessErrors = TextType("document-access-errors")
 
     /**
      * "document-charset" as defined in:
@@ -100,6 +118,18 @@ object DocumentStatusGroup {
     @JvmField val documentFormatSupplied = StringType(Tag.mimeMediaType, "document-format-supplied")
 
     /**
+     * "document-format-version" as defined in:
+     * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     */
+    @JvmField val documentFormatVersion = TextType(127, "document-format-version")
+
+    /**
+     * "document-format-version-detected" as defined in:
+     * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     */
+    @JvmField val documentFormatVersionDetected = TextType(127, "document-format-version-detected")
+
+    /**
      * "document-job-id" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
      */
@@ -110,6 +140,30 @@ object DocumentStatusGroup {
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
      */
     @JvmField val documentJobUri = UriType("document-job-uri")
+
+    /**
+     * "document-message" as defined in:
+     * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     */
+    @JvmField val documentMessage = TextType("document-message")
+
+    /**
+     * "document-message-supplied" as defined in:
+     * [PWG5100.7](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobext10-20031031-5100.7.pdf)
+     */
+    @JvmField val documentMessageSupplied = TextType("document-message-supplied")
+
+    /**
+     * "document-name-supplied" as defined in:
+     * [PWG5100.7](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobext10-20031031-5100.7.pdf)
+     */
+    @JvmField val documentNameSupplied = NameType("document-name-supplied")
+
+    /**
+     * "document-natural-language" as defined in:
+     * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     */
+    @JvmField val documentNaturalLanguage = StringType(Tag.naturalLanguage, "document-natural-language")
 
     /**
      * "document-number" as defined in:
@@ -128,6 +182,12 @@ object DocumentStatusGroup {
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
      */
     @JvmField val documentState = DocumentState.Type("document-state")
+
+    /**
+     * "document-state-message" as defined in:
+     * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     */
+    @JvmField val documentStateMessage = TextType("document-state-message")
 
     /**
      * "document-state-reasons" as defined in:
@@ -170,12 +230,6 @@ object DocumentStatusGroup {
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
      */
     @JvmField val forceFrontSideActual = IntegerType("force-front-side-actual")
-
-    /**
-     * "imposition-template-actual" as defined in:
-     * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
-     */
-    @JvmField val impositionTemplateActual = ImpositionTemplate.Type("imposition-template-actual")
 
     /**
      * "impressions-completed" as defined in:
@@ -226,12 +280,6 @@ object DocumentStatusGroup {
     @JvmField val materialsColActual = CollectionType("materials-col-actual")
 
     /**
-     * "media-actual" as defined in:
-     * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
-     */
-    @JvmField val mediaActual = Media.Type("media-actual")
-
-    /**
      * "media-col-actual" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
      */
@@ -280,10 +328,28 @@ object DocumentStatusGroup {
     @JvmField val outputAttributesActual = CollectionType("output-attributes-actual")
 
     /**
+     * "output-bin-actual" as defined in:
+     * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     */
+    @JvmField val outputBinActual = NameType("output-bin-actual")
+
+    /**
+     * "output-device-assigned" as defined in:
+     * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     */
+    @JvmField val outputDeviceAssigned = NameType(127, "output-device-assigned")
+
+    /**
      * "output-device-document-state" as defined in:
      * [PWG5100.18](http://ftp.pwg.org/pub/pwg/candidates/cs-ippinfra10-20150619-5100.18.pdf)
      */
     @JvmField val outputDeviceDocumentState = DocumentState.Type("output-device-document-state")
+
+    /**
+     * "output-device-document-state-message" as defined in:
+     * [PWG5100.18](http://ftp.pwg.org/pub/pwg/candidates/cs-ippinfra10-20150619-5100.18.pdf)
+     */
+    @JvmField val outputDeviceDocumentStateMessage = TextType("output-device-document-state-message")
 
     /**
      * "output-device-document-state-reasons" as defined in:
@@ -424,22 +490,10 @@ object DocumentStatusGroup {
     @JvmField val sidesActual = Sides.Type("sides-actual")
 
     /**
-     * "time-at-completed" as defined in:
-     * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
-     */
-    @JvmField val timeAtCompleted = IntegerType("time-at-completed")
-
-    /**
      * "time-at-creation" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
      */
     @JvmField val timeAtCreation = IntegerType("time-at-creation")
-
-    /**
-     * "time-at-processing" as defined in:
-     * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
-     */
-    @JvmField val timeAtProcessing = IntegerType("time-at-processing")
 
     /**
      * "warnings-count" as defined in:

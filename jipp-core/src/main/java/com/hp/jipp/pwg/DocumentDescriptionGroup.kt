@@ -16,6 +16,18 @@ import com.hp.jipp.util.getStaticObjects
 object DocumentDescriptionGroup {
 
     /**
+     * "document-metadata" as defined in:
+     * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
+     */
+    @JvmField val documentMetadata = OctetStringType("document-metadata")
+
+    /**
+     * "document-name" as defined in:
+     * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     */
+    @JvmField val documentName = NameType("document-name")
+
+    /**
      * "impressions" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
      */

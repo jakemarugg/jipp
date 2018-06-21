@@ -22,6 +22,18 @@ object OperationGroup {
     @JvmField val attributesCharset = StringType(Tag.charset, "attributes-charset")
 
     /**
+     * "attributes-natural-language" as defined in:
+     * [RFC8011](http://www.iana.org/go/rfc8011)
+     */
+    @JvmField val attributesNaturalLanguage = StringType(Tag.naturalLanguage, "attributes-natural-language")
+
+    /**
+     * "charge-info-message" as defined in:
+     * [PWG5100.16](http://ftp.pwg.org/pub/pwg/candidates/cs-ipptrans10-20131108-5100.16.pdf)
+     */
+    @JvmField val chargeInfoMessage = TextType("charge-info-message")
+
+    /**
      * "compression" as defined in:
      * [RFC8011](http://www.iana.org/go/rfc8011)
      */
@@ -32,6 +44,18 @@ object OperationGroup {
      * [PWG5100.17](http://ftp.pwg.org/pub/pwg/candidates/cs-ippscan10-20140918-5100.17.pdf)
      */
     @JvmField val compressionAccepted = Compression.Type("compression-accepted")
+
+    /**
+     * "detailed-status-message" as defined in:
+     * [RFC8011](http://www.iana.org/go/rfc8011)
+     */
+    @JvmField val detailedStatusMessage = TextType("detailed-status-message")
+
+    /**
+     * "document-access-error" as defined in:
+     * [RFC8011](http://www.iana.org/go/rfc8011)
+     */
+    @JvmField val documentAccessError = TextType("document-access-error")
 
     /**
      * "document-charset" as defined in:
@@ -76,10 +100,41 @@ object OperationGroup {
     @JvmField val documentFormatDetails = CollectionType("document-format-details")
 
     /**
+     * "document-message" as defined in:
+     * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     */
+    @JvmField val documentMessage = TextType("document-message")
+
+    /**
+     * "document-metadata" as defined in:
+     * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
+     */
+    @JvmField val documentMetadata = OctetStringType("document-metadata")
+
+    /**
+     * "document-name" as defined in:
+     * [RFC8011](http://www.iana.org/go/rfc8011)
+     */
+    @JvmField val documentName = NameType("document-name")
+
+    /**
+     * "document-natural-language" as defined in:
+     * [PWG5100.7](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobext10-20031031-5100.7.pdf)
+     * [RFC8011](http://www.iana.org/go/rfc8011)
+     */
+    @JvmField val documentNaturalLanguage = StringType(Tag.naturalLanguage, "document-natural-language")
+
+    /**
      * "document-number" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
      */
     @JvmField val documentNumber = IntegerType("document-number")
+
+    /**
+     * "document-password" as defined in:
+     * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
+     */
+    @JvmField val documentPassword = OctetStringType(1023, "document-password")
 
     /**
      * "document-preprocessed" as defined in:
@@ -92,6 +147,12 @@ object OperationGroup {
      * [PWG5100.18](http://ftp.pwg.org/pub/pwg/candidates/cs-ippinfra10-20150619-5100.18.pdf)
      */
     @JvmField val fetchStatusCode = Status.Type("fetch-status-code")
+
+    /**
+     * "fetch-status-message" as defined in:
+     * [PWG5100.18](http://ftp.pwg.org/pub/pwg/candidates/cs-ippinfra10-20150619-5100.18.pdf)
+     */
+    @JvmField val fetchStatusMessage = TextType("fetch-status-message")
 
     /**
      * "first-index" as defined in:
@@ -122,12 +183,6 @@ object OperationGroup {
      * [PWG5100.16](http://ftp.pwg.org/pub/pwg/candidates/cs-ipptrans10-20131108-5100.16.pdf)
      */
     @JvmField val jobAuthorizationUri = UriType("job-authorization-uri")
-
-    /**
-     * "job-hold-until" as defined in:
-     * [RFC8011](http://www.iana.org/go/rfc8011)
-     */
-    @JvmField val jobHoldUntil = JobHoldUntil.Type("job-hold-until")
 
     /**
      * "job-id" as defined in:
@@ -178,6 +233,18 @@ object OperationGroup {
     @JvmField val jobMediaSheetsCol = CollectionType("job-media-sheets-col")
 
     /**
+     * "job-message-from-operator" as defined in:
+     * [RFC3380](http://www.iana.org/go/rfc3380)
+     */
+    @JvmField val jobMessageFromOperator = TextType(127, "job-message-from-operator")
+
+    /**
+     * "job-name" as defined in:
+     * [RFC8011](http://www.iana.org/go/rfc8011)
+     */
+    @JvmField val jobName = NameType("job-name")
+
+    /**
      * "job-pages" as defined in:
      * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
      */
@@ -190,16 +257,22 @@ object OperationGroup {
     @JvmField val jobPagesCol = CollectionType("job-pages-col")
 
     /**
-     * "job-password-encryption" as defined in:
+     * "job-password" as defined in:
      * [PWG5100.11](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext10-20101030-5100.11.pdf)
      */
-    @JvmField val jobPasswordEncryption = JobPasswordEncryption.Type("job-password-encryption")
+    @JvmField val jobPassword = OctetStringType(255, "job-password")
 
     /**
      * "job-state" as defined in:
      * [RFC8011](http://www.iana.org/go/rfc8011)
      */
     @JvmField val jobState = JobState.Type("job-state")
+
+    /**
+     * "job-state-message" as defined in:
+     * [RFC8011](http://www.iana.org/go/rfc8011)
+     */
+    @JvmField val jobStateMessage = TextType("job-state-message")
 
     /**
      * "job-state-reasons" as defined in:
@@ -224,6 +297,12 @@ object OperationGroup {
      * [RFC8011](http://www.iana.org/go/rfc8011)
      */
     @JvmField val limit = IntegerType("limit")
+
+    /**
+     * "message" as defined in:
+     * [RFC8011](http://www.iana.org/go/rfc8011)
+     */
+    @JvmField val message = TextType(127, "message")
 
     /**
      * "my-jobs" as defined in:
@@ -256,6 +335,12 @@ object OperationGroup {
     @JvmField val notifyWait = BooleanType("notify-wait")
 
     /**
+     * "original-requesting-user-name" as defined in:
+     * [RFC3998](http://www.iana.org/go/rfc3998)
+     */
+    @JvmField val originalRequestingUserName = NameType("original-requesting-user-name")
+
+    /**
      * "output-attributes" as defined in:
      * [PWG5100.17](http://ftp.pwg.org/pub/pwg/candidates/cs-ippscan10-20140918-5100.17.pdf)
      */
@@ -278,6 +363,12 @@ object OperationGroup {
      * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
      */
     @JvmField val preferredAttributes = CollectionType("preferred-attributes")
+
+    /**
+     * "printer-message-from-operator" as defined in:
+     * [RFC3380](http://www.iana.org/go/rfc3380)
+     */
+    @JvmField val printerMessageFromOperator = TextType(127, "printer-message-from-operator")
 
     /**
      * "printer-up-time" as defined in:
@@ -304,10 +395,22 @@ object OperationGroup {
     @JvmField val requestedAttributes = RequestedAttribute.Type("requested-attributes")
 
     /**
+     * "requesting-user-name" as defined in:
+     * [RFC8011](http://www.iana.org/go/rfc8011)
+     */
+    @JvmField val requestingUserName = NameType("requesting-user-name")
+
+    /**
      * "requesting-user-uri" as defined in:
      * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
      */
     @JvmField val requestingUserUri = UriType("requesting-user-uri")
+
+    /**
+     * "status-message" as defined in:
+     * [RFC8011](http://www.iana.org/go/rfc8011)
+     */
+    @JvmField val statusMessage = TextType(255, "status-message")
 
     /**
      * "which-jobs" as defined in:

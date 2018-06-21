@@ -40,6 +40,7 @@ data class Tag(override val code: Int, override val name: String) : Enum() {
         @JvmField val printerAttributes = Tag(0x04, "printer-attributes")
         @JvmField val unsupportedAttributes = Tag(0x05, "unsupported-attributes")
 
+        // "Out-of-band" values
         @JvmField val unsupported = Tag(0x10, "unsupported")
         @JvmField val unknown = Tag(0x12, "unknown")
         @JvmField val noValue = Tag(0x13, "no-value")

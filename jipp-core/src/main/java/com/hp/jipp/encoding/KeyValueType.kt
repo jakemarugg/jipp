@@ -36,11 +36,11 @@ class KeyValueType(override val name: String) : AttributeType<Map<String, String
                         .toMap()
     }
 
-    // Include these to allow java to see the correct types instead of Map<String, ? extends String>
-
+    // Include these to overrides allow java to see the correct types instead of Map<String, ? extends String>
     override fun of(value: Map<String, String>, vararg values: Map<String, String>): Attribute<Map<String, String>> =
             super.invoke(listOf(value) + values.toList())
 
+    @Suppress("RedundantOverride")
     override fun of(values: List<Map<String, String>>): Attribute<Map<String, String>> =
-            super.invoke(values)
+            super.of(values)
 }

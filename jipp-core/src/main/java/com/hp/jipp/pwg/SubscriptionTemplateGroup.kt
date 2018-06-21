@@ -40,6 +40,12 @@ object SubscriptionTemplateGroup {
     @JvmField val notifyMaxEventsSupported = IntegerType("notify-max-events-supported")
 
     /**
+     * "notify-natural-language" as defined in:
+     * [RFC3995](http://www.iana.org/go/rfc3995)
+     */
+    @JvmField val notifyNaturalLanguage = StringType(Tag.naturalLanguage, "notify-natural-language")
+
+    /**
      * "notify-pull-method" as defined in:
      * [RFC3995](http://www.iana.org/go/rfc3995)
      */
@@ -56,6 +62,12 @@ object SubscriptionTemplateGroup {
      * [RFC3995](http://www.iana.org/go/rfc3995)
      */
     @JvmField val notifyTimeInterval = IntegerType("notify-time-interval")
+
+    /**
+     * "notify-user-data" as defined in:
+     * [RFC3995](http://www.iana.org/go/rfc3995)
+     */
+    @JvmField val notifyUserData = OctetStringType(63, "notify-user-data")
 
     /** All known attributes */
     @JvmField
