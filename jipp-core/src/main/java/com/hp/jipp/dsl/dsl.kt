@@ -4,10 +4,10 @@
 package com.hp.jipp.dsl
 
 import com.hp.jipp.encoding.* // ktlint-disable no-wildcard-imports
-import com.hp.jipp.model.Operation
+import com.hp.jipp.pwg.Operation
 import com.hp.jipp.model.IppPacket
 import com.hp.jipp.model.IppPacket.Companion.DEFAULT_VERSION_NUMBER
-import com.hp.jipp.model.Status
+import com.hp.jipp.pwg.Status
 
 @DslMarker annotation class IppDslMarker
 

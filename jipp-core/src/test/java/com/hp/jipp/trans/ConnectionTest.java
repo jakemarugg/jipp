@@ -47,7 +47,7 @@ public class ConnectionTest {
         IppPacket requestPacket = new IppPacket(Operation.getPrinterAttributes, 0x123,
                 groupOf(Tag.operationAttributes));
 
-        IppPacket responsePacket = new IppPacket(Status.ok, 0x123,
+        IppPacket responsePacket = new IppPacket(Status.successfulOk, 0x123,
                 groupOf(Tag.operationAttributes),
                 groupOf(Tag.printerAttributes));
         serverResponse = new IppPacketData(responsePacket, null);

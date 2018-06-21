@@ -9,16 +9,16 @@ import static com.hp.jipp.encoding.Cycler.*;
 public class KeywordTypeTest {
     @Test
     public void identifyActions() throws Exception {
-        assertEquals("display", IdentifyAction.display.toString());
-        assertEquals(IdentifyAction.display,
-                cycle(Types.identifyActions, Types.identifyActions.of(IdentifyAction.display)).get(0));
+        assertEquals("display", IdentifyActions.display.toString());
+        assertEquals(IdentifyActions.display,
+                cycle(Types.identifyActions, Types.identifyActions.of(IdentifyActions.display)).get(0));
     }
 
     @Test
     public void acceptOtherIdentifyActions() throws Exception {
-        IdentifyAction flareGun = new IdentifyAction("flare-gun");
+        IdentifyActions flareGun = new IdentifyActions("flare-gun");
         assertEquals("flare-gun",
-                cycle(Types.identifyActions, Types.identifyActions.of(flareGun)).get(0).getName());
+                cycle(Types.identifyActions, Types.identifyActions.of(flareGun)).get(0).getValue());
     }
 
     @Test

@@ -2,6 +2,8 @@ package com.hp.jipp.encoding;
 
 
 import com.hp.jipp.util.BuildError;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -24,12 +26,13 @@ public class KeywordTest {
 
         public static final KeywordType.Encoder<Sample> ENCODER = KeywordType.Companion.encoderOf(Sample.class,
                 new Keyword.Factory<Sample>() {
+                    @NotNull
                     @Override
-                    public Sample of(String name) {
+                    public Sample of(@NotNull String name, @NotNull Tag tag, String language) {
                         return Sample.of(name);
                     }
                 });
-        private final String name;
+        private final String value;
 
         public static KeywordType<Sample> typeOf(String name) {
             return new KeywordType<Sample>(ENCODER, name);
@@ -38,13 +41,26 @@ public class KeywordTest {
         public static Sample of(String name) {
             return new Sample(name);
         }
+
         public Sample(String name) {
-            this.name = name;
+            this.value = name;
         }
 
         @Override
-        public String getName() {
-            return name;
+        public String getValue() {
+            return value;
+        }
+
+        @NotNull
+        @Override
+        public Tag getTag() {
+            return Tag.keyword;
+        }
+
+        @Nullable
+        @Override
+        public String getLanguage() {
+            return null;
         }
     }
 

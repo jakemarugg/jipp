@@ -1,6 +1,7 @@
 #!/usr/bin/python
 import urllib
 from lxml import etree
+import copy
 import re
 import pprint
 import os.path
@@ -16,6 +17,9 @@ proj_dir = os.path.dirname(os.path.realpath(__file__)) + "/../"
 
 def warn(output):
     print "    WARN: " + output
+
+def note(output):
+    print "    NOTE: " + output
 
 # Given a record attempt to grab the referenced specification out of its xref.
 # Return the short id of the spec or None if not found.
@@ -43,12 +47,26 @@ def parse_spec(record, target):
     if spec is not None and spec not in target['specs']:
         target['specs'].append(spec)
 
+def clean_syntax(syntax):
+    if syntax.startswith('(') and syntax.endswith(')'):
+        syntax = syntax[1:-1]
+    syntax = " | ".join(sorted(syntax.split(" | ")))
+    return syntax
+
+# Make sure that if the syntax is new, take the more complex version
+def parse_syntax(record, target):
+    syntax = clean_syntax(record.find('{*}syntax').text)
+    if target['syntax'] != syntax:
+        if len(syntax) > len(target['syntax']):
+            target['syntax'] = syntax
+
 # Parse a single enum record into the global list of enums
 def parse_enum(record):
     attribute = record.find('{*}attribute').text
     enum = enums.setdefault(attribute, { 'name': attribute, 'values': { }, 'specs': [ ],
-                                         'syntax': record.find('{*}syntax').text })
+                                         'syntax': clean_syntax(record.find('{*}syntax').text) })
     parse_spec(record, enum)
+    parse_syntax(record, enum)
 
     value = record.find('{*}value')
     if value is not None:
@@ -76,7 +94,7 @@ def parse_enum(record):
         return
 
     if name is not None:
-        if "(deprecated)" not in name and "Reserved" not in name:
+        if "(deprecated)" not in name.lower() and "Reserved" not in name:
             try:
                 if value.startswith("0x"):
                     enum['hex'] = True
@@ -93,6 +111,7 @@ def parse_enum(record):
         if m and m.group(1):
             enum['ref'] = m.group(1)
         else:
+            enum['bad'] = True
             warn("enum " + attribute + " has unparseable value '" + value + "'")
 
 
@@ -114,8 +133,9 @@ def parse_status_code(record):
 def parse_keyword(record):
     attribute = record.find('{*}attribute').text
     keyword = keywords.setdefault(attribute, { 'name': attribute, 'values': [ ], 'specs': [ ],
-                                               'syntax': record.find('{*}syntax').text })
+                                               'syntax': clean_syntax(record.find('{*}syntax').text) })
     parse_spec(record, keyword)
+    parse_syntax(record, keyword)
 
     # Some values have an additional type specifier (e.g. media "size name" vs "media name" or "input tray")
     # TODO: Are these actually separate keywords? And how should refs be handled to these?
@@ -125,18 +145,22 @@ def parse_keyword(record):
     if value is not None:
         value = value.text
 
-    if value is not None:
-        if ' ' not in value:
-            keyword['values'].append(value)
-        else:
-            # Special case: Correct some known irregularities
-            value = value.replace('"media" color', "media-color")
+    if value is None or "(deprecated)" in value.lower():
+        return
 
-            m = re.search("< ?(?:[aA]ny |all )\"?([a-z-]+)\"?( keyword)? (value(s?)|name(s?)) ?>", value)
-            if m and m.group(1):
-                keyword['ref'] = m.group(1)
-            else:
-                warn("keyword " + attribute + " has unparseable value '" + value + "'")
+    if ' ' not in value:
+        keyword['values'].append(value)
+    else:
+        # Special case: Correct some known irregularities
+        value = value.replace('"media" color', "media-color")
+        value = value.replace('job-default-output-until', "job-delay-output-until")
+
+        m = re.search("< ?(?:[aA]ny |all )\"?([a-z-]+)\"?( keyword)? (value(s?)|name(s?)) ?>", value)
+        if m and m.group(1):
+            keyword['ref'] = m.group(1)
+        else:
+            keyword['bad'] = True
+            warn("keyword " + attribute + " has unparseable value '" + value + "'")
 
 # Parse a single attribute record
 def parse_attribute(record):
@@ -187,21 +211,51 @@ def parse_records(root, name, parse):
             for record in elem.iter('{*}record'):
                 parse(record)
 
+def not_numeric(string):
+    if string[0].isdigit():
+        return "num" + string
+    else:
+        return string
+
 # Accepts any string, returning in the form Spaced Title
 def spaced_title(string):
-    return " ".join([word.title() for word in re.split("[ -]", string)])
+    return " ".join([word.title() for word in re.split("[ -]", string) if len(word) > 0])
 
 # Accepts any string, returning in the form CamelClass
 def camel_class(string):
-    return "".join([word.title() for word in re.split("[ -]", string)])
+    return "".join([word.title() for word in re.split("[ _\.-]", string) if len(word) > 0])
 
-# Accepts any string, returning in the form CamelClass
+# Accepts any string, returning in the form camelClass
 def camel_member(string):
     value = camel_class(string)
-    return value[0].lower() + value[1:]
+    if len(value) > 1:
+        return not_numeric(value[0].lower() + value[1:])
+    else:
+        return not_numeric(value[0].lower())
 
 def upper(string):
     return string.upper()
+
+def emit_keyword(template, keyword):
+    if not keyword['values']:
+        warn("keyword " + keyword['name'] + " has no values defined")
+        return
+
+    keyword['fullname'] = keyword['name']
+    keyword['name'] = re.sub('-(supported|requested)$', '', keyword['name'])
+    if 'name' in keyword['syntax']:
+        keyword['orName'] = True
+
+    with open(prep_file(keyword['name']), "w") as file:
+        file.write(template.render(keyword=keyword, app=os.path.basename(sys.argv[0]), updated=updated, specs=specs))
+
+# Given a class name, select an appropriate location for it and signal the user we are writing it
+def prep_file(name):
+    out_file = os.path.abspath(proj_dir + 'src/main/java/com/hp/jipp/pwg/' + camel_class(name) + ".kt")
+    if not os.path.exists(os.path.dirname(out_file)):
+        os.makedirs(os.path.dirname(out_file))
+    print out_file
+    return out_file
 
 def emit_enum(template, enum):
     if not enum['values']:
@@ -209,22 +263,18 @@ def emit_enum(template, enum):
         return
 
     # Remove -supported and -requested
+    enum['fullname'] = enum['name']
     enum['name'] = re.sub('-(supported|requested)$', '', enum['name'])
 
-    # Lop off the plural for certain cases
-    if enum['name'] == "finishings" or enum['name'] == "operations":
-        enum['name'] = enum['name'][:-1]
-
-    out_file = proj_dir + 'src/main/java/com/hp/jipp/model/' + camel_class(enum['name']) + ".kt"
-    if not os.path.exists(os.path.dirname(out_file)):
-        os.makedirs(out_file)
-    print "Writing " + out_file
-    with open(out_file, "w") as file:
+    with open(prep_file(enum['name']), "w") as file:
         file.write(template.render(enum=enum, app=os.path.basename(sys.argv[0]), updated=updated, specs=specs))
 
 def emit_kind(env, template_name, items, emit_func):
     template = env.get_template(template_name)
     for item in items.values():
+        if 'bad' in item:
+            continue
+
         if 'ref' in item:
             if item['ref'] not in items:
                 warn(item['name'] + " has bad ref=" + item['ref'])
@@ -237,6 +287,73 @@ def emit_kind(env, template_name, items, emit_func):
 
         emit_func(template, item)
 
+def get_intro(map, name):
+    if name not in map:
+        # Special case: try to find the relevant keyword/enum by trimming
+        if name.endswith("-default"):
+            return get_intro(map, name[:-len("-default")])
+        if name.endswith("-supported"):
+            return get_intro(map, name[:-len("-supported")])
+        if name.endswith("-actual"):
+            return get_intro(map, name[:-len("-actual")])
+        if name.endswith("-document-state-reasons"):
+            return get_intro(map, "document-state-reasons")
+        if name.endswith("-document-state"):
+            return get_intro(map, "document-state")
+        return None
+    if 'ref' in map[name]:
+        return get_intro(map, map[name]['ref'])
+    return camel_class(map[name]['name']) + ".Type("
+
+def emit_collections(env):
+    template = env.get_template('collection.kt.tmpl')
+    for name, values in collections.items():
+        types = []
+        for typeName, desc in sorted(values.items(), key=lambda (k, v): k):
+            # TODO: Watch out for members and submember here
+            type = copy.deepcopy(desc)
+            syntax = type['syntax']
+
+            # we could be a lot more strict about 1setof, but not yet. Trim it
+            if syntax.startswith("1setOf "):
+                syntax = syntax[len("1setOf "):]
+            # Special case: fix up XML
+            if syntax.startswith("1set Of "):
+                syntax = syntax[len("1set Of "):]
+
+            # Special case: job-collation-type-actual should point to enum, not keyword
+            if typeName == "job-collation-type-actual" and syntax == "type2 keyword":
+                syntax = "type2 enum"
+
+            intro = None
+            if re.search('uri(\([0-9]+\))?', syntax):
+                intro = "UriType("
+            elif re.search('(type[12] )?keyword', syntax):
+                intro = get_intro(keywords, type['name'])
+            elif re.search('(type[12] )?enum', syntax):
+                intro = get_intro(enums, type['name'])
+            elif re.search('rangeOfInteger(\([0-9MINAX:-]*\))?', syntax):
+                intro = "RangeOfIntegerType("
+            elif re.search('integer(\([0-9MINAX:-]*\))?', syntax):
+                intro = "IntegerType("
+            elif syntax == "boolean":
+                intro = "BooleanType("
+            elif syntax == "charset":
+                intro = "StringType(Tag.charset, "
+            elif syntax == "mimeMediaType":
+                intro = "StringType(Tag.mimeMediaType, "
+            elif syntax == "resolution":
+                intro = "ResolutionType("
+
+            if not intro:
+                warn("Could not identify " + name + " type " + typeName + " with syntax '" + syntax + "'")
+                continue
+            type['intro'] = intro
+            types.append(type)
+
+        with open(prep_file(name), "w") as file:
+            file.write(template.render(name=name, types=types, app=os.path.basename(sys.argv[0]), updated=updated, specs=specs))
+
 def emit_code():
     env = Environment(loader=FileSystemLoader(proj_dir + 'bin'))
     env.filters['camel_class'] = camel_class
@@ -245,6 +362,9 @@ def emit_code():
     env.filters['upper'] = upper
 
     emit_kind(env, 'enum.kt.tmpl', enums, emit_enum)
+    emit_kind(env, 'keyword.kt.tmpl', keywords, emit_keyword)
+    emit_collections(env)
+
 
 # MAIN
 
@@ -272,8 +392,8 @@ parse_records(tree, "Status Codes", parse_status_code)
 pp = pprint.PrettyPrinter(indent=2)
 #print "\nCollections: "
 #pp.pprint(collections)
-print "\nKeywords: "
-pp.pprint(keywords.keys())
+#print "\nKeywords: "
+#pp.pprint(keywords)
 #print "\nEnums: "
 #pp.pprint(enums)
 #print "\nSpecifications: "

@@ -7,7 +7,7 @@ import com.hp.jipp.encoding.IntegerType.Encoder.INT_LENGTH
 import java.io.IOException
 
 /** Attribute type for encoding of a [Resolution] */
-class ResolutionType(tag: Tag, override val name: String) : AttributeType<Resolution>(Encoder, tag) {
+class ResolutionType(override val name: String) : AttributeType<Resolution>(Encoder, Tag.resolution) {
 
     companion object Encoder : SimpleEncoder<Resolution>("resolution") {
 

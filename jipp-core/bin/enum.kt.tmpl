@@ -5,13 +5,13 @@
 // https://www.iana.org/assignments/ipp-registrations/ipp-registrations.xml, updated on {{ updated }}
 @file:Suppress("MaxLineLength")
 
-package com.hp.jipp.model
+package com.hp.jipp.pwg
 
 import com.hp.jipp.encoding.Enum
 import com.hp.jipp.encoding.EnumType
 
 /**
- * "{{ enum.name }}" enum as defined in:{%- for spec in enum.specs | sort %}
+ * "{{ enum.fullname }}" enum as defined in:{%- for spec in enum.specs | sort %}
  *   * [{{ spec | upper }}]({{ specs[spec] }}){%- endfor %}{%- if enum['refs']%}
  *
  * Also used by:{%- for ref in enum['refs'] | sort %}
@@ -40,4 +40,3 @@ data class {{ enum.name | camel_class }}(override val code: Int, override val na
         }
     }
 }
-
