@@ -3,8 +3,8 @@ package com.hp.jipp.dsl
 import com.hp.jipp.encoding.Cycler.cycle
 import com.hp.jipp.encoding.Tag
 import com.hp.jipp.model.MediaSize
-import com.hp.jipp.model.Operation
 import com.hp.jipp.model.Types
+import com.hp.jipp.pwg.Operation
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.net.URI

@@ -11,9 +11,9 @@ import com.hp.jipp.encoding.* // ktlint-disable no-wildcard-imports
 import com.hp.jipp.util.getStaticObjects
 
 /**
- * Job Template attribute types.
+ * Attribute types for the Job Template group.
  */
-object JobTemplate {
+object JobTemplateGroup {
 
     /**
      * "confirmation-sheet-print" as defined in:
@@ -28,6 +28,39 @@ object JobTemplate {
     @JvmField val copies = IntegerType("copies")
 
     /**
+     * "cover-back" as defined in:
+     * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
+     * [RFC8011](http://www.iana.org/go/rfc8011)
+     */
+    @JvmField val coverBack = CollectionType("cover-back")
+
+    /**
+     * "cover-front" as defined in:
+     * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
+     * [RFC8011](http://www.iana.org/go/rfc8011)
+     */
+    @JvmField val coverFront = CollectionType("cover-front")
+
+    /**
+     * "cover-sheet-info" as defined in:
+     * [PWG5100.15](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfaxout10-20131115-5100.15.pdf)
+     */
+    @JvmField val coverSheetInfo = CollectionType("cover-sheet-info")
+
+    /**
+     * "destination-statuses" as defined in:
+     * [PWG5100.15](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfaxout10-20131115-5100.15.pdf)
+     */
+    @JvmField val destinationStatuses = CollectionType("destination-statuses")
+
+    /**
+     * "destination-uris" as defined in:
+     * [PWG5100.15](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfaxout10-20131115-5100.15.pdf)
+     * [PWG5100.17](http://ftp.pwg.org/pub/pwg/candidates/cs-ippscan10-20140918-5100.17.pdf)
+     */
+    @JvmField val destinationUris = CollectionType("destination-uris")
+
+    /**
      * "feed-orientation" as defined in:
      * [PWG5100.11](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext10-20101030-5100.11.pdf)
      */
@@ -37,7 +70,14 @@ object JobTemplate {
      * "finishings" as defined in:
      * [RFC8011](http://www.iana.org/go/rfc8011)
      */
-    @JvmField val finishings = Finishings.Type("finishings")
+    @JvmField val finishings = Finishing.Type("finishings")
+
+    /**
+     * "finishings-col" as defined in:
+     * [PWG5100.1](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfinishings10-20010205-5100.1.pdf)
+     * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
+     */
+    @JvmField val finishingsCol = CollectionType("finishings-col")
 
     /**
      * "font-size-requested" as defined in:
@@ -58,16 +98,42 @@ object JobTemplate {
     @JvmField val impositionTemplate = ImpositionTemplate.Type("imposition-template")
 
     /**
+     * "insert-sheet" as defined in:
+     * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
+     * [RFC8011](http://www.iana.org/go/rfc8011)
+     */
+    @JvmField val insertSheet = CollectionType("insert-sheet")
+
+    /**
      * "job-account-type" as defined in:
      * [PWG5100.16](http://ftp.pwg.org/pub/pwg/candidates/cs-ipptrans10-20131108-5100.16.pdf)
      */
     @JvmField val jobAccountType = JobAccountType.Type("job-account-type")
 
     /**
+     * "job-accounting-sheets" as defined in:
+     * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
+     * [RFC8011](http://www.iana.org/go/rfc8011)
+     */
+    @JvmField val jobAccountingSheets = CollectionType("job-accounting-sheets")
+
+    /**
      * "job-copies" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
      */
     @JvmField val jobCopies = IntegerType("job-copies")
+
+    /**
+     * "job-cover-back" as defined in:
+     * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     */
+    @JvmField val jobCoverBack = CollectionType("job-cover-back")
+
+    /**
+     * "job-cover-front" as defined in:
+     * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     */
+    @JvmField val jobCoverFront = CollectionType("job-cover-front")
 
     /**
      * "job-delay-output-until" as defined in:
@@ -82,10 +148,22 @@ object JobTemplate {
     @JvmField val jobErrorAction = JobErrorAction.Type("job-error-action")
 
     /**
+     * "job-error-sheet" as defined in:
+     * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
+     */
+    @JvmField val jobErrorSheet = CollectionType("job-error-sheet")
+
+    /**
      * "job-finishings" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
      */
-    @JvmField val jobFinishings = Finishings.Type("job-finishings")
+    @JvmField val jobFinishings = Finishing.Type("job-finishings")
+
+    /**
+     * "job-finishings-col" as defined in:
+     * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     */
+    @JvmField val jobFinishingsCol = CollectionType("job-finishings-col")
 
     /**
      * "job-hold-until" as defined in:
@@ -112,10 +190,29 @@ object JobTemplate {
     @JvmField val jobPriority = IntegerType("job-priority")
 
     /**
+     * "job-save-disposition" as defined in:
+     * [PWG5100.11](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext10-20101030-5100.11.pdf)
+     */
+    @JvmField val jobSaveDisposition = CollectionType("job-save-disposition")
+
+    /**
      * "job-sheets" as defined in:
      * [RFC8011](http://www.iana.org/go/rfc8011)
      */
-    @JvmField val jobSheets = JobSheets.Type("job-sheets")
+    @JvmField val jobSheets = JobSheet.Type("job-sheets")
+
+    /**
+     * "job-sheets-col" as defined in:
+     * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
+     * [RFC8011](http://www.iana.org/go/rfc8011)
+     */
+    @JvmField val jobSheetsCol = CollectionType("job-sheets-col")
+
+    /**
+     * "materials-col" as defined in:
+     * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
+     */
+    @JvmField val materialsCol = CollectionType("materials-col")
 
     /**
      * "media" as defined in:
@@ -124,10 +221,12 @@ object JobTemplate {
     @JvmField val media = Media.Type("media")
 
     /**
-     * "media-input-tray-check" as defined in:
+     * "media-col" as defined in:
+     * [PWG5100.11](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext10-20101030-5100.11.pdf)
+     * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
      */
-    @JvmField val mediaInputTrayCheck = MediaInputTrayCheck.Type("media-input-tray-check")
+    @JvmField val mediaCol = CollectionType("media-col")
 
     /**
      * "multiple-document-handling" as defined in:
@@ -190,6 +289,12 @@ object JobTemplate {
     @JvmField val pagesPerSubset = IntegerType("pages-per-subset")
 
     /**
+     * "pdl-init-file" as defined in:
+     * [PWG5100.11](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext10-20101030-5100.11.pdf)
+     */
+    @JvmField val pdlInitFile = CollectionType("pdl-init-file")
+
+    /**
      * "platform-temperature" as defined in:
      * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
      */
@@ -200,6 +305,12 @@ object JobTemplate {
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
      */
     @JvmField val presentationDirectionNumberUp = PresentationDirectionNumberUp.Type("presentation-direction-number-up")
+
+    /**
+     * "print-accuracy" as defined in:
+     * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
+     */
+    @JvmField val printAccuracy = CollectionType("print-accuracy")
 
     /**
      * "print-base" as defined in:
@@ -218,6 +329,12 @@ object JobTemplate {
      * [PWG5100.7](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobext10-20031031-5100.7.pdf)
      */
     @JvmField val printContentOptimize = PrintContentOptimize.Type("print-content-optimize")
+
+    /**
+     * "print-objects" as defined in:
+     * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
+     */
+    @JvmField val printObjects = CollectionType("print-objects")
 
     /**
      * "print-quality" as defined in:
@@ -250,6 +367,12 @@ object JobTemplate {
     @JvmField val printerResolution = ResolutionType("printer-resolution")
 
     /**
+     * "proof-print" as defined in:
+     * [PWG5100.11](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext10-20101030-5100.11.pdf)
+     */
+    @JvmField val proofPrint = CollectionType("proof-print")
+
+    /**
      * "retry-interval" as defined in:
      * [PWG5100.15](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfaxout10-20131115-5100.15.pdf)
      */
@@ -260,6 +383,13 @@ object JobTemplate {
      * [PWG5100.15](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfaxout10-20131115-5100.15.pdf)
      */
     @JvmField val retryTimeOut = IntegerType("retry-time-out")
+
+    /**
+     * "separator-sheets" as defined in:
+     * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
+     * [RFC8011](http://www.iana.org/go/rfc8011)
+     */
+    @JvmField val separatorSheets = CollectionType("separator-sheets")
 
     /**
      * "sheet-collate" as defined in:
@@ -323,7 +453,7 @@ object JobTemplate {
 
     /** All known attributes */
     @JvmField
-    val all = JobTemplate::class.java.getStaticObjects()
+    val all = JobTemplateGroup::class.java.getStaticObjects()
             .filter { it is AttributeType<*> }
             .map { it as AttributeType<*> }
 }

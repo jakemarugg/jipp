@@ -20,30 +20,30 @@ import com.hp.jipp.encoding.KeywordType
  *   * [PWG5100.18](http://ftp.pwg.org/pub/pwg/candidates/cs-ippinfra10-20150619-5100.18.pdf)
  *   * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
  */
-data class IppFeatures(
+data class IppFeature(
     override val value: String
 ) : Keyword() {
 
     override fun toString() = value
 
-    /** An attribute type for [IppFeatures] attributes */
-    class Type(name: String) : KeywordType<IppFeatures>(Encoder, name)
+    /** An attribute type for [IppFeature] attributes */
+    class Type(name: String) : KeywordType<IppFeature>(Encoder, name)
 
     companion object {
-        @JvmField val documentObject = IppFeatures("document-object")
-        @JvmField val faxout = IppFeatures("faxout")
-        @JvmField val iccColorMatching = IppFeatures("icc-color-matching")
-        @JvmField val infrastructurePrinter = IppFeatures("infrastructure-printer")
-        @JvmField val ipp3D = IppFeatures("ipp-3d")
-        @JvmField val ippEverywhere = IppFeatures("ipp-everywhere")
-        @JvmField val jobSave = IppFeatures("job-save")
-        @JvmField val none = IppFeatures("none")
-        @JvmField val pageOverrides = IppFeatures("page-overrides")
-        @JvmField val proofPrint = IppFeatures("proof-print")
-        @JvmField val scan = IppFeatures("scan")
-        @JvmField val subscriptionObject = IppFeatures("subscription-object")
-        @JvmField val Encoder = KeywordType.encoderOf(IppFeatures::class.java) { value, _, _ ->
-            IppFeatures(value)
+        @JvmField val documentObject = IppFeature("document-object")
+        @JvmField val faxout = IppFeature("faxout")
+        @JvmField val iccColorMatching = IppFeature("icc-color-matching")
+        @JvmField val infrastructurePrinter = IppFeature("infrastructure-printer")
+        @JvmField val ipp3D = IppFeature("ipp-3d")
+        @JvmField val ippEverywhere = IppFeature("ipp-everywhere")
+        @JvmField val jobSave = IppFeature("job-save")
+        @JvmField val none = IppFeature("none")
+        @JvmField val pageOverrides = IppFeature("page-overrides")
+        @JvmField val proofPrint = IppFeature("proof-print")
+        @JvmField val scan = IppFeature("scan")
+        @JvmField val subscriptionObject = IppFeature("subscription-object")
+        @JvmField val Encoder = KeywordType.encoderOf(IppFeature::class.java) { value, _, _ ->
+            IppFeature(value)
         }
     }
 }

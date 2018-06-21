@@ -11,9 +11,9 @@ import com.hp.jipp.encoding.* // ktlint-disable no-wildcard-imports
 import com.hp.jipp.util.getStaticObjects
 
 /**
- * Subscription Status attribute types.
+ * Attribute types for the Subscription Status group.
  */
-object SubscriptionStatus {
+object SubscriptionStatusGroup {
 
     /**
      * "notify-job-id" as defined in:
@@ -65,7 +65,7 @@ object SubscriptionStatus {
 
     /** All known attributes */
     @JvmField
-    val all = SubscriptionStatus::class.java.getStaticObjects()
+    val all = SubscriptionStatusGroup::class.java.getStaticObjects()
             .filter { it is AttributeType<*> }
             .map { it as AttributeType<*> }
 }

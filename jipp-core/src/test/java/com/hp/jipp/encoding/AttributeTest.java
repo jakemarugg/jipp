@@ -16,12 +16,12 @@ import java.util.List;
 import static com.hp.jipp.encoding.AttributeGroup.groupOf;
 import static org.junit.Assert.*;
 
-import com.hp.jipp.model.Status;
+import com.hp.jipp.pwg.Status;
 import com.hp.jipp.util.BuildError;
 import com.hp.jipp.util.KotlinTest;
 import com.hp.jipp.util.ParseError;
 import com.hp.jipp.model.Types;
-import com.hp.jipp.model.Operation;
+import com.hp.jipp.pwg.Operation;
 
 import static com.hp.jipp.encoding.Cycler.*;
 

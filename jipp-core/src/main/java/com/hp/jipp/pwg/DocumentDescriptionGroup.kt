@@ -11,15 +11,21 @@ import com.hp.jipp.encoding.* // ktlint-disable no-wildcard-imports
 import com.hp.jipp.util.getStaticObjects
 
 /**
- * Document Description attribute types.
+ * Attribute types for the Document Description group.
  */
-object DocumentDescription {
+object DocumentDescriptionGroup {
 
     /**
      * "impressions" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
      */
     @JvmField val impressions = IntegerType("impressions")
+
+    /**
+     * "impressions-col" as defined in:
+     * [APRIL2015F2F](http://ftp.pwg.org/pub/pwg/ipp/minutes/ippv2-f2f-minutes-20150429.pdf)
+     */
+    @JvmField val impressionsCol = CollectionType("impressions-col")
 
     /**
      * "k-octets" as defined in:
@@ -34,14 +40,26 @@ object DocumentDescription {
     @JvmField val mediaSheets = IntegerType("media-sheets")
 
     /**
+     * "media-sheets-col" as defined in:
+     * [APRIL2015F2F](http://ftp.pwg.org/pub/pwg/ipp/minutes/ippv2-f2f-minutes-20150429.pdf)
+     */
+    @JvmField val mediaSheetsCol = CollectionType("media-sheets-col")
+
+    /**
      * "pages" as defined in:
      * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
      */
     @JvmField val pages = IntegerType("pages")
 
+    /**
+     * "pages-col" as defined in:
+     * [APRIL2015F2F](http://ftp.pwg.org/pub/pwg/ipp/minutes/ippv2-f2f-minutes-20150429.pdf)
+     */
+    @JvmField val pagesCol = CollectionType("pages-col")
+
     /** All known attributes */
     @JvmField
-    val all = DocumentDescription::class.java.getStaticObjects()
+    val all = DocumentDescriptionGroup::class.java.getStaticObjects()
             .filter { it is AttributeType<*> }
             .map { it as AttributeType<*> }
 }

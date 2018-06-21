@@ -11,9 +11,9 @@ import com.hp.jipp.encoding.* // ktlint-disable no-wildcard-imports
 import com.hp.jipp.util.getStaticObjects
 
 /**
- * Job Description attribute types.
+ * Attribute types for the Job Description group.
  */
-object JobDescription {
+object JobDescriptionGroup {
 
     /**
      * "current-page-order" as defined in:
@@ -27,15 +27,9 @@ object JobDescription {
      */
     @JvmField val jobCollationType = JobCollationType.Type("job-collation-type")
 
-    /**
-     * "job-mandatory-attributes" as defined in:
-     * [PWG5100.7](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobext10-20031031-5100.7.pdf)
-     */
-    @JvmField val jobMandatoryAttributes = JobMandatoryAttributes.Type("job-mandatory-attributes")
-
     /** All known attributes */
     @JvmField
-    val all = JobDescription::class.java.getStaticObjects()
+    val all = JobDescriptionGroup::class.java.getStaticObjects()
             .filter { it is AttributeType<*> }
             .map { it as AttributeType<*> }
 }

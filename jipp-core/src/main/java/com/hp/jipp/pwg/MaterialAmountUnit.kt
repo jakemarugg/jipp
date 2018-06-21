@@ -14,24 +14,24 @@ import com.hp.jipp.encoding.KeywordType
  * "material-amount-units" keyword as defined in:
  *   * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
  */
-data class MaterialAmountUnits(
+data class MaterialAmountUnit(
     override val value: String
 ) : Keyword() {
 
     override fun toString() = value
 
-    /** An attribute type for [MaterialAmountUnits] attributes */
-    class Type(name: String) : KeywordType<MaterialAmountUnits>(Encoder, name)
+    /** An attribute type for [MaterialAmountUnit] attributes */
+    class Type(name: String) : KeywordType<MaterialAmountUnit>(Encoder, name)
 
     companion object {
-        @JvmField val g = MaterialAmountUnits("g")
-        @JvmField val kg = MaterialAmountUnits("kg")
-        @JvmField val l = MaterialAmountUnits("l")
-        @JvmField val m = MaterialAmountUnits("m")
-        @JvmField val ml = MaterialAmountUnits("ml")
-        @JvmField val mm = MaterialAmountUnits("mm")
-        @JvmField val Encoder = KeywordType.encoderOf(MaterialAmountUnits::class.java) { value, _, _ ->
-            MaterialAmountUnits(value)
+        @JvmField val g = MaterialAmountUnit("g")
+        @JvmField val kg = MaterialAmountUnit("kg")
+        @JvmField val l = MaterialAmountUnit("l")
+        @JvmField val m = MaterialAmountUnit("m")
+        @JvmField val ml = MaterialAmountUnit("ml")
+        @JvmField val mm = MaterialAmountUnit("mm")
+        @JvmField val Encoder = KeywordType.encoderOf(MaterialAmountUnit::class.java) { value, _, _ ->
+            MaterialAmountUnit(value)
         }
     }
 }

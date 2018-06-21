@@ -1,5 +1,6 @@
 package com.hp.jipp.model;
 
+import com.hp.jipp.pwg.Operation;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;

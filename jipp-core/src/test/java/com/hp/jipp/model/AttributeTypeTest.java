@@ -3,6 +3,10 @@ package com.hp.jipp.model;
 import static com.hp.jipp.encoding.AttributeGroup.groupOf;
 import static org.junit.Assert.*;
 
+import com.hp.jipp.pwg.JobState;
+import com.hp.jipp.pwg.Operation;
+import com.hp.jipp.pwg.PrinterState;
+import com.hp.jipp.pwg.Status;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;

@@ -11,9 +11,9 @@ import com.hp.jipp.encoding.* // ktlint-disable no-wildcard-imports
 import com.hp.jipp.util.getStaticObjects
 
 /**
- * Job Status attribute types.
+ * Attribute types for the Job Status group.
  */
-object JobStatus {
+object JobStatusGroup {
 
     /**
      * "attributes-charset" as defined in:
@@ -28,10 +28,28 @@ object JobStatus {
     @JvmField val copiesActual = IntegerType("copies-actual")
 
     /**
+     * "cover-back-actual" as defined in:
+     * [PWG5100.8](http://ftp.pwg.org/pub/pwg/candidates/cs-ippactuals10-20030313-5100.8.pdf)
+     */
+    @JvmField val coverBackActual = CollectionType("cover-back-actual")
+
+    /**
+     * "cover-front-actual" as defined in:
+     * [PWG5100.8](http://ftp.pwg.org/pub/pwg/candidates/cs-ippactuals10-20030313-5100.8.pdf)
+     */
+    @JvmField val coverFrontActual = CollectionType("cover-front-actual")
+
+    /**
      * "document-charset-supplied" as defined in:
      * [PWG5100.7](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobext10-20031031-5100.7.pdf)
      */
     @JvmField val documentCharsetSupplied = StringType(Tag.charset, "document-charset-supplied")
+
+    /**
+     * "document-format-details-supplied" as defined in:
+     * [PWG5100.7](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobext10-20031031-5100.7.pdf)
+     */
+    @JvmField val documentFormatDetailsSupplied = CollectionType("document-format-details-supplied")
 
     /**
      * "document-format-ready" as defined in:
@@ -46,6 +64,12 @@ object JobStatus {
     @JvmField val documentFormatSupplied = StringType(Tag.mimeMediaType, "document-format-supplied")
 
     /**
+     * "document-overrides-actual" as defined in:
+     * [PWG5100.8](http://ftp.pwg.org/pub/pwg/candidates/cs-ippactuals10-20030313-5100.8.pdf)
+     */
+    @JvmField val documentOverridesActual = CollectionType("document-overrides-actual")
+
+    /**
      * "errors-count" as defined in:
      * [PWG5100.7](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobext10-20031031-5100.7.pdf)
      */
@@ -55,7 +79,13 @@ object JobStatus {
      * "finishings-actual" as defined in:
      * [PWG5100.8](http://ftp.pwg.org/pub/pwg/candidates/cs-ippactuals10-20030313-5100.8.pdf)
      */
-    @JvmField val finishingsActual = Finishings.Type("finishings-actual")
+    @JvmField val finishingsActual = Finishing.Type("finishings-actual")
+
+    /**
+     * "finishings-col-actual" as defined in:
+     * [PWG5100.8](http://ftp.pwg.org/pub/pwg/candidates/cs-ippactuals10-20030313-5100.8.pdf)
+     */
+    @JvmField val finishingsColActual = CollectionType("finishings-col-actual")
 
     /**
      * "force-front-side-actual" as defined in:
@@ -76,16 +106,28 @@ object JobStatus {
     @JvmField val impressionsCompletedCurrentCopy = IntegerType("impressions-completed-current-copy")
 
     /**
-     * "impressions-completed-current-copy(deprecated)" as defined in:
-     * [APPLE20150505-1](http://www.pwg.org/pipermail/ipp/2015/018517.html)
+     * "input-attributes-actual" as defined in:
+     * [PWG5100.15](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfaxout10-20131115-5100.15.pdf)
      */
-    @JvmField val impressionsCompletedCurrentCopy(Deprecated) = IntegerType("impressions-completed-current-copy(deprecated)")
+    @JvmField val inputAttributesActual = CollectionType("input-attributes-actual")
+
+    /**
+     * "insert-sheet-actual" as defined in:
+     * [PWG5100.8](http://ftp.pwg.org/pub/pwg/candidates/cs-ippactuals10-20030313-5100.8.pdf)
+     */
+    @JvmField val insertSheetActual = CollectionType("insert-sheet-actual")
 
     /**
      * "job-account-type-actual" as defined in:
      * [PWG5100.16](http://ftp.pwg.org/pub/pwg/candidates/cs-ipptrans10-20131108-5100.16.pdf)
      */
     @JvmField val jobAccountTypeActual = JobAccountType.Type("job-account-type-actual")
+
+    /**
+     * "job-accounting-sheets-actual" as defined in:
+     * [PWG5100.8](http://ftp.pwg.org/pub/pwg/candidates/cs-ippactuals10-20030313-5100.8.pdf)
+     */
+    @JvmField val jobAccountingSheetsActual = CollectionType("job-accounting-sheets-actual")
 
     /**
      * "job-attribute-fidelity" as defined in:
@@ -106,10 +148,34 @@ object JobStatus {
     @JvmField val jobCopiesActual = IntegerType("job-copies-actual")
 
     /**
+     * "job-cover-back-actual" as defined in:
+     * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     */
+    @JvmField val jobCoverBackActual = CollectionType("job-cover-back-actual")
+
+    /**
+     * "job-cover-front-actual" as defined in:
+     * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     */
+    @JvmField val jobCoverFrontActual = CollectionType("job-cover-front-actual")
+
+    /**
+     * "job-error-sheet-actual" as defined in:
+     * [PWG5100.8](http://ftp.pwg.org/pub/pwg/candidates/cs-ippactuals10-20030313-5100.8.pdf)
+     */
+    @JvmField val jobErrorSheetActual = CollectionType("job-error-sheet-actual")
+
+    /**
      * "job-finishings-actual" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
      */
-    @JvmField val jobFinishingsActual = Finishings.Type("job-finishings-actual")
+    @JvmField val jobFinishingsActual = Finishing.Type("job-finishings-actual")
+
+    /**
+     * "job-finishings-col-actual" as defined in:
+     * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     */
+    @JvmField val jobFinishingsColActual = CollectionType("job-finishings-col-actual")
 
     /**
      * "job-hold-until-actual" as defined in:
@@ -130,10 +196,22 @@ object JobStatus {
     @JvmField val jobImpressions = IntegerType("job-impressions")
 
     /**
+     * "job-impressions-col" as defined in:
+     * [APRIL2015F2F](http://ftp.pwg.org/pub/pwg/ipp/minutes/ippv2-f2f-minutes-20150429.pdf)
+     */
+    @JvmField val jobImpressionsCol = CollectionType("job-impressions-col")
+
+    /**
      * "job-impressions-completed" as defined in:
      * [RFC8011](http://www.iana.org/go/rfc8011)
      */
     @JvmField val jobImpressionsCompleted = IntegerType("job-impressions-completed")
+
+    /**
+     * "job-impressions-completed-col" as defined in:
+     * [APRIL2015F2F](http://ftp.pwg.org/pub/pwg/ipp/minutes/ippv2-f2f-minutes-20150429.pdf)
+     */
+    @JvmField val jobImpressionsCompletedCol = CollectionType("job-impressions-completed-col")
 
     /**
      * "job-k-octets" as defined in:
@@ -154,10 +232,22 @@ object JobStatus {
     @JvmField val jobMediaSheets = IntegerType("job-media-sheets")
 
     /**
+     * "job-media-sheets-col" as defined in:
+     * [APRIL2015F2F](http://ftp.pwg.org/pub/pwg/ipp/minutes/ippv2-f2f-minutes-20150429.pdf)
+     */
+    @JvmField val jobMediaSheetsCol = CollectionType("job-media-sheets-col")
+
+    /**
      * "job-media-sheets-completed" as defined in:
      * [RFC8011](http://www.iana.org/go/rfc8011)
      */
     @JvmField val jobMediaSheetsCompleted = IntegerType("job-media-sheets-completed")
+
+    /**
+     * "job-media-sheets-completed-col" as defined in:
+     * [APRIL2015F2F](http://ftp.pwg.org/pub/pwg/ipp/minutes/ippv2-f2f-minutes-20150429.pdf)
+     */
+    @JvmField val jobMediaSheetsCompletedCol = CollectionType("job-media-sheets-completed-col")
 
     /**
      * "job-more-info" as defined in:
@@ -178,10 +268,22 @@ object JobStatus {
     @JvmField val jobPages = IntegerType("job-pages")
 
     /**
+     * "job-pages-col" as defined in:
+     * [APRIL2015F2F](http://ftp.pwg.org/pub/pwg/ipp/minutes/ippv2-f2f-minutes-20150429.pdf)
+     */
+    @JvmField val jobPagesCol = CollectionType("job-pages-col")
+
+    /**
      * "job-pages-completed" as defined in:
      * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
      */
     @JvmField val jobPagesCompleted = IntegerType("job-pages-completed")
+
+    /**
+     * "job-pages-completed-col" as defined in:
+     * [APRIL2015F2F](http://ftp.pwg.org/pub/pwg/ipp/minutes/ippv2-f2f-minutes-20150429.pdf)
+     */
+    @JvmField val jobPagesCompletedCol = CollectionType("job-pages-completed-col")
 
     /**
      * "job-pages-completed-current-copy" as defined in:
@@ -211,7 +313,13 @@ object JobStatus {
      * "job-sheets-actual" as defined in:
      * [PWG5100.8](http://ftp.pwg.org/pub/pwg/candidates/cs-ippactuals10-20030313-5100.8.pdf)
      */
-    @JvmField val jobSheetsActual = JobSheets.Type("job-sheets-actual")
+    @JvmField val jobSheetsActual = JobSheet.Type("job-sheets-actual")
+
+    /**
+     * "job-sheets-col-actual" as defined in:
+     * [PWG5100.8](http://ftp.pwg.org/pub/pwg/candidates/cs-ippactuals10-20030313-5100.8.pdf)
+     */
+    @JvmField val jobSheetsColActual = CollectionType("job-sheets-col-actual")
 
     /**
      * "job-state" as defined in:
@@ -223,7 +331,7 @@ object JobStatus {
      * "job-state-reasons" as defined in:
      * [RFC8011](http://www.iana.org/go/rfc8011)
      */
-    @JvmField val jobStateReasons = JobStateReasons.Type("job-state-reasons")
+    @JvmField val jobStateReasons = JobStateReason.Type("job-state-reasons")
 
     /**
      * "job-uri" as defined in:
@@ -238,16 +346,22 @@ object JobStatus {
     @JvmField val jobUuid = UriType("job-uuid")
 
     /**
+     * "materials-col-actual" as defined in:
+     * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
+     */
+    @JvmField val materialsColActual = CollectionType("materials-col-actual")
+
+    /**
      * "media-actual" as defined in:
      * [PWG5100.8](http://ftp.pwg.org/pub/pwg/candidates/cs-ippactuals10-20030313-5100.8.pdf)
      */
     @JvmField val mediaActual = Media.Type("media-actual")
 
     /**
-     * "media-input-tray-check-actual" as defined in:
+     * "media-col-actual" as defined in:
      * [PWG5100.8](http://ftp.pwg.org/pub/pwg/candidates/cs-ippactuals10-20030313-5100.8.pdf)
      */
-    @JvmField val mediaInputTrayCheckActual = MediaInputTrayCheck.Type("media-input-tray-check-actual")
+    @JvmField val mediaColActual = CollectionType("media-col-actual")
 
     /**
      * "multiple-document-handling-actual" as defined in:
@@ -286,6 +400,12 @@ object JobStatus {
     @JvmField val orientationRequestedActual = Orientation.Type("orientation-requested-actual")
 
     /**
+     * "output-attributes-actual" as defined in:
+     * [PWG5100.17](http://ftp.pwg.org/pub/pwg/candidates/cs-ippscan10-20140918-5100.17.pdf)
+     */
+    @JvmField val outputAttributesActual = CollectionType("output-attributes-actual")
+
+    /**
      * "output-bin-actual" as defined in:
      * [PWG5100.8](http://ftp.pwg.org/pub/pwg/candidates/cs-ippactuals10-20030313-5100.8.pdf)
      */
@@ -296,6 +416,12 @@ object JobStatus {
      * [PWG5100.18](http://ftp.pwg.org/pub/pwg/candidates/cs-ippinfra10-20150619-5100.18.pdf)
      */
     @JvmField val outputDeviceUuidAssigned = UriType("output-device-uuid-assigned")
+
+    /**
+     * "overrides-actual" as defined in:
+     * [PWG5100.6](http://ftp.pwg.org/pub/pwg/candidates/cs-ipppageoverride10-20031031-5100.6.pdf)
+     */
+    @JvmField val overridesActual = CollectionType("overrides-actual")
 
     /**
      * "page-delivery-actual" as defined in:
@@ -328,6 +454,12 @@ object JobStatus {
     @JvmField val presentationDirectionNumberUpActual = PresentationDirectionNumberUp.Type("presentation-direction-number-up-actual")
 
     /**
+     * "print-accuracy-actual" as defined in:
+     * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
+     */
+    @JvmField val printAccuracyActual = CollectionType("print-accuracy-actual")
+
+    /**
      * "print-base-actual" as defined in:
      * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
      */
@@ -344,6 +476,12 @@ object JobStatus {
      * [PWG5100.7](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobext10-20031031-5100.7.pdf)
      */
     @JvmField val printContentOptimizeActual = PrintContentOptimize.Type("print-content-optimize-actual")
+
+    /**
+     * "print-objects-actual" as defined in:
+     * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
+     */
+    @JvmField val printObjectsActual = CollectionType("print-objects-actual")
 
     /**
      * "print-quality-actual" as defined in:
@@ -370,6 +508,12 @@ object JobStatus {
     @JvmField val printerResolutionActual = ResolutionType("printer-resolution-actual")
 
     /**
+     * "separator-sheets-actual" as defined in:
+     * [PWG5100.8](http://ftp.pwg.org/pub/pwg/candidates/cs-ippactuals10-20030313-5100.8.pdf)
+     */
+    @JvmField val separatorSheetsActual = CollectionType("separator-sheets-actual")
+
+    /**
      * "sheet-collate-actual" as defined in:
      * [PWG5100.8](http://ftp.pwg.org/pub/pwg/candidates/cs-ippactuals10-20030313-5100.8.pdf)
      */
@@ -382,22 +526,10 @@ object JobStatus {
     @JvmField val sheetCompletedCopyNumber = IntegerType("sheet-completed-copy-number")
 
     /**
-     * "sheet-completed-copy-number(deprecated)" as defined in:
-     * [APPLE20150505-1](http://www.pwg.org/pipermail/ipp/2015/018517.html)
-     */
-    @JvmField val sheetCompletedCopyNumber(Deprecated) = IntegerType("sheet-completed-copy-number(deprecated)")
-
-    /**
      * "sheet-completed-document-number" as defined in:
      * [RFC3381](http://www.iana.org/go/rfc3381)
      */
     @JvmField val sheetCompletedDocumentNumber = IntegerType("sheet-completed-document-number")
-
-    /**
-     * "sheet-completed-document-number(deprecated)" as defined in:
-     * [APPLE20150505-1](http://www.pwg.org/pipermail/ipp/2015/018517.html)
-     */
-    @JvmField val sheetCompletedDocumentNumber(Deprecated) = IntegerType("sheet-completed-document-number(deprecated)")
 
     /**
      * "sides-actual" as defined in:
@@ -479,7 +611,7 @@ object JobStatus {
 
     /** All known attributes */
     @JvmField
-    val all = JobStatus::class.java.getStaticObjects()
+    val all = JobStatusGroup::class.java.getStaticObjects()
             .filter { it is AttributeType<*> }
             .map { it as AttributeType<*> }
 }

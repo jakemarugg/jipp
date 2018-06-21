@@ -11,6 +11,8 @@ import com.hp.jipp.encoding.EnumType
 import com.hp.jipp.encoding.IppInputStream
 import com.hp.jipp.encoding.IppOutputStream
 import com.hp.jipp.encoding.Tag
+import com.hp.jipp.pwg.Operation
+import com.hp.jipp.pwg.Status
 import com.hp.jipp.util.ParseError
 import com.hp.jipp.util.PrettyPrinter
 import com.hp.jipp.util.toList

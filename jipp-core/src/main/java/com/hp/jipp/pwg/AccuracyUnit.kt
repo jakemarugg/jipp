@@ -11,24 +11,27 @@ import com.hp.jipp.encoding.Keyword
 import com.hp.jipp.encoding.KeywordType
 
 /**
- * "material-rate-units" keyword as defined in:
+ * "accuracy-units" keyword as defined in:
  *   * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
+ *
+ * Also used by:
+ *   * `accuracy-units-supported`
  */
-data class MaterialRateUnits(
+data class AccuracyUnit(
     override val value: String
 ) : Keyword() {
 
     override fun toString() = value
 
-    /** An attribute type for [MaterialRateUnits] attributes */
-    class Type(name: String) : KeywordType<MaterialRateUnits>(Encoder, name)
+    /** An attribute type for [AccuracyUnit] attributes */
+    class Type(name: String) : KeywordType<AccuracyUnit>(Encoder, name)
 
     companion object {
-        @JvmField val mgSecond = MaterialRateUnits("mg_second")
-        @JvmField val mlSecond = MaterialRateUnits("ml_second")
-        @JvmField val mmSecond = MaterialRateUnits("mm_second")
-        @JvmField val Encoder = KeywordType.encoderOf(MaterialRateUnits::class.java) { value, _, _ ->
-            MaterialRateUnits(value)
+        @JvmField val mm = AccuracyUnit("mm")
+        @JvmField val nm = AccuracyUnit("nm")
+        @JvmField val um = AccuracyUnit("um")
+        @JvmField val Encoder = KeywordType.encoderOf(AccuracyUnit::class.java) { value, _, _ ->
+            AccuracyUnit(value)
         }
     }
 }

@@ -15,6 +15,10 @@ keywords = { }
 collections = { }
 proj_dir = os.path.dirname(os.path.realpath(__file__)) + "/../"
 
+# Some enums/keywords have a plural 's' on the end, which we remove for clarity.
+# Types ending with these words are not plural for our purposes and should keep their s:
+nonplurals = [ 'sides', 'status', 'print-supports', 'details', 'which-jobs' ]
+
 def warn(output):
     print "    WARN: " + output
 
@@ -93,26 +97,27 @@ def parse_enum(record):
     if value is None:
         return
 
-    if name is not None:
-        if "(deprecated)" not in name.lower() and "Reserved" not in name:
-            try:
-                if value.startswith("0x"):
-                    enum['hex'] = True
-                value = int(value, 0)
-                enum['values'][name] = value
-            except ValueError:
-                warn("enum " + attribute + " has non-integer value " + value)
-    else:
-        # Special case: Correct some known typos
-        value = value.replace("status code", "status")
-        value = value.replace("any finishings enum value", "<any finishings enum value>")
-
+    if name is None:
         m = re.search("< ?(?:[aA]ny |all )\"?([a-z-]+)\"?( enum)? (value(s?)|name(s?)) ?>", value)
         if m and m.group(1):
             enum['ref'] = m.group(1)
         else:
             enum['bad'] = True
             warn("enum " + attribute + " has unparseable value '" + value + "'")
+        return
+
+    # Totally ignore (deprecated), Reserved, (Under Review), etc.
+    if re.search("\(.*\)", name) or "Reserved" in name:
+        return
+
+    try:
+        if value.startswith("0x"):
+            enum['hex'] = True
+        value = int(value, 0)
+        enum['values'][name] = value
+    except ValueError:
+        warn("enum " + attribute + " has non-integer value " + value)
+
 
 
 # Parse a single status code
@@ -145,7 +150,8 @@ def parse_keyword(record):
     if value is not None:
         value = value.text
 
-    if value is None or "(deprecated)" in value.lower():
+    # Ignore blank value or values containing stuff like (Reserved)
+    if value is None or re.search("\(.*\)", value):
         return
 
     if ' ' not in value:
@@ -167,6 +173,10 @@ def parse_attribute(record):
     attr_name = record.find('{*}name').text
     collection_name = record.find('{*}collection').text
     syntax = record.find('{*}syntax').text
+
+    # Ignore (UnderReview) (Deprecated) etc
+    if re.search("\(.*\)", attr_name):
+        return
 
     collection = collections.setdefault(collection_name, { })
     attr = collection.setdefault(attr_name, {
@@ -236,6 +246,16 @@ def camel_member(string):
 def upper(string):
     return string.upper()
 
+def depluralize(name):
+    if name[-1] != 's':
+        return name
+
+    for nonplural in nonplurals:
+        if name.endswith(nonplural):
+            return name
+
+    return name[:-1]
+
 def emit_keyword(template, keyword):
     if not keyword['values']:
         warn("keyword " + keyword['name'] + " has no values defined")
@@ -245,6 +265,7 @@ def emit_keyword(template, keyword):
     keyword['name'] = re.sub('-(supported|requested)$', '', keyword['name'])
     if 'name' in keyword['syntax']:
         keyword['orName'] = True
+    keyword['name'] = depluralize(keyword['name'])
 
     with open(prep_file(keyword['name']), "w") as file:
         file.write(template.render(keyword=keyword, app=os.path.basename(sys.argv[0]), updated=updated, specs=specs))
@@ -265,6 +286,7 @@ def emit_enum(template, enum):
     # Remove -supported and -requested
     enum['fullname'] = enum['name']
     enum['name'] = re.sub('-(supported|requested)$', '', enum['name'])
+    enum['name'] = depluralize(enum['name'])
 
     with open(prep_file(enum['name']), "w") as file:
         file.write(template.render(enum=enum, app=os.path.basename(sys.argv[0]), updated=updated, specs=specs))
@@ -303,10 +325,12 @@ def get_intro(map, name):
         return None
     if 'ref' in map[name]:
         return get_intro(map, map[name]['ref'])
+    if 'bad' in map[name]:
+        return None
     return camel_class(map[name]['name']) + ".Type("
 
 def emit_collections(env):
-    template = env.get_template('collection.kt.tmpl')
+    template = env.get_template('group.kt.tmpl')
     for name, values in collections.items():
         types = []
         for typeName, desc in sorted(values.items(), key=lambda (k, v): k):
@@ -344,14 +368,15 @@ def emit_collections(env):
                 intro = "StringType(Tag.mimeMediaType, "
             elif syntax == "resolution":
                 intro = "ResolutionType("
-
+            elif syntax == "collection":
+                intro = "CollectionType("
             if not intro:
                 warn("Could not identify " + name + " type " + typeName + " with syntax '" + syntax + "'")
                 continue
             type['intro'] = intro
             types.append(type)
 
-        with open(prep_file(name), "w") as file:
+        with open(prep_file(name + "-group"), "w") as file:
             file.write(template.render(name=name, types=types, app=os.path.basename(sys.argv[0]), updated=updated, specs=specs))
 
 def emit_code():

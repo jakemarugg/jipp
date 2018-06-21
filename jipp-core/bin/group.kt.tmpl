@@ -11,9 +11,9 @@ import com.hp.jipp.encoding.* // ktlint-disable no-wildcard-imports
 import com.hp.jipp.util.getStaticObjects
 
 /**
- * {{ name }} attribute types.
+ * Attribute types for the {{ name }} group.
  */
-object {{ name | camel_class }} {
+object {{ name | camel_class }}Group {
 
 {%- for type in types %}
 
@@ -26,7 +26,7 @@ object {{ name | camel_class }} {
 
     /** All known attributes */
     @JvmField
-    val all = {{ name | camel_class }}::class.java.getStaticObjects()
+    val all = {{ name | camel_class }}Group::class.java.getStaticObjects()
             .filter { it is AttributeType<*> }
             .map { it as AttributeType<*> }
 }

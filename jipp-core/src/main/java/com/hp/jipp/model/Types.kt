@@ -4,11 +4,23 @@
 package com.hp.jipp.model
 
 import com.hp.jipp.encoding.* // ktlint-disable no-wildcard-imports
+import com.hp.jipp.pwg.Finishing
+import com.hp.jipp.pwg.IdentifyAction
+import com.hp.jipp.pwg.JobPasswordEncryption
+import com.hp.jipp.pwg.JobState
+import com.hp.jipp.pwg.Operation
+import com.hp.jipp.pwg.OperationGroup
+import com.hp.jipp.pwg.Orientation
+import com.hp.jipp.pwg.OutputBin
+import com.hp.jipp.pwg.PrintQuality
+import com.hp.jipp.pwg.PrinterState
+import com.hp.jipp.pwg.Sides
 import com.hp.jipp.util.getStaticObjects
 
 /** Attribute types from various specifications */
 object Types {
-    @JvmField val attributesCharset = StringType(Tag.charset, "attributes-charset")
+    // TODO: Copy from other places and deprecate
+    @JvmField val attributesCharset = OperationGroup.attributesCharset
     @JvmField val attributesNaturalLanguage = StringType(Tag.naturalLanguage, "attributes-natural-language")
     @JvmField val charsetConfigured = StringType(Tag.charset, "charset-configured")
     @JvmField val charsetSupported = StringType(Tag.charset, "charset-supported")
@@ -19,14 +31,14 @@ object Types {
     @JvmField val documentFormat = StringType(Tag.mimeMediaType, "document-format")
     @JvmField val documentFormatSupported = StringType(Tag.mimeMediaType, "document-format-supported")
     @JvmField val documentName = StringType(Tag.nameWithoutLanguage, "document-name")
-    @JvmField val finishings = Finishings.Type("finishings")
-    @JvmField val finishingsDefault = Finishings.Type("finishings-default")
-    @JvmField val finishingsSupported = Finishings.Type("finishings-supported")
+    @JvmField val finishings = Finishing.Type("finishings")
+    @JvmField val finishingsDefault = Finishing.Type("finishings-default")
+    @JvmField val finishingsSupported = Finishing.Type("finishings-supported")
     @JvmField val generatedNaturalLanguageSupported = StringType(Tag.naturalLanguage,
         "generated-natural-language-supported")
-    @JvmField val identifyActions = IdentifyActions.Type("identify-actions")
-    @JvmField val identifyActionsDefault = IdentifyActions.Type("identify-actions-default")
-    @JvmField val identifyActionsSupported = IdentifyActions.Type("identify-actions-supported")
+    @JvmField val identifyActions = IdentifyAction.Type("identify-actions")
+    @JvmField val identifyActionsDefault = IdentifyAction.Type("identify-actions-default")
+    @JvmField val identifyActionsSupported = IdentifyAction.Type("identify-actions-supported")
     @JvmField val jobAccountIdSupported = BooleanType("job-account-id-supported")
     @JvmField val jobAccountingUserIdSupported = BooleanType("job-accounting-user-id-supported")
     @JvmField val jobDetailedStatusMessages = StringType(Tag.textWithoutLanguage, "job-detailed-status-messages")

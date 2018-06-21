@@ -11,15 +11,27 @@ import com.hp.jipp.encoding.* // ktlint-disable no-wildcard-imports
 import com.hp.jipp.util.getStaticObjects
 
 /**
- * Document Template attribute types.
+ * Attribute types for the Document Template group.
  */
-object DocumentTemplate {
+object DocumentTemplateGroup {
 
     /**
      * "copies" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
      */
     @JvmField val copies = IntegerType("copies")
+
+    /**
+     * "cover-back" as defined in:
+     * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     */
+    @JvmField val coverBack = CollectionType("cover-back")
+
+    /**
+     * "cover-front" as defined in:
+     * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     */
+    @JvmField val coverFront = CollectionType("cover-front")
 
     /**
      * "feed-orientation" as defined in:
@@ -31,7 +43,13 @@ object DocumentTemplate {
      * "finishings" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
      */
-    @JvmField val finishings = Finishings.Type("finishings")
+    @JvmField val finishings = Finishing.Type("finishings")
+
+    /**
+     * "finishings-col" as defined in:
+     * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     */
+    @JvmField val finishingsCol = CollectionType("finishings-col")
 
     /**
      * "font-size-requested" as defined in:
@@ -52,16 +70,28 @@ object DocumentTemplate {
     @JvmField val impositionTemplate = ImpositionTemplate.Type("imposition-template")
 
     /**
+     * "insert-sheet" as defined in:
+     * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     */
+    @JvmField val insertSheet = CollectionType("insert-sheet")
+
+    /**
+     * "materials-col" as defined in:
+     * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
+     */
+    @JvmField val materialsCol = CollectionType("materials-col")
+
+    /**
      * "media" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
      */
     @JvmField val media = Media.Type("media")
 
     /**
-     * "media-input-tray-check" as defined in:
+     * "media-col" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
      */
-    @JvmField val mediaInputTrayCheck = MediaInputTrayCheck.Type("media-input-tray-check")
+    @JvmField val mediaCol = CollectionType("media-col")
 
     /**
      * "multiple-object-handling" as defined in:
@@ -82,6 +112,12 @@ object DocumentTemplate {
     @JvmField val orientationRequested = Orientation.Type("orientation-requested")
 
     /**
+     * "overrides" as defined in:
+     * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     */
+    @JvmField val overrides = CollectionType("overrides")
+
+    /**
      * "page-delivery" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
      */
@@ -100,6 +136,12 @@ object DocumentTemplate {
     @JvmField val pageRanges = RangeOfIntegerType("page-ranges")
 
     /**
+     * "pdl-init-file" as defined in:
+     * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     */
+    @JvmField val pdlInitFile = CollectionType("pdl-init-file")
+
+    /**
      * "platform-temperature" as defined in:
      * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
      */
@@ -110,6 +152,12 @@ object DocumentTemplate {
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
      */
     @JvmField val presentationDirectionNumberUp = PresentationDirectionNumberUp.Type("presentation-direction-number-up")
+
+    /**
+     * "print-accuracy" as defined in:
+     * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
+     */
+    @JvmField val printAccuracy = CollectionType("print-accuracy")
 
     /**
      * "print-base" as defined in:
@@ -130,6 +178,12 @@ object DocumentTemplate {
     @JvmField val printContentOptimize = PrintContentOptimize.Type("print-content-optimize")
 
     /**
+     * "print-objects" as defined in:
+     * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
+     */
+    @JvmField val printObjects = CollectionType("print-objects")
+
+    /**
      * "print-rendering-intent" as defined in:
      * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
      */
@@ -146,6 +200,12 @@ object DocumentTemplate {
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
      */
     @JvmField val printerResolution = ResolutionType("printer-resolution")
+
+    /**
+     * "separator-sheets" as defined in:
+     * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     */
+    @JvmField val separatorSheets = CollectionType("separator-sheets")
 
     /**
      * "sheet-collate" as defined in:
@@ -209,7 +269,7 @@ object DocumentTemplate {
 
     /** All known attributes */
     @JvmField
-    val all = DocumentTemplate::class.java.getStaticObjects()
+    val all = DocumentTemplateGroup::class.java.getStaticObjects()
             .filter { it is AttributeType<*> }
             .map { it as AttributeType<*> }
 }

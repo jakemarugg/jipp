@@ -20,7 +20,7 @@ import com.hp.jipp.encoding.Tag
  *   * `job-sheets-default`
  *   * `job-sheets-supported`
  */
-data class JobSheets(
+data class JobSheet(
     override val value: String,
     override val tag: Tag = Tag.keyword,
     override val language: String? = null
@@ -30,18 +30,18 @@ data class JobSheets(
 
     override fun toString() = value
 
-    /** An attribute type for [JobSheets] attributes */
-    class Type(name: String) : KeywordType<JobSheets>(Encoder, name)
+    /** An attribute type for [JobSheet] attributes */
+    class Type(name: String) : KeywordType<JobSheet>(Encoder, name)
 
     companion object {
-        @JvmField val firstPrintStreamPage = JobSheets("first-print-stream-page")
-        @JvmField val jobBothSheet = JobSheets("job-both-sheet")
-        @JvmField val jobEndSheet = JobSheets("job-end-sheet")
-        @JvmField val jobStartSheet = JobSheets("job-start-sheet")
-        @JvmField val none = JobSheets("none")
-        @JvmField val standard = JobSheets("standard")
-        @JvmField val Encoder = KeywordType.encoderOf(JobSheets::class.java) { value, tag, language ->
-            JobSheets(value, tag, language)
+        @JvmField val firstPrintStreamPage = JobSheet("first-print-stream-page")
+        @JvmField val jobBothSheet = JobSheet("job-both-sheet")
+        @JvmField val jobEndSheet = JobSheet("job-end-sheet")
+        @JvmField val jobStartSheet = JobSheet("job-start-sheet")
+        @JvmField val none = JobSheet("none")
+        @JvmField val standard = JobSheet("standard")
+        @JvmField val Encoder = KeywordType.encoderOf(JobSheet::class.java) { value, tag, language ->
+            JobSheet(value, tag, language)
         }
     }
 }

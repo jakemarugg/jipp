@@ -11,15 +11,15 @@ import com.hp.jipp.encoding.* // ktlint-disable no-wildcard-imports
 import com.hp.jipp.util.getStaticObjects
 
 /**
- * Printer Description attribute types.
+ * Attribute types for the Printer Description group.
  */
-object PrinterDescription {
+object PrinterDescriptionGroup {
 
     /**
      * "accuracy-units-supported" as defined in:
      * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
      */
-    @JvmField val accuracyUnitsSupported = AccuracyUnits.Type("accuracy-units-supported")
+    @JvmField val accuracyUnitsSupported = AccuracyUnit.Type("accuracy-units-supported")
 
     /**
      * "baling-type-supported" as defined in:
@@ -100,16 +100,34 @@ object PrinterDescription {
     @JvmField val copiesSupported = RangeOfIntegerType("copies-supported")
 
     /**
+     * "cover-back-default" as defined in:
+     * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
+     */
+    @JvmField val coverBackDefault = CollectionType("cover-back-default")
+
+    /**
      * "cover-back-supported" as defined in:
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
      */
     @JvmField val coverBackSupported = CoverBack.Type("cover-back-supported")
 
     /**
+     * "cover-front-default" as defined in:
+     * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
+     */
+    @JvmField val coverFrontDefault = CollectionType("cover-front-default")
+
+    /**
      * "cover-front-supported" as defined in:
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
      */
     @JvmField val coverFrontSupported = CoverBack.Type("cover-front-supported")
+
+    /**
+     * "cover-sheet-info-default" as defined in:
+     * [PWG5100.15](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfaxout10-20131115-5100.15.pdf)
+     */
+    @JvmField val coverSheetInfoDefault = CollectionType("cover-sheet-info-default")
 
     /**
      * "cover-sheet-info-supported" as defined in:
@@ -122,6 +140,12 @@ object PrinterDescription {
      * [PWG5100.1](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfinishings10-20010205-5100.1.pdf)
      */
     @JvmField val coveringNameSupported = CoveringName.Type("covering-name-supported")
+
+    /**
+     * "destination-uri-ready" as defined in:
+     * [PWG5100.17](http://ftp.pwg.org/pub/pwg/candidates/cs-ippscan10-20140918-5100.17.pdf)
+     */
+    @JvmField val destinationUriReady = CollectionType("destination-uri-ready")
 
     /**
      * "destination-uri-schemes-supported" as defined in:
@@ -160,6 +184,12 @@ object PrinterDescription {
     @JvmField val documentFormatDefault = StringType(Tag.mimeMediaType, "document-format-default")
 
     /**
+     * "document-format-details-default" as defined in:
+     * [PWG5100.7](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobext10-20031031-5100.7.pdf)
+     */
+    @JvmField val documentFormatDetailsDefault = CollectionType("document-format-details-default")
+
+    /**
      * "document-format-details-supported" as defined in:
      * [PWG5100.7](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobext10-20031031-5100.7.pdf)
      */
@@ -190,6 +220,24 @@ object PrinterDescription {
     @JvmField val feedOrientationSupported = FeedOrientation.Type("feed-orientation-supported")
 
     /**
+     * "finishings-col-database" as defined in:
+     * [PWG5100.1](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfinishings10-20010205-5100.1.pdf)
+     */
+    @JvmField val finishingsColDatabase = CollectionType("finishings-col-database")
+
+    /**
+     * "finishings-col-default" as defined in:
+     * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
+     */
+    @JvmField val finishingsColDefault = CollectionType("finishings-col-default")
+
+    /**
+     * "finishings-col-ready" as defined in:
+     * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
+     */
+    @JvmField val finishingsColReady = CollectionType("finishings-col-ready")
+
+    /**
      * "finishings-col-supported" as defined in:
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
      */
@@ -199,19 +247,19 @@ object PrinterDescription {
      * "finishings-default" as defined in:
      * [RFC8011](http://www.iana.org/go/rfc8011)
      */
-    @JvmField val finishingsDefault = Finishings.Type("finishings-default")
+    @JvmField val finishingsDefault = Finishing.Type("finishings-default")
 
     /**
      * "finishings-ready" as defined in:
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
      */
-    @JvmField val finishingsReady = Finishings.Type("finishings-ready")
+    @JvmField val finishingsReady = Finishing.Type("finishings-ready")
 
     /**
      * "finishings-supported" as defined in:
      * [RFC8011](http://www.iana.org/go/rfc8011)
      */
-    @JvmField val finishingsSupported = Finishings.Type("finishings-supported")
+    @JvmField val finishingsSupported = Finishing.Type("finishings-supported")
 
     /**
      * "folding-direction-supported" as defined in:
@@ -224,12 +272,6 @@ object PrinterDescription {
      * [PWG5100.1](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfinishings10-20010205-5100.1.pdf)
      */
     @JvmField val foldingOffsetSupported = RangeOfIntegerType("folding-offset-supported")
-
-    /**
-     * "folding-offset-supported(extension)" as defined in:
-     * [PWG5100.1](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfinishings10-20010205-5100.1.pdf)
-     */
-    @JvmField val foldingOffsetSupported(Extension) = RangeOfIntegerType("folding-offset-supported(extension)")
 
     /**
      * "folding-reference-edge-supported" as defined in:
@@ -250,18 +292,6 @@ object PrinterDescription {
     @JvmField val fontSizeRequestedSupported = RangeOfIntegerType("font-size-requested-supported")
 
     /**
-     * "force-front-side-default (under review)" as defined in:
-     * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
-     */
-    @JvmField val forceFrontSideDefault(UnderReview) = IntegerType("force-front-side-default (under review)")
-
-    /**
-     * "force-front-side-supported (under review)" as defined in:
-     * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
-     */
-    @JvmField val forceFrontSideSupported(UnderReview) = RangeOfIntegerType("force-front-side-supported (under review)")
-
-    /**
      * "from-name-supported" as defined in:
      * [PWG5100.15](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfaxout10-20131115-5100.15.pdf)
      */
@@ -271,13 +301,13 @@ object PrinterDescription {
      * "identify-actions-default" as defined in:
      * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
      */
-    @JvmField val identifyActionsDefault = IdentifyActions.Type("identify-actions-default")
+    @JvmField val identifyActionsDefault = IdentifyAction.Type("identify-actions-default")
 
     /**
      * "identify-actions-supported" as defined in:
      * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
      */
-    @JvmField val identifyActionsSupported = IdentifyActions.Type("identify-actions-supported")
+    @JvmField val identifyActionsSupported = IdentifyAction.Type("identify-actions-supported")
 
     /**
      * "imposition-template-default" as defined in:
@@ -290,6 +320,12 @@ object PrinterDescription {
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
      */
     @JvmField val impositionTemplateSupported = ImpositionTemplate.Type("imposition-template-supported")
+
+    /**
+     * "input-attributes-default" as defined in:
+     * [PWG5100.15](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfaxout10-20131115-5100.15.pdf)
+     */
+    @JvmField val inputAttributesDefault = CollectionType("input-attributes-default")
 
     /**
      * "input-color-mode-supported" as defined in:
@@ -310,12 +346,6 @@ object PrinterDescription {
     @JvmField val inputFilmScanModeSupported = InputFilmScanMode.Type("input-film-scan-mode-supported")
 
     /**
-     * "input-media-supported" as defined in:
-     * [PWG5100.15](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfaxout10-20131115-5100.15.pdf)
-     */
-    @JvmField val inputMediaSupported = InputMedia.Type("input-media-supported")
-
-    /**
      * "input-orientation-requested-supported" as defined in:
      * [PWG5100.15](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfaxout10-20131115-5100.15.pdf)
      */
@@ -332,6 +362,12 @@ object PrinterDescription {
      * [PWG5100.15](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfaxout10-20131115-5100.15.pdf)
      */
     @JvmField val inputResolutionSupported = ResolutionType("input-resolution-supported")
+
+    /**
+     * "input-scan-regions-supported" as defined in:
+     * [PWG5100.15](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfaxout10-20131115-5100.15.pdf)
+     */
+    @JvmField val inputScanRegionsSupported = CollectionType("input-scan-regions-supported")
 
     /**
      * "input-sides-supported" as defined in:
@@ -358,16 +394,22 @@ object PrinterDescription {
     @JvmField val insertCountSupported = RangeOfIntegerType("insert-count-supported")
 
     /**
+     * "insert-sheet-default" as defined in:
+     * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
+     */
+    @JvmField val insertSheetDefault = CollectionType("insert-sheet-default")
+
+    /**
      * "ipp-features-supported" as defined in:
      * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
      */
-    @JvmField val ippFeaturesSupported = IppFeatures.Type("ipp-features-supported")
+    @JvmField val ippFeaturesSupported = IppFeature.Type("ipp-features-supported")
 
     /**
      * "ipp-versions-supported" as defined in:
      * [RFC8011](http://www.iana.org/go/rfc8011)
      */
-    @JvmField val ippVersionsSupported = IppVersions.Type("ipp-versions-supported")
+    @JvmField val ippVersionsSupported = IppVersion.Type("ipp-versions-supported")
 
     /**
      * "ippget-event-life" as defined in:
@@ -406,6 +448,12 @@ object PrinterDescription {
     @JvmField val jobAuthorizationUriSupported = BooleanType("job-authorization-uri-supported")
 
     /**
+     * "job-constraints-supported" as defined in:
+     * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
+     */
+    @JvmField val jobConstraintsSupported = CollectionType("job-constraints-supported")
+
+    /**
      * "job-copies-default" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
      */
@@ -418,10 +466,22 @@ object PrinterDescription {
     @JvmField val jobCopiesSupported = RangeOfIntegerType("job-copies-supported")
 
     /**
+     * "job-cover-back-default" as defined in:
+     * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     */
+    @JvmField val jobCoverBackDefault = CollectionType("job-cover-back-default")
+
+    /**
      * "job-cover-back-supported" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
      */
     @JvmField val jobCoverBackSupported = CoverBack.Type("job-cover-back-supported")
+
+    /**
+     * "job-cover-front-default" as defined in:
+     * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     */
+    @JvmField val jobCoverFrontDefault = CollectionType("job-cover-front-default")
 
     /**
      * "job-cover-front-supported" as defined in:
@@ -466,6 +526,18 @@ object PrinterDescription {
     @JvmField val jobErrorActionSupported = JobErrorAction.Type("job-error-action-supported")
 
     /**
+     * "job-finishings-col-default" as defined in:
+     * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     */
+    @JvmField val jobFinishingsColDefault = CollectionType("job-finishings-col-default")
+
+    /**
+     * "job-finishings-col-ready" as defined in:
+     * [PWG5100.7](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobext10-20031031-5100.7.pdf)
+     */
+    @JvmField val jobFinishingsColReady = CollectionType("job-finishings-col-ready")
+
+    /**
      * "job-finishings-col-supported" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
      */
@@ -475,19 +547,19 @@ object PrinterDescription {
      * "job-finishings-default" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
      */
-    @JvmField val jobFinishingsDefault = Finishings.Type("job-finishings-default")
+    @JvmField val jobFinishingsDefault = Finishing.Type("job-finishings-default")
 
     /**
      * "job-finishings-ready" as defined in:
      * [PWG5100.7](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobext10-20031031-5100.7.pdf)
      */
-    @JvmField val jobFinishingsReady = Finishings.Type("job-finishings-ready")
+    @JvmField val jobFinishingsReady = Finishing.Type("job-finishings-ready")
 
     /**
      * "job-finishings-supported" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
      */
-    @JvmField val jobFinishingsSupported = Finishings.Type("job-finishings-supported")
+    @JvmField val jobFinishingsSupported = Finishing.Type("job-finishings-supported")
 
     /**
      * "job-hold-until-default" as defined in:
@@ -586,6 +658,12 @@ object PrinterDescription {
     @JvmField val jobPhoneNumberSupported = BooleanType("job-phone-number-supported")
 
     /**
+     * "job-presets-supported" as defined in:
+     * [IPPPRESET](https://ftp.pwg.org/pub/pwg/ipp/registrations/reg-ipppreset-20171214.pdf)
+     */
+    @JvmField val jobPresetsSupported = CollectionType("job-presets-supported")
+
+    /**
      * "job-priority-default" as defined in:
      * [RFC8011](http://www.iana.org/go/rfc8011)
      */
@@ -604,22 +682,34 @@ object PrinterDescription {
     @JvmField val jobRecipientNameSupported = BooleanType("job-recipient-name-supported")
 
     /**
+     * "job-resolvers-supported" as defined in:
+     * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
+     */
+    @JvmField val jobResolversSupported = CollectionType("job-resolvers-supported")
+
+    /**
      * "job-sheet-message-supported" as defined in:
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
      */
     @JvmField val jobSheetMessageSupported = BooleanType("job-sheet-message-supported")
 
     /**
+     * "job-sheets-col-default" as defined in:
+     * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
+     */
+    @JvmField val jobSheetsColDefault = CollectionType("job-sheets-col-default")
+
+    /**
      * "job-sheets-default" as defined in:
      * [RFC8011](http://www.iana.org/go/rfc8011)
      */
-    @JvmField val jobSheetsDefault = JobSheets.Type("job-sheets-default")
+    @JvmField val jobSheetsDefault = JobSheet.Type("job-sheets-default")
 
     /**
      * "job-sheets-supported" as defined in:
      * [RFC8011](http://www.iana.org/go/rfc8011)
      */
-    @JvmField val jobSheetsSupported = JobSheets.Type("job-sheets-supported")
+    @JvmField val jobSheetsSupported = JobSheet.Type("job-sheets-supported")
 
     /**
      * "job-spooling-supported" as defined in:
@@ -628,10 +718,16 @@ object PrinterDescription {
     @JvmField val jobSpoolingSupported = JobSpooling.Type("job-spooling-supported")
 
     /**
+     * "job-triggers-supported" as defined in:
+     * [IPPPRESET](https://ftp.pwg.org/pub/pwg/ipp/registrations/reg-ipppreset-20171214.pdf)
+     */
+    @JvmField val jobTriggersSupported = CollectionType("job-triggers-supported")
+
+    /**
      * "jpeg-features-supported" as defined in:
      * [APPLE20151021](http://www.pwg.org/pipermail/ipp/2015/018634.html)
      */
-    @JvmField val jpegFeaturesSupported = JpegFeatures.Type("jpeg-features-supported")
+    @JvmField val jpegFeaturesSupported = JpegFeature.Type("jpeg-features-supported")
 
     /**
      * "jpeg-k-octets-supported" as defined in:
@@ -679,7 +775,7 @@ object PrinterDescription {
      * "material-amount-units-supported" as defined in:
      * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
      */
-    @JvmField val materialAmountUnitsSupported = MaterialAmountUnits.Type("material-amount-units-supported")
+    @JvmField val materialAmountUnitsSupported = MaterialAmountUnit.Type("material-amount-units-supported")
 
     /**
      * "material-diameter-supported" as defined in:
@@ -703,7 +799,7 @@ object PrinterDescription {
      * "material-rate-units-supported" as defined in:
      * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
      */
-    @JvmField val materialRateUnitsSupported = MaterialRateUnits.Type("material-rate-units-supported")
+    @JvmField val materialRateUnitsSupported = MaterialRateUnit.Type("material-rate-units-supported")
 
     /**
      * "material-shell-thickness-supported" as defined in:
@@ -724,10 +820,22 @@ object PrinterDescription {
     @JvmField val materialTypeSupported = MaterialType.Type("material-type-supported")
 
     /**
-     * "materials-col-supported" as defined in:
+     * "materials-col-database" as defined in:
      * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
      */
-    @JvmField val materialsColSupported = MaterialsColSupported.Type("materials-col-supported")
+    @JvmField val materialsColDatabase = CollectionType("materials-col-database")
+
+    /**
+     * "materials-col-default" as defined in:
+     * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
+     */
+    @JvmField val materialsColDefault = CollectionType("materials-col-default")
+
+    /**
+     * "materials-col-ready" as defined in:
+     * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
+     */
+    @JvmField val materialsColReady = CollectionType("materials-col-ready")
 
     /**
      * "max-materials-col-supported" as defined in:
@@ -758,6 +866,26 @@ object PrinterDescription {
      * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
      */
     @JvmField val mediaBottomMarginSupported = IntegerType("media-bottom-margin-supported")
+
+    /**
+     * "media-col-database" as defined in:
+     * [PWG5100.11](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext10-20101030-5100.11.pdf)
+     * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
+     */
+    @JvmField val mediaColDatabase = CollectionType("media-col-database")
+
+    /**
+     * "media-col-default" as defined in:
+     * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
+     */
+    @JvmField val mediaColDefault = CollectionType("media-col-default")
+
+    /**
+     * "media-col-ready" as defined in:
+     * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
+     * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
+     */
+    @JvmField val mediaColReady = CollectionType("media-col-ready")
 
     /**
      * "media-col-supported" as defined in:
@@ -820,12 +948,6 @@ object PrinterDescription {
     @JvmField val mediaPrePrintedSupported = MediaPrePrinted.Type("media-pre-printed-supported")
 
     /**
-     * "media-ready" as defined in:
-     * [RFC8011](http://www.iana.org/go/rfc8011)
-     */
-    @JvmField val mediaReady = MediaReady.Type("media-ready")
-
-    /**
      * "media-recycled-supported" as defined in:
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
      */
@@ -836,6 +958,12 @@ object PrinterDescription {
      * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
      */
     @JvmField val mediaRightMarginSupported = IntegerType("media-right-margin-supported")
+
+    /**
+     * "media-size-supported" as defined in:
+     * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
+     */
+    @JvmField val mediaSizeSupported = CollectionType("media-size-supported")
 
     /**
      * "media-source-supported" as defined in:
@@ -937,13 +1065,13 @@ object PrinterDescription {
      * "notify-events-default" as defined in:
      * [RFC3995](http://www.iana.org/go/rfc3995)
      */
-    @JvmField val notifyEventsDefault = NotifyEvents.Type("notify-events-default")
+    @JvmField val notifyEventsDefault = NotifyEvent.Type("notify-events-default")
 
     /**
      * "notify-events-supported" as defined in:
      * [RFC3995](http://www.iana.org/go/rfc3995)
      */
-    @JvmField val notifyEventsSupported = NotifyEvents.Type("notify-events-supported")
+    @JvmField val notifyEventsSupported = NotifyEvent.Type("notify-events-supported")
 
     /**
      * "notify-lease-duration-default" as defined in:
@@ -1003,7 +1131,7 @@ object PrinterDescription {
      * "operations-supported" as defined in:
      * [RFC8011](http://www.iana.org/go/rfc8011)
      */
-    @JvmField val operationsSupported = Operations.Type("operations-supported")
+    @JvmField val operationsSupported = Operation.Type("operations-supported")
 
     /**
      * "organization-name-supported" as defined in:
@@ -1087,7 +1215,7 @@ object PrinterDescription {
      * "pdf-features-supported" as defined in:
      * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
      */
-    @JvmField val pdfFeaturesSupported = PdfFeatures.Type("pdf-features-supported")
+    @JvmField val pdfFeaturesSupported = PdfFeature.Type("pdf-features-supported")
 
     /**
      * "pdf-k-octets-supported" as defined in:
@@ -1099,7 +1227,7 @@ object PrinterDescription {
      * "pdf-versions-supported" as defined in:
      * [PWG5100.16](http://ftp.pwg.org/pub/pwg/candidates/cs-ipptrans10-20131108-5100.16.pdf)
      */
-    @JvmField val pdfVersionsSupported = PdfVersions.Type("pdf-versions-supported")
+    @JvmField val pdfVersionsSupported = PdfVersion.Type("pdf-versions-supported")
 
     /**
      * "pdl-init-file-location-supported" as defined in:
@@ -1118,12 +1246,6 @@ object PrinterDescription {
      * [PWG5100.11](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext10-20101030-5100.11.pdf)
      */
     @JvmField val pdlInitFileSupported = PdlInitFile.Type("pdl-init-file-supported")
-
-    /**
-     * "pdl-override-guaranteed-supported" as defined in:
-     * [IPPWG20151019](http://www.pwg.org/archives/ipp/2015/018629.html)
-     */
-    @JvmField val pdlOverrideGuaranteedSupported = PdlOverrideGuaranteedSupported.Type("pdl-override-guaranteed-supported")
 
     /**
      * "pdl-override-supported" as defined in:
@@ -1168,6 +1290,12 @@ object PrinterDescription {
     @JvmField val presentationDirectionNumberUpSupported = PresentationDirectionNumberUp.Type("presentation-direction-number-up-supported")
 
     /**
+     * "print-accuracy-supported" as defined in:
+     * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
+     */
+    @JvmField val printAccuracySupported = CollectionType("print-accuracy-supported")
+
+    /**
      * "print-base-default" as defined in:
      * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
      */
@@ -1202,12 +1330,6 @@ object PrinterDescription {
      * [PWG5100.7](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobext10-20031031-5100.7.pdf)
      */
     @JvmField val printContentOptimizeSupported = PrintContentOptimize.Type("print-content-optimize-supported")
-
-    /**
-     * "print-objects-supported" as defined in:
-     * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
-     */
-    @JvmField val printObjectsSupported = PrintObjectsSupported.Type("print-objects-supported")
 
     /**
      * "print-quality-default" as defined in:
@@ -1294,6 +1416,12 @@ object PrinterDescription {
     @JvmField val printerGeoLocation = UriType("printer-geo-location")
 
     /**
+     * "printer-icc-profiles" as defined in:
+     * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
+     */
+    @JvmField val printerIccProfiles = CollectionType("printer-icc-profiles")
+
+    /**
      * "printer-icons" as defined in:
      * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
      */
@@ -1334,6 +1462,18 @@ object PrinterDescription {
      * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
      */
     @JvmField val printerStringsUri = UriType("printer-strings-uri")
+
+    /**
+     * "printer-volume-supported" as defined in:
+     * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
+     */
+    @JvmField val printerVolumeSupported = CollectionType("printer-volume-supported")
+
+    /**
+     * "printer-xri-supported" as defined in:
+     * [RFC3380](http://www.iana.org/go/rfc3380)
+     */
+    @JvmField val printerXriSupported = CollectionType("printer-xri-supported")
 
     /**
      * "proof-print-supported" as defined in:
@@ -1460,6 +1600,12 @@ object PrinterDescription {
      * [PWG5100.11](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext10-20101030-5100.11.pdf)
      */
     @JvmField val saveNameSupported = BooleanType("save-name-supported")
+
+    /**
+     * "separator-sheets-default" as defined in:
+     * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
+     */
+    @JvmField val separatorSheetsDefault = CollectionType("separator-sheets-default")
 
     /**
      * "sheet-collate-default" as defined in:
@@ -1673,7 +1819,7 @@ object PrinterDescription {
 
     /** All known attributes */
     @JvmField
-    val all = PrinterDescription::class.java.getStaticObjects()
+    val all = PrinterDescriptionGroup::class.java.getStaticObjects()
             .filter { it is AttributeType<*> }
             .map { it as AttributeType<*> }
 }

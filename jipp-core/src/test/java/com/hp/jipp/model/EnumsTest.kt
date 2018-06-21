@@ -4,6 +4,9 @@
 package com.hp.jipp.model
 
 import com.hp.jipp.encoding.Cycler.cycle
+import com.hp.jipp.pwg.JobState
+import com.hp.jipp.pwg.Orientation
+import com.hp.jipp.pwg.PrintQuality
 import com.hp.jipp.util.KotlinTest
 import org.junit.Test
 

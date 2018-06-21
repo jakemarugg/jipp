@@ -11,9 +11,9 @@ import com.hp.jipp.encoding.* // ktlint-disable no-wildcard-imports
 import com.hp.jipp.util.getStaticObjects
 
 /**
- * Document Status attribute types.
+ * Attribute types for the Document Status group.
  */
-object DocumentStatus {
+object DocumentStatusGroup {
 
     /**
      * "attributes-charset" as defined in:
@@ -32,6 +32,18 @@ object DocumentStatus {
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
      */
     @JvmField val copiesActual = IntegerType("copies-actual")
+
+    /**
+     * "cover-back-actual" as defined in:
+     * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     */
+    @JvmField val coverBackActual = CollectionType("cover-back-actual")
+
+    /**
+     * "cover-front-actual" as defined in:
+     * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     */
+    @JvmField val coverFrontActual = CollectionType("cover-front-actual")
 
     /**
      * "current-page-order" as defined in:
@@ -56,6 +68,18 @@ object DocumentStatus {
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
      */
     @JvmField val documentFormat = StringType(Tag.mimeMediaType, "document-format")
+
+    /**
+     * "document-format-details" as defined in:
+     * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     */
+    @JvmField val documentFormatDetails = CollectionType("document-format-details")
+
+    /**
+     * "document-format-details-detected" as defined in:
+     * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     */
+    @JvmField val documentFormatDetailsDetected = CollectionType("document-format-details-detected")
 
     /**
      * "document-format-detected" as defined in:
@@ -109,7 +133,7 @@ object DocumentStatus {
      * "document-state-reasons" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
      */
-    @JvmField val documentStateReasons = DocumentStateReasons.Type("document-state-reasons")
+    @JvmField val documentStateReasons = DocumentStateReason.Type("document-state-reasons")
 
     /**
      * "document-uri" as defined in:
@@ -133,7 +157,13 @@ object DocumentStatus {
      * "finishings-actual" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
      */
-    @JvmField val finishingsActual = Finishings.Type("finishings-actual")
+    @JvmField val finishingsActual = Finishing.Type("finishings-actual")
+
+    /**
+     * "finishings-col-actual" as defined in:
+     * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     */
+    @JvmField val finishingsColActual = CollectionType("finishings-col-actual")
 
     /**
      * "force-front-side-actual" as defined in:
@@ -154,10 +184,28 @@ object DocumentStatus {
     @JvmField val impressionsCompleted = IntegerType("impressions-completed")
 
     /**
+     * "impressions-completed-col" as defined in:
+     * [APRIL2015F2F](http://ftp.pwg.org/pub/pwg/ipp/minutes/ippv2-f2f-minutes-20150429.pdf)
+     */
+    @JvmField val impressionsCompletedCol = CollectionType("impressions-completed-col")
+
+    /**
      * "impressions-completed-current-copy" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
      */
     @JvmField val impressionsCompletedCurrentCopy = IntegerType("impressions-completed-current-copy")
+
+    /**
+     * "input-attributes-actual" as defined in:
+     * [PWG5100.15](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfaxout10-20131115-5100.15.pdf)
+     */
+    @JvmField val inputAttributesActual = CollectionType("input-attributes-actual")
+
+    /**
+     * "insert-sheet-actual" as defined in:
+     * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     */
+    @JvmField val insertSheetActual = CollectionType("insert-sheet-actual")
 
     /**
      * "k-octets-processed" as defined in:
@@ -172,22 +220,34 @@ object DocumentStatus {
     @JvmField val lastDocument = BooleanType("last-document")
 
     /**
+     * "materials-col-actual" as defined in:
+     * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
+     */
+    @JvmField val materialsColActual = CollectionType("materials-col-actual")
+
+    /**
      * "media-actual" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
      */
     @JvmField val mediaActual = Media.Type("media-actual")
 
     /**
-     * "media-input-tray-check-actual" as defined in:
+     * "media-col-actual" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
      */
-    @JvmField val mediaInputTrayCheckActual = MediaInputTrayCheck.Type("media-input-tray-check-actual")
+    @JvmField val mediaColActual = CollectionType("media-col-actual")
 
     /**
      * "media-sheets-completed" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
      */
     @JvmField val mediaSheetsCompleted = IntegerType("media-sheets-completed")
+
+    /**
+     * "media-sheets-completed-col" as defined in:
+     * [APRIL2015F2F](http://ftp.pwg.org/pub/pwg/ipp/minutes/ippv2-f2f-minutes-20150429.pdf)
+     */
+    @JvmField val mediaSheetsCompletedCol = CollectionType("media-sheets-completed-col")
 
     /**
      * "more-info" as defined in:
@@ -214,6 +274,12 @@ object DocumentStatus {
     @JvmField val orientationRequestedActual = Orientation.Type("orientation-requested-actual")
 
     /**
+     * "output-attributes-actual" as defined in:
+     * [PWG5100.17](http://ftp.pwg.org/pub/pwg/candidates/cs-ippscan10-20140918-5100.17.pdf)
+     */
+    @JvmField val outputAttributesActual = CollectionType("output-attributes-actual")
+
+    /**
      * "output-device-document-state" as defined in:
      * [PWG5100.18](http://ftp.pwg.org/pub/pwg/candidates/cs-ippinfra10-20150619-5100.18.pdf)
      */
@@ -223,7 +289,13 @@ object DocumentStatus {
      * "output-device-document-state-reasons" as defined in:
      * [PWG5100.18](http://ftp.pwg.org/pub/pwg/candidates/cs-ippinfra10-20150619-5100.18.pdf)
      */
-    @JvmField val outputDeviceDocumentStateReasons = DocumentStateReasons.Type("output-device-document-state-reasons")
+    @JvmField val outputDeviceDocumentStateReasons = DocumentStateReason.Type("output-device-document-state-reasons")
+
+    /**
+     * "overrides-actual" as defined in:
+     * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     */
+    @JvmField val overridesActual = CollectionType("overrides-actual")
 
     /**
      * "page-delivery-actual" as defined in:
@@ -250,6 +322,12 @@ object DocumentStatus {
     @JvmField val pagesCompleted = IntegerType("pages-completed")
 
     /**
+     * "pages-completed-col" as defined in:
+     * [APRIL2015F2F](http://ftp.pwg.org/pub/pwg/ipp/minutes/ippv2-f2f-minutes-20150429.pdf)
+     */
+    @JvmField val pagesCompletedCol = CollectionType("pages-completed-col")
+
+    /**
      * "pages-completed-current-copy" as defined in:
      * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
      */
@@ -268,6 +346,12 @@ object DocumentStatus {
     @JvmField val presentationDirectionNumberUpActual = PresentationDirectionNumberUp.Type("presentation-direction-number-up-actual")
 
     /**
+     * "print-accuracy-actual" as defined in:
+     * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
+     */
+    @JvmField val printAccuracyActual = CollectionType("print-accuracy-actual")
+
+    /**
      * "print-base-actual" as defined in:
      * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
      */
@@ -284,6 +368,12 @@ object DocumentStatus {
      * [PWG5100.7](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobext10-20031031-5100.7.pdf)
      */
     @JvmField val printContentOptimizeActual = PrintContentOptimize.Type("print-content-optimize-actual")
+
+    /**
+     * "print-objects-actual" as defined in:
+     * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
+     */
+    @JvmField val printObjectsActual = CollectionType("print-objects-actual")
 
     /**
      * "print-quality-actual" as defined in:
@@ -314,6 +404,12 @@ object DocumentStatus {
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
      */
     @JvmField val printerUpTime = IntegerType("printer-up-time")
+
+    /**
+     * "separator-sheets-actual" as defined in:
+     * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     */
+    @JvmField val separatorSheetsActual = CollectionType("separator-sheets-actual")
 
     /**
      * "sheet-completed-copy-number" as defined in:
@@ -401,7 +497,7 @@ object DocumentStatus {
 
     /** All known attributes */
     @JvmField
-    val all = DocumentStatus::class.java.getStaticObjects()
+    val all = DocumentStatusGroup::class.java.getStaticObjects()
             .filter { it is AttributeType<*> }
             .map { it as AttributeType<*> }
 }

@@ -18,22 +18,22 @@ import com.hp.jipp.encoding.KeywordType
  *   * `identify-actions-default`
  *   * `identify-actions-supported`
  */
-data class IdentifyActions(
+data class IdentifyAction(
     override val value: String
 ) : Keyword() {
 
     override fun toString() = value
 
-    /** An attribute type for [IdentifyActions] attributes */
-    class Type(name: String) : KeywordType<IdentifyActions>(Encoder, name)
+    /** An attribute type for [IdentifyAction] attributes */
+    class Type(name: String) : KeywordType<IdentifyAction>(Encoder, name)
 
     companion object {
-        @JvmField val display = IdentifyActions("display")
-        @JvmField val flash = IdentifyActions("flash")
-        @JvmField val sound = IdentifyActions("sound")
-        @JvmField val speak = IdentifyActions("speak")
-        @JvmField val Encoder = KeywordType.encoderOf(IdentifyActions::class.java) { value, _, _ ->
-            IdentifyActions(value)
+        @JvmField val display = IdentifyAction("display")
+        @JvmField val flash = IdentifyAction("flash")
+        @JvmField val sound = IdentifyAction("sound")
+        @JvmField val speak = IdentifyAction("speak")
+        @JvmField val Encoder = KeywordType.encoderOf(IdentifyAction::class.java) { value, _, _ ->
+            IdentifyAction(value)
         }
     }
 }

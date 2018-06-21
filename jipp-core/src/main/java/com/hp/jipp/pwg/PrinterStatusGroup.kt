@@ -11,9 +11,9 @@ import com.hp.jipp.encoding.* // ktlint-disable no-wildcard-imports
 import com.hp.jipp.util.getStaticObjects
 
 /**
- * Printer Status attribute types.
+ * Attribute types for the Printer Status group.
  */
-object PrinterStatus {
+object PrinterStatusGroup {
 
     /**
      * "device-service-count" as defined in:
@@ -26,12 +26,6 @@ object PrinterStatus {
      * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
      */
     @JvmField val deviceUuid = UriType("device-uuid")
-
-    /**
-     * "document-format-varying-attributes" as defined in:
-     * [RFC3380](http://www.iana.org/go/rfc3380)
-     */
-    @JvmField val documentFormatVaryingAttributes = DocumentFormatVaryingAttributes.Type("document-format-varying-attributes")
 
     /**
      * "pages-per-minute" as defined in:
@@ -85,7 +79,7 @@ object PrinterStatus {
      * "printer-state-reasons" as defined in:
      * [RFC8011](http://www.iana.org/go/rfc8011)
      */
-    @JvmField val printerStateReasons = PrinterStateReasons.Type("printer-state-reasons")
+    @JvmField val printerStateReasons = PrinterStateReason.Type("printer-state-reasons")
 
     /**
      * "printer-static-resource-k-octets-free" as defined in:
@@ -143,7 +137,7 @@ object PrinterStatus {
 
     /** All known attributes */
     @JvmField
-    val all = PrinterStatus::class.java.getStaticObjects()
+    val all = PrinterStatusGroup::class.java.getStaticObjects()
             .filter { it is AttributeType<*> }
             .map { it as AttributeType<*> }
 }

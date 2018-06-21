@@ -14,20 +14,20 @@ import com.hp.jipp.encoding.KeywordType
  * "pdf-features-supported" keyword as defined in:
  *   * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
  */
-data class PdfFeatures(
+data class PdfFeature(
     override val value: String
 ) : Keyword() {
 
     override fun toString() = value
 
-    /** An attribute type for [PdfFeatures] attributes */
-    class Type(name: String) : KeywordType<PdfFeatures>(Encoder, name)
+    /** An attribute type for [PdfFeature] attributes */
+    class Type(name: String) : KeywordType<PdfFeature>(Encoder, name)
 
     companion object {
-        @JvmField val prc = PdfFeatures("prc")
-        @JvmField val u3D = PdfFeatures("u3d")
-        @JvmField val Encoder = KeywordType.encoderOf(PdfFeatures::class.java) { value, _, _ ->
-            PdfFeatures(value)
+        @JvmField val prc = PdfFeature("prc")
+        @JvmField val u3D = PdfFeature("u3d")
+        @JvmField val Encoder = KeywordType.encoderOf(PdfFeature::class.java) { value, _, _ ->
+            PdfFeature(value)
         }
     }
 }

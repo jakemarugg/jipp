@@ -7,281 +7,174 @@
 
 package com.hp.jipp.pwg
 
-import com.hp.jipp.encoding.* // ktlint-disable no-wildcard-imports
-import com.hp.jipp.util.getStaticObjects
+import com.hp.jipp.encoding.Enum
+import com.hp.jipp.encoding.EnumType
 
 /**
- * Operation attribute types.
+ * "operations-supported" enum as defined in:
+ *   * [APPLE20150505-2](http://www.pwg.org/pipermail/ipp/2015/018516.html)
+ *   * [APPLE20150505-3](http://www.pwg.org/pipermail/ipp/2015/018518.html)
+ *   * [IPPGUPA](https://ftp.pwg.org/pub/pwg/ipp/registrations/reg-ippgupa-20171214.pdf)
+ *   * [PWG5100.11](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext10-20101030-5100.11.pdf)
+ *   * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
+ *   * [PWG5100.15](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfaxout10-20131115-5100.15.pdf)
+ *   * [PWG5100.17](http://ftp.pwg.org/pub/pwg/candidates/cs-ippscan10-20140918-5100.17.pdf)
+ *   * [PWG5100.18](http://ftp.pwg.org/pub/pwg/candidates/cs-ippinfra10-20150619-5100.18.pdf)
+ *   * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+ *   * [RFC3380](http://www.iana.org/go/rfc3380)
+ *   * [RFC3995](http://www.iana.org/go/rfc3995)
+ *   * [RFC3996](http://www.iana.org/go/rfc3996)
+ *   * [RFC3998](http://www.iana.org/go/rfc3998)
+ *   * [RFC8011](http://www.iana.org/go/rfc8011)
  */
-object Operation {
+data class Operation(override val code: Int, override val name: String) : Enum() {
 
-    /**
-     * "attributes-charset" as defined in:
-     * [RFC8011](http://www.iana.org/go/rfc8011)
-     */
-    @JvmField val attributesCharset = StringType(Tag.charset, "attributes-charset")
+    override fun toString() = super.toString()
 
-    /**
-     * "compression" as defined in:
-     * [RFC8011](http://www.iana.org/go/rfc8011)
-     */
-    @JvmField val compression = Compression.Type("compression")
+    /** An attribute type for [Operation] attributes */
+    class Type(name: String) : EnumType<Operation>(Encoder, name)
 
-    /**
-     * "compression-accepted" as defined in:
-     * [PWG5100.17](http://ftp.pwg.org/pub/pwg/candidates/cs-ippscan10-20140918-5100.17.pdf)
-     */
-    @JvmField val compressionAccepted = Compression.Type("compression-accepted")
+    object Code {
+        const val printJob = 0x0002
+        const val printUri = 0x0003
+        const val validateJob = 0x0004
+        const val createJob = 0x0005
+        const val sendDocument = 0x0006
+        const val sendUri = 0x0007
+        const val cancelJob = 0x0008
+        const val getJobAttributes = 0x0009
+        const val getJobs = 0x000A
+        const val getPrinterAttributes = 0x000B
+        const val holdJob = 0x000C
+        const val releaseJob = 0x000D
+        const val restartJob = 0x000E
+        const val pausePrinter = 0x0010
+        const val resumePrinter = 0x0011
+        const val purgeJobs = 0x0012
+        const val setPrinterAttributes = 0x0013
+        const val setJobAttributes = 0x0014
+        const val getPrinterSupportedValues = 0x0015
+        const val createPrinterSubscriptions = 0x0016
+        const val createJobSubscriptions = 0x0017
+        const val getSubscriptionAttributes = 0x0018
+        const val getSubscriptions = 0x0019
+        const val renewSubscription = 0x001A
+        const val cancelSubscription = 0x001B
+        const val getNotifications = 0x001C
+        const val enablePrinter = 0x0022
+        const val disablePrinter = 0x0023
+        const val pausePrinterAfterCurrentJob = 0x0024
+        const val holdNewJobs = 0x0025
+        const val releaseHeldNewJobs = 0x0026
+        const val deactivatePrinter = 0x0027
+        const val activatePrinter = 0x0028
+        const val restartPrinter = 0x0029
+        const val shutdownPrinter = 0x002A
+        const val startupPrinter = 0x002B
+        const val reprocessJob = 0x002C
+        const val cancelCurrentJob = 0x002D
+        const val suspendCurrentJob = 0x002E
+        const val resumeJob = 0x002F
+        const val promoteJob = 0x0030
+        const val scheduleJobAfter = 0x0031
+        const val cancelDocument = 0x0033
+        const val getDocumentAttributes = 0x0034
+        const val getDocuments = 0x0035
+        const val deleteDocument = 0x0036
+        const val setDocumentAttributes = 0x0037
+        const val cancelJobs = 0x0038
+        const val cancelMyJobs = 0x0039
+        const val resubmitJob = 0x003A
+        const val closeJob = 0x003B
+        const val identifyPrinter = 0x003C
+        const val validateDocument = 0x003D
+        const val addDocumentImages = 0x003E
+        const val acknowledgeDocument = 0x003F
+        const val acknowledgeIdentifyPrinter = 0x0040
+        const val acknowledgeJob = 0x0041
+        const val fetchDocument = 0x0042
+        const val fetchJob = 0x0043
+        const val getOutputDeviceAttributes = 0x0044
+        const val updateActiveJobs = 0x0045
+        const val deregisterOutputDevice = 0x0046
+        const val updateDocumentStatus = 0x0047
+        const val updateJobStatus = 0x0048
+        const val updateOutputDeviceAttributes = 0x0049
+        const val getNextDocumentData = 0x004A
+        const val getUserPrinterAttributes = 0x0066
+    }
 
-    /**
-     * "document-charset" as defined in:
-     * [PWG5100.7](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobext10-20031031-5100.7.pdf)
-     */
-    @JvmField val documentCharset = StringType(Tag.charset, "document-charset")
+    companion object {
+        @JvmField val printJob = Operation(Code.printJob, "Print-Job")
+        @JvmField val printUri = Operation(Code.printUri, "Print-URI")
+        @JvmField val validateJob = Operation(Code.validateJob, "Validate-Job")
+        @JvmField val createJob = Operation(Code.createJob, "Create-Job")
+        @JvmField val sendDocument = Operation(Code.sendDocument, "Send-Document")
+        @JvmField val sendUri = Operation(Code.sendUri, "Send-URI")
+        @JvmField val cancelJob = Operation(Code.cancelJob, "Cancel-Job")
+        @JvmField val getJobAttributes = Operation(Code.getJobAttributes, "Get-Job-Attributes")
+        @JvmField val getJobs = Operation(Code.getJobs, "Get-Jobs")
+        @JvmField val getPrinterAttributes = Operation(Code.getPrinterAttributes, "Get-Printer-Attributes")
+        @JvmField val holdJob = Operation(Code.holdJob, "Hold-Job")
+        @JvmField val releaseJob = Operation(Code.releaseJob, "Release-Job")
+        @JvmField val restartJob = Operation(Code.restartJob, "Restart-Job")
+        @JvmField val pausePrinter = Operation(Code.pausePrinter, "Pause-Printer")
+        @JvmField val resumePrinter = Operation(Code.resumePrinter, "Resume-Printer")
+        @JvmField val purgeJobs = Operation(Code.purgeJobs, "Purge-Jobs")
+        @JvmField val setPrinterAttributes = Operation(Code.setPrinterAttributes, "Set-Printer-Attributes")
+        @JvmField val setJobAttributes = Operation(Code.setJobAttributes, "Set-Job-Attributes")
+        @JvmField val getPrinterSupportedValues = Operation(Code.getPrinterSupportedValues, "Get-Printer-Supported-Values")
+        @JvmField val createPrinterSubscriptions = Operation(Code.createPrinterSubscriptions, "Create-Printer-Subscriptions")
+        @JvmField val createJobSubscriptions = Operation(Code.createJobSubscriptions, "Create-Job-Subscriptions")
+        @JvmField val getSubscriptionAttributes = Operation(Code.getSubscriptionAttributes, "Get-Subscription-Attributes")
+        @JvmField val getSubscriptions = Operation(Code.getSubscriptions, "Get-Subscriptions")
+        @JvmField val renewSubscription = Operation(Code.renewSubscription, "Renew-Subscription")
+        @JvmField val cancelSubscription = Operation(Code.cancelSubscription, "Cancel-Subscription")
+        @JvmField val getNotifications = Operation(Code.getNotifications, "Get-Notifications")
+        @JvmField val enablePrinter = Operation(Code.enablePrinter, "Enable-Printer")
+        @JvmField val disablePrinter = Operation(Code.disablePrinter, "Disable-Printer")
+        @JvmField val pausePrinterAfterCurrentJob = Operation(Code.pausePrinterAfterCurrentJob, "Pause-Printer-After-Current-Job")
+        @JvmField val holdNewJobs = Operation(Code.holdNewJobs, "Hold-New-Jobs")
+        @JvmField val releaseHeldNewJobs = Operation(Code.releaseHeldNewJobs, "Release-Held-New-Jobs")
+        @JvmField val deactivatePrinter = Operation(Code.deactivatePrinter, "Deactivate-Printer")
+        @JvmField val activatePrinter = Operation(Code.activatePrinter, "Activate-Printer")
+        @JvmField val restartPrinter = Operation(Code.restartPrinter, "Restart-Printer")
+        @JvmField val shutdownPrinter = Operation(Code.shutdownPrinter, "Shutdown-Printer")
+        @JvmField val startupPrinter = Operation(Code.startupPrinter, "Startup-Printer")
+        @JvmField val reprocessJob = Operation(Code.reprocessJob, "Reprocess-Job")
+        @JvmField val cancelCurrentJob = Operation(Code.cancelCurrentJob, "Cancel-Current-Job")
+        @JvmField val suspendCurrentJob = Operation(Code.suspendCurrentJob, "Suspend-Current-Job")
+        @JvmField val resumeJob = Operation(Code.resumeJob, "Resume-Job")
+        @JvmField val promoteJob = Operation(Code.promoteJob, "Promote-Job")
+        @JvmField val scheduleJobAfter = Operation(Code.scheduleJobAfter, "Schedule-Job-After")
+        @JvmField val cancelDocument = Operation(Code.cancelDocument, "Cancel-Document")
+        @JvmField val getDocumentAttributes = Operation(Code.getDocumentAttributes, "Get-Document-Attributes")
+        @JvmField val getDocuments = Operation(Code.getDocuments, "Get-Documents")
+        @JvmField val deleteDocument = Operation(Code.deleteDocument, "Delete-Document")
+        @JvmField val setDocumentAttributes = Operation(Code.setDocumentAttributes, "Set-Document-Attributes")
+        @JvmField val cancelJobs = Operation(Code.cancelJobs, "Cancel-Jobs")
+        @JvmField val cancelMyJobs = Operation(Code.cancelMyJobs, "Cancel-My-Jobs")
+        @JvmField val resubmitJob = Operation(Code.resubmitJob, "Resubmit-Job")
+        @JvmField val closeJob = Operation(Code.closeJob, "Close-Job")
+        @JvmField val identifyPrinter = Operation(Code.identifyPrinter, "Identify-Printer")
+        @JvmField val validateDocument = Operation(Code.validateDocument, "Validate-Document")
+        @JvmField val addDocumentImages = Operation(Code.addDocumentImages, "Add-Document-Images")
+        @JvmField val acknowledgeDocument = Operation(Code.acknowledgeDocument, "Acknowledge-Document")
+        @JvmField val acknowledgeIdentifyPrinter = Operation(Code.acknowledgeIdentifyPrinter, "Acknowledge-Identify-Printer")
+        @JvmField val acknowledgeJob = Operation(Code.acknowledgeJob, "Acknowledge-Job")
+        @JvmField val fetchDocument = Operation(Code.fetchDocument, "Fetch-Document")
+        @JvmField val fetchJob = Operation(Code.fetchJob, "Fetch-Job")
+        @JvmField val getOutputDeviceAttributes = Operation(Code.getOutputDeviceAttributes, "Get-Output-Device-Attributes")
+        @JvmField val updateActiveJobs = Operation(Code.updateActiveJobs, "Update-Active-Jobs")
+        @JvmField val deregisterOutputDevice = Operation(Code.deregisterOutputDevice, "Deregister-Output-Device")
+        @JvmField val updateDocumentStatus = Operation(Code.updateDocumentStatus, "Update-Document-Status")
+        @JvmField val updateJobStatus = Operation(Code.updateJobStatus, "Update-Job-Status")
+        @JvmField val updateOutputDeviceAttributes = Operation(Code.updateOutputDeviceAttributes, "Update-Output-Device-Attributes")
+        @JvmField val getNextDocumentData = Operation(Code.getNextDocumentData, "Get-Next-Document-Data")
+        @JvmField val getUserPrinterAttributes = Operation(Code.getUserPrinterAttributes, "Get-User-Printer-Attributes")
 
-    /**
-     * "document-data-get-interval" as defined in:
-     * [PWG5100.17](http://ftp.pwg.org/pub/pwg/candidates/cs-ippscan10-20140918-5100.17.pdf)
-     */
-    @JvmField val documentDataGetInterval = IntegerType("document-data-get-interval")
-
-    /**
-     * "document-data-wait" as defined in:
-     * [PWG5100.17](http://ftp.pwg.org/pub/pwg/candidates/cs-ippscan10-20140918-5100.17.pdf)
-     */
-    @JvmField val documentDataWait = BooleanType("document-data-wait")
-
-    /**
-     * "document-digital-signature" as defined in:
-     * [PWG5100.7](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobext10-20031031-5100.7.pdf)
-     */
-    @JvmField val documentDigitalSignature = DocumentDigitalSignature.Type("document-digital-signature")
-
-    /**
-     * "document-format" as defined in:
-     * [RFC8011](http://www.iana.org/go/rfc8011)
-     */
-    @JvmField val documentFormat = StringType(Tag.mimeMediaType, "document-format")
-
-    /**
-     * "document-format-accepted" as defined in:
-     * [PWG5100.18](http://ftp.pwg.org/pub/pwg/candidates/cs-ippinfra10-20150619-5100.18.pdf)
-     */
-    @JvmField val documentFormatAccepted = StringType(Tag.mimeMediaType, "document-format-accepted")
-
-    /**
-     * "document-number" as defined in:
-     * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
-     */
-    @JvmField val documentNumber = IntegerType("document-number")
-
-    /**
-     * "document-preprocessed" as defined in:
-     * [PWG5100.18](http://ftp.pwg.org/pub/pwg/candidates/cs-ippinfra10-20150619-5100.18.pdf)
-     */
-    @JvmField val documentPreprocessed = BooleanType("document-preprocessed")
-
-    /**
-     * "fetch-status-code" as defined in:
-     * [PWG5100.18](http://ftp.pwg.org/pub/pwg/candidates/cs-ippinfra10-20150619-5100.18.pdf)
-     */
-    @JvmField val fetchStatusCode = Status.Type("fetch-status-code")
-
-    /**
-     * "first-index" as defined in:
-     * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
-     */
-    @JvmField val firstIndex = IntegerType("first-index")
-
-    /**
-     * "identify-actions" as defined in:
-     * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
-     */
-    @JvmField val identifyActions = IdentifyActions.Type("identify-actions")
-
-    /**
-     * "ipp-attribute-fidelity" as defined in:
-     * [RFC8011](http://www.iana.org/go/rfc8011)
-     */
-    @JvmField val ippAttributeFidelity = BooleanType("ipp-attribute-fidelity")
-
-    /**
-     * "job-authorization-uri" as defined in:
-     * [PWG5100.16](http://ftp.pwg.org/pub/pwg/candidates/cs-ipptrans10-20131108-5100.16.pdf)
-     */
-    @JvmField val jobAuthorizationUri = UriType("job-authorization-uri")
-
-    /**
-     * "job-hold-until" as defined in:
-     * [RFC8011](http://www.iana.org/go/rfc8011)
-     */
-    @JvmField val jobHoldUntil = JobHoldUntil.Type("job-hold-until")
-
-    /**
-     * "job-id" as defined in:
-     * [RFC8011](http://www.iana.org/go/rfc8011)
-     */
-    @JvmField val jobId = IntegerType("job-id")
-
-    /**
-     * "job-ids" as defined in:
-     * [PWG5100.11](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext10-20101030-5100.11.pdf)
-     */
-    @JvmField val jobIds = IntegerType("job-ids")
-
-    /**
-     * "job-impressions" as defined in:
-     * [RFC8011](http://www.iana.org/go/rfc8011)
-     */
-    @JvmField val jobImpressions = IntegerType("job-impressions")
-
-    /**
-     * "job-impressions-estimated" as defined in:
-     * [PWG5100.16](http://ftp.pwg.org/pub/pwg/candidates/cs-ipptrans10-20131108-5100.16.pdf)
-     */
-    @JvmField val jobImpressionsEstimated = IntegerType("job-impressions-estimated")
-
-    /**
-     * "job-k-octets" as defined in:
-     * [RFC8011](http://www.iana.org/go/rfc8011)
-     */
-    @JvmField val jobKOctets = IntegerType("job-k-octets")
-
-    /**
-     * "job-mandatory-attributes" as defined in:
-     * [PWG5100.7](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobext10-20031031-5100.7.pdf)
-     */
-    @JvmField val jobMandatoryAttributes = JobMandatoryAttributes.Type("job-mandatory-attributes")
-
-    /**
-     * "job-media-sheets" as defined in:
-     * [RFC8011](http://www.iana.org/go/rfc8011)
-     */
-    @JvmField val jobMediaSheets = IntegerType("job-media-sheets")
-
-    /**
-     * "job-pages" as defined in:
-     * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
-     */
-    @JvmField val jobPages = IntegerType("job-pages")
-
-    /**
-     * "job-password-encryption" as defined in:
-     * [PWG5100.11](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext10-20101030-5100.11.pdf)
-     */
-    @JvmField val jobPasswordEncryption = JobPasswordEncryption.Type("job-password-encryption")
-
-    /**
-     * "job-state" as defined in:
-     * [RFC8011](http://www.iana.org/go/rfc8011)
-     */
-    @JvmField val jobState = JobState.Type("job-state")
-
-    /**
-     * "job-state-reasons" as defined in:
-     * [RFC8011](http://www.iana.org/go/rfc8011)
-     */
-    @JvmField val jobStateReasons = JobStateReasons.Type("job-state-reasons")
-
-    /**
-     * "job-uri" as defined in:
-     * [RFC8011](http://www.iana.org/go/rfc8011)
-     */
-    @JvmField val jobUri = UriType("job-uri")
-
-    /**
-     * "last-document" as defined in:
-     * [RFC8011](http://www.iana.org/go/rfc8011)
-     */
-    @JvmField val lastDocument = BooleanType("last-document")
-
-    /**
-     * "limit" as defined in:
-     * [RFC8011](http://www.iana.org/go/rfc8011)
-     */
-    @JvmField val limit = IntegerType("limit")
-
-    /**
-     * "my-jobs" as defined in:
-     * [RFC8011](http://www.iana.org/go/rfc8011)
-     */
-    @JvmField val myJobs = BooleanType("my-jobs")
-
-    /**
-     * "notify-get-interval" as defined in:
-     * [RFC3996](http://www.iana.org/go/rfc3996)
-     */
-    @JvmField val notifyGetInterval = IntegerType("notify-get-interval")
-
-    /**
-     * "notify-sequence-numbers" as defined in:
-     * [RFC3996](http://www.iana.org/go/rfc3996)
-     */
-    @JvmField val notifySequenceNumbers = IntegerType("notify-sequence-numbers")
-
-    /**
-     * "notify-subscription-ids" as defined in:
-     * [RFC3996](http://www.iana.org/go/rfc3996)
-     */
-    @JvmField val notifySubscriptionIds = IntegerType("notify-subscription-ids")
-
-    /**
-     * "notify-wait" as defined in:
-     * [RFC3996](http://www.iana.org/go/rfc3996)
-     */
-    @JvmField val notifyWait = BooleanType("notify-wait")
-
-    /**
-     * "output-device-job-states" as defined in:
-     * [PWG5100.18](http://ftp.pwg.org/pub/pwg/candidates/cs-ippinfra10-20150619-5100.18.pdf)
-     */
-    @JvmField val outputDeviceJobStates = JobState.Type("output-device-job-states")
-
-    /**
-     * "output-device-uuid" as defined in:
-     * [PWG5100.18](http://ftp.pwg.org/pub/pwg/candidates/cs-ippinfra10-20150619-5100.18.pdf)
-     */
-    @JvmField val outputDeviceUuid = UriType("output-device-uuid")
-
-    /**
-     * "printer-up-time" as defined in:
-     * [RFC3996](http://www.iana.org/go/rfc3996)
-     */
-    @JvmField val printerUpTime = IntegerType("printer-up-time")
-
-    /**
-     * "printer-uri" as defined in:
-     * [RFC8011](http://www.iana.org/go/rfc8011)
-     */
-    @JvmField val printerUri = UriType("printer-uri")
-
-    /**
-     * "profile-uri-actual" as defined in:
-     * [PWG5100.16](http://ftp.pwg.org/pub/pwg/candidates/cs-ipptrans10-20131108-5100.16.pdf)
-     */
-    @JvmField val profileUriActual = UriType("profile-uri-actual")
-
-    /**
-     * "requested-attributes" as defined in:
-     * [RFC8011](http://www.iana.org/go/rfc8011)
-     */
-    @JvmField val requestedAttributes = RequestedAttributes.Type("requested-attributes")
-
-    /**
-     * "requesting-user-uri" as defined in:
-     * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
-     */
-    @JvmField val requestingUserUri = UriType("requesting-user-uri")
-
-    /**
-     * "which-jobs" as defined in:
-     * [RFC8011](http://www.iana.org/go/rfc8011)
-     */
-    @JvmField val whichJobs = WhichJobs.Type("which-jobs")
-
-    /** All known attributes */
-    @JvmField
-    val all = Operation::class.java.getStaticObjects()
-            .filter { it is AttributeType<*> }
-            .map { it as AttributeType<*> }
+        @JvmField val Encoder = EnumType.Encoder(Operation::class.java) { code, name ->
+            Operation(code, name)
+        }
+    }
 }

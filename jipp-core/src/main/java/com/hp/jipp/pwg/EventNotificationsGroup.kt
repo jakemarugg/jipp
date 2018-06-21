@@ -11,9 +11,9 @@ import com.hp.jipp.encoding.* // ktlint-disable no-wildcard-imports
 import com.hp.jipp.util.getStaticObjects
 
 /**
- * Event Notifications attribute types.
+ * Attribute types for the Event Notifications group.
  */
-object EventNotifications {
+object EventNotificationsGroup {
 
     /**
      * "job-id" as defined in:
@@ -37,7 +37,7 @@ object EventNotifications {
      * "job-state-reasons" as defined in:
      * [RFC3996](http://www.iana.org/go/rfc3996)
      */
-    @JvmField val jobStateReasons = JobStateReasons.Type("job-state-reasons")
+    @JvmField val jobStateReasons = JobStateReason.Type("job-state-reasons")
 
     /**
      * "job-uuid" as defined in:
@@ -67,7 +67,7 @@ object EventNotifications {
      * "notify-subscribed-event" as defined in:
      * [RFC3995](http://www.iana.org/go/rfc3995)
      */
-    @JvmField val notifySubscribedEvent = NotifyEvents.Type("notify-subscribed-event")
+    @JvmField val notifySubscribedEvent = NotifyEvent.Type("notify-subscribed-event")
 
     /**
      * "notify-subscription-id" as defined in:
@@ -97,7 +97,7 @@ object EventNotifications {
      * "printer-state-reasons" as defined in:
      * [RFC3996](http://www.iana.org/go/rfc3996)
      */
-    @JvmField val printerStateReasons = PrinterStateReasons.Type("printer-state-reasons")
+    @JvmField val printerStateReasons = PrinterStateReason.Type("printer-state-reasons")
 
     /**
      * "printer-up-time" as defined in:
@@ -107,7 +107,7 @@ object EventNotifications {
 
     /** All known attributes */
     @JvmField
-    val all = EventNotifications::class.java.getStaticObjects()
+    val all = EventNotificationsGroup::class.java.getStaticObjects()
             .filter { it is AttributeType<*> }
             .map { it as AttributeType<*> }
 }
