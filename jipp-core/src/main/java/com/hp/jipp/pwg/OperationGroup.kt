@@ -46,10 +46,22 @@ object OperationGroup {
     @JvmField val compressionAccepted = Compression.Type("compression-accepted")
 
     /**
+     * "destination-accesses" as defined in:
+     * [PWG5100.17](http://ftp.pwg.org/pub/pwg/candidates/cs-ippscan10-20140918-5100.17.pdf)
+     */
+    @JvmField val destinationAccesses = CollectionType("destination-accesses")
+
+    /**
      * "detailed-status-message" as defined in:
      * [RFC8011](http://www.iana.org/go/rfc8011)
      */
     @JvmField val detailedStatusMessage = TextType("detailed-status-message")
+
+    /**
+     * "document-access" as defined in:
+     * [PWG5100.18](http://ftp.pwg.org/pub/pwg/candidates/cs-ippinfra10-20150619-5100.18.pdf)
+     */
+    @JvmField val documentAccess = CollectionType("document-access")
 
     /**
      * "document-access-error" as defined in:
@@ -185,6 +197,12 @@ object OperationGroup {
     @JvmField val jobAuthorizationUri = UriType("job-authorization-uri")
 
     /**
+     * "job-hold-until" as defined in:
+     * [RFC8011](http://www.iana.org/go/rfc8011)
+     */
+    @JvmField val jobHoldUntil = JobHoldUntil.Type("job-hold-until")
+
+    /**
      * "job-id" as defined in:
      * [RFC8011](http://www.iana.org/go/rfc8011)
      */
@@ -261,6 +279,12 @@ object OperationGroup {
      * [PWG5100.11](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext10-20101030-5100.11.pdf)
      */
     @JvmField val jobPassword = OctetStringType(255, "job-password")
+
+    /**
+     * "job-password-encryption" as defined in:
+     * [PWG5100.11](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext10-20101030-5100.11.pdf)
+     */
+    @JvmField val jobPasswordEncryption = JobPasswordEncryption.Type("job-password-encryption")
 
     /**
      * "job-state" as defined in:

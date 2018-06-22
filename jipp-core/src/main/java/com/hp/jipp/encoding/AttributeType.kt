@@ -17,7 +17,20 @@ abstract class AttributeType<T>(val encoder: Encoder<T>, val tag: Tag) {
         }
     }
 
-    fun empty() = Attribute(tag, name, listOf(), encoder)
+    /** Return an empty attribute (containing no values) for this type but substituting a tag*/
+    fun empty(tag: Tag) = Attribute(tag, name, emptyList(), encoder)
+
+    /** Return an empty attribute (containing no values) for this type */
+    fun empty() = empty(tag)
+
+    /** Return a "no-value" attribute of this type */
+    fun noValue() = empty(Tag.noValue)
+
+    /** Return an "unknown" attribute of this type */
+    fun unknown() = empty(Tag.unknown)
+
+    /** Return an "unsupported" attribute of this type */
+    fun unsupported() = empty(Tag.unsupported)
 
     /** Create an attribute of this attribute type with supplied values. */
     open fun of(values: List<T>) = Attribute(tag, name, values, encoder)

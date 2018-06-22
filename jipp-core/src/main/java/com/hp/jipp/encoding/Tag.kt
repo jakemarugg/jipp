@@ -16,6 +16,10 @@ data class Tag(override val code: Int, override val name: String) : Enum() {
     val isDelimiter: Boolean
         get() = code in 0x01..0x0F
 
+    /** Return true if this tag is an out-of-band tag */
+    val isOutOfBand: Boolean
+        get() = code in 0x10..0x1F
+
     override fun toString() = name
 
     /** Write this tag to the output stream  */

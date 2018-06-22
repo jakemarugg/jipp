@@ -118,6 +118,18 @@ object JobStatusGroup {
     @JvmField val finishingsColActual = CollectionType("finishings-col-actual")
 
     /**
+     * "force-front-side-actual" as defined in:
+     * [PWG5100.8](http://ftp.pwg.org/pub/pwg/candidates/cs-ippactuals10-20030313-5100.8.pdf)
+     */
+    @JvmField val forceFrontSideActual = IntegerType("force-front-side-actual")
+
+    /**
+     * "imposition-template-actual" as defined in:
+     * [PWG5100.8](http://ftp.pwg.org/pub/pwg/candidates/cs-ippactuals10-20030313-5100.8.pdf)
+     */
+    @JvmField val impositionTemplateActual = ImpositionTemplate.Type("imposition-template-actual")
+
+    /**
      * "impressions-completed-current-copy" as defined in:
      * [RFC3381](http://www.iana.org/go/rfc3381)
      */
@@ -136,10 +148,28 @@ object JobStatusGroup {
     @JvmField val insertSheetActual = CollectionType("insert-sheet-actual")
 
     /**
+     * "job-account-id-actual" as defined in:
+     * [PWG5100.8](http://ftp.pwg.org/pub/pwg/candidates/cs-ippactuals10-20030313-5100.8.pdf)
+     */
+    @JvmField val jobAccountIdActual = NameType("job-account-id-actual")
+
+    /**
+     * "job-account-type-actual" as defined in:
+     * [PWG5100.16](http://ftp.pwg.org/pub/pwg/candidates/cs-ipptrans10-20131108-5100.16.pdf)
+     */
+    @JvmField val jobAccountTypeActual = JobAccountType.Type("job-account-type-actual")
+
+    /**
      * "job-accounting-sheets-actual" as defined in:
      * [PWG5100.8](http://ftp.pwg.org/pub/pwg/candidates/cs-ippactuals10-20030313-5100.8.pdf)
      */
     @JvmField val jobAccountingSheetsActual = CollectionType("job-accounting-sheets-actual")
+
+    /**
+     * "job-accounting-user-id-actual" as defined in:
+     * [PWG5100.8](http://ftp.pwg.org/pub/pwg/candidates/cs-ippactuals10-20030313-5100.8.pdf)
+     */
+    @JvmField val jobAccountingUserIdActual = NameType("job-accounting-user-id-actual")
 
     /**
      * "job-attribute-fidelity" as defined in:
@@ -200,6 +230,12 @@ object JobStatusGroup {
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
      */
     @JvmField val jobFinishingsColActual = CollectionType("job-finishings-col-actual")
+
+    /**
+     * "job-hold-until-actual" as defined in:
+     * [PWG5100.8](http://ftp.pwg.org/pub/pwg/candidates/cs-ippactuals10-20030313-5100.8.pdf)
+     */
+    @JvmField val jobHoldUntilActual = JobHoldUntil.Type("job-hold-until-actual")
 
     /**
      * "job-id" as defined in:
@@ -340,10 +376,22 @@ object JobStatusGroup {
     @JvmField val jobSheetMessageActual = TextType("job-sheet-message-actual")
 
     /**
+     * "job-sheets-actual" as defined in:
+     * [PWG5100.8](http://ftp.pwg.org/pub/pwg/candidates/cs-ippactuals10-20030313-5100.8.pdf)
+     */
+    @JvmField val jobSheetsActual = JobSheet.Type("job-sheets-actual")
+
+    /**
      * "job-sheets-col-actual" as defined in:
      * [PWG5100.8](http://ftp.pwg.org/pub/pwg/candidates/cs-ippactuals10-20030313-5100.8.pdf)
      */
     @JvmField val jobSheetsColActual = CollectionType("job-sheets-col-actual")
+
+    /**
+     * "job-state" as defined in:
+     * [RFC8011](http://www.iana.org/go/rfc8011)
+     */
+    @JvmField val jobState = JobState.Type("job-state")
 
     /**
      * "job-state-message" as defined in:
@@ -374,6 +422,12 @@ object JobStatusGroup {
      * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
      */
     @JvmField val materialsColActual = CollectionType("materials-col-actual")
+
+    /**
+     * "media-actual" as defined in:
+     * [PWG5100.8](http://ftp.pwg.org/pub/pwg/candidates/cs-ippactuals10-20030313-5100.8.pdf)
+     */
+    @JvmField val mediaActual = Media.Type("media-actual")
 
     /**
      * "media-col-actual" as defined in:
@@ -428,6 +482,12 @@ object JobStatusGroup {
      * [PWG5100.17](http://ftp.pwg.org/pub/pwg/candidates/cs-ippscan10-20140918-5100.17.pdf)
      */
     @JvmField val outputAttributesActual = CollectionType("output-attributes-actual")
+
+    /**
+     * "output-bin-actual" as defined in:
+     * [PWG5100.8](http://ftp.pwg.org/pub/pwg/candidates/cs-ippactuals10-20030313-5100.8.pdf)
+     */
+    @JvmField val outputBinActual = OutputBin.Type("output-bin-actual")
 
     /**
      * "output-device-actual" as defined in:

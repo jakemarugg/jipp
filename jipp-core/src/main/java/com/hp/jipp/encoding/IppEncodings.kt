@@ -58,21 +58,26 @@ class IppInputStream(
         if (valueLength != skip(valueLength)) throw ParseError("Value too short")
     }
 
-    fun readString() = String(this.readValueBytes())
+    fun readString() = String(readValueBytes())
 
     fun readAttribute(valueTag: Tag): Attribute<*> {
-        val name = String(this.readValueBytes())
+        val name = String(readValueBytes())
         return readAttribute(finder.find(valueTag, name), valueTag, name)
     }
 
     fun takeLength(length: Int) {
-        val readLength = this.readShort().toInt()
+        val readLength = readShort().toInt()
         if (readLength != length) {
             throw ParseError("Bad attribute length: expected $length, got $readLength")
         }
     }
 
     fun <T> readAttribute(encoder: Encoder<T>, valueTag: Tag, name: String): Attribute<T> {
+        if (valueTag.isOutOfBand) {
+            // throw away any value bytes found
+            readValueBytes()
+            return Attribute(valueTag, name, emptyList(), encoder)
+        }
         val all = listOf(encoder.readValue(this, finder, valueTag)) +
                 { readAdditionalValue(encoder, valueTag) }.toSequence()
         return Attribute(valueTag, name, all, encoder)

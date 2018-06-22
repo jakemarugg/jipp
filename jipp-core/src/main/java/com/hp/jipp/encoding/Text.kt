@@ -8,4 +8,11 @@ package com.hp.jipp.encoding
  */
 data class Text(val value: String, val lang: String?) {
     constructor(value: String) : this(value, null)
+
+    override fun toString() =
+        if (lang == null) {
+            "\"$value\""
+        } else {
+            "\"$value\" ($lang)"
+        }
 }

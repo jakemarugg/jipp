@@ -105,6 +105,22 @@ sealed class InAttributes {
         }
     }
 
+    fun attr(attributeType: NameType, value: String, vararg values: String) {
+        if (values.isEmpty()) {
+            attr(attributeType.of(value))
+        } else {
+            attr(attributeType.ofStrings(listOf(value) + values.toList()))
+        }
+    }
+
+    fun attr(attributeType: TextType, value: String, vararg values: String) {
+        if (values.isEmpty()) {
+            attr(attributeType.of(value))
+        } else {
+            attr(attributeType.ofStrings(listOf(value) + values.toList()))
+        }
+    }
+
     /** Add a collection */
     fun col(collectionType: CollectionType, init: InCollection.() -> Unit) {
         attr(collectionType(InCollection().let {

@@ -98,6 +98,12 @@ object JobTemplateGroup {
     @JvmField val forceFrontSide = IntegerType("force-front-side")
 
     /**
+     * "imposition-template" as defined in:
+     * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
+     */
+    @JvmField val impositionTemplate = ImpositionTemplate.Type("imposition-template")
+
+    /**
      * "insert-sheet" as defined in:
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
      * [RFC8011](http://www.iana.org/go/rfc8011)
@@ -109,6 +115,12 @@ object JobTemplateGroup {
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
      */
     @JvmField val jobAccountId = NameType("job-account-id")
+
+    /**
+     * "job-account-type" as defined in:
+     * [PWG5100.16](http://ftp.pwg.org/pub/pwg/candidates/cs-ipptrans10-20131108-5100.16.pdf)
+     */
+    @JvmField val jobAccountType = JobAccountType.Type("job-account-type")
 
     /**
      * "job-accounting-sheets" as defined in:
@@ -142,6 +154,12 @@ object JobTemplateGroup {
     @JvmField val jobCoverFront = CollectionType("job-cover-front")
 
     /**
+     * "job-delay-output-until" as defined in:
+     * [PWG5100.11](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext10-20101030-5100.11.pdf)
+     */
+    @JvmField val jobDelayOutputUntil = JobDelayOutputUntil.Type("job-delay-output-until")
+
+    /**
      * "job-error-action" as defined in:
      * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
      */
@@ -164,6 +182,12 @@ object JobTemplateGroup {
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
      */
     @JvmField val jobFinishingsCol = CollectionType("job-finishings-col")
+
+    /**
+     * "job-hold-until" as defined in:
+     * [RFC8011](http://www.iana.org/go/rfc8011)
+     */
+    @JvmField val jobHoldUntil = JobHoldUntil.Type("job-hold-until")
 
     /**
      * "job-message-to-operator" as defined in:
@@ -208,6 +232,12 @@ object JobTemplateGroup {
     @JvmField val jobSheetMessage = TextType("job-sheet-message")
 
     /**
+     * "job-sheets" as defined in:
+     * [RFC8011](http://www.iana.org/go/rfc8011)
+     */
+    @JvmField val jobSheets = JobSheet.Type("job-sheets")
+
+    /**
      * "job-sheets-col" as defined in:
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
      * [RFC8011](http://www.iana.org/go/rfc8011)
@@ -219,6 +249,12 @@ object JobTemplateGroup {
      * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
      */
     @JvmField val materialsCol = CollectionType("materials-col")
+
+    /**
+     * "media" as defined in:
+     * [RFC8011](http://www.iana.org/go/rfc8011)
+     */
+    @JvmField val media = Media.Type("media")
 
     /**
      * "media-col" as defined in:
@@ -257,6 +293,12 @@ object JobTemplateGroup {
      * [RFC8011](http://www.iana.org/go/rfc8011)
      */
     @JvmField val orientationRequested = Orientation.Type("orientation-requested")
+
+    /**
+     * "output-bin" as defined in:
+     * [PWG5100.2](http://ftp.pwg.org/pub/pwg/candidates/cs-ippoutputbin10-20010207-5100.2.pdf)
+     */
+    @JvmField val outputBin = OutputBin.Type("output-bin")
 
     /**
      * "output-device" as defined in:

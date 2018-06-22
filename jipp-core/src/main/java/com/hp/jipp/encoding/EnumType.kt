@@ -55,7 +55,8 @@ open class EnumType<T : Enum>(val enumEncoder: EnumType.Encoder<T>, override val
             IntegerType.writeValue(out, value.code)
         }
 
-        override fun valid(valueTag: Tag): Boolean = valueTag == Tag.enumValue
+        override fun valid(valueTag: Tag): Boolean =
+            valueTag == Tag.enumValue
     }
 
     override fun convert(attribute: Attribute<*>): Attribute<T>? =

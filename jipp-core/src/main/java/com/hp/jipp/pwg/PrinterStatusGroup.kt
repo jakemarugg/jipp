@@ -201,6 +201,12 @@ object PrinterStatusGroup {
      */
     @JvmField val xriSecuritySupported = XriSecurity.Type("xri-security-supported")
 
+    /**
+     * "xri-uri-scheme-supported" as defined in:
+     * [RFC3380](http://www.iana.org/go/rfc3380)
+     */
+    @JvmField val xriUriSchemeSupported = StringType(Tag.uriScheme, "xri-uri-scheme-supported")
+
     /** All known attributes */
     @JvmField
     val all = PrinterStatusGroup::class.java.getStaticObjects()

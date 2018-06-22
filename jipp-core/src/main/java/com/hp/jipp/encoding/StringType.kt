@@ -16,7 +16,7 @@ open class StringType(tag: Tag, override val name: String) : AttributeType<Strin
         val values: List<String> = attribute.values.mapNotNull {
             when (it) {
                 is String -> it
-                is LangString -> it.string
+                // TODO: Text or Name here?
                 else -> null
             }
         }

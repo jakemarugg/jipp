@@ -20,8 +20,8 @@ data class Attribute<T>(val valueTag: Tag, val name: String, val values: List<T>
         AbstractList<T>(), PrettyPrintable {
 
     init {
-        if (!(encoder.valid(valueTag))) {
-            throw BuildError("Invalid $valueTag for ${encoder.typeName}")
+        if (!valueTag.isOutOfBand && !(encoder.valid(valueTag))) {
+            throw BuildError("Invalid tag $valueTag for ${encoder.typeName}")
         }
     }
 
@@ -32,15 +32,24 @@ data class Attribute<T>(val valueTag: Tag, val name: String, val values: List<T>
 
     override fun get(index: Int): T = values[index]
 
+    /** True if the tag for this attribute is [Tag.unknown] */
+    fun isUnknown() = valueTag == Tag.unknown
+
+    /** True if the tag for this attribute is [Tag.noValue] */
+    fun isNoValue() = valueTag == Tag.noValue
+
+    /** True if the tag for this attribute is [Tag.unsupported] */
+    fun isUnsupported() = valueTag == Tag.unsupported
+
     /** Return a copy of this attribute with a different name */
     fun withName(newName: String): Attribute<T> = copy(name = newName)
 
     override fun print(printer: PrettyPrinter) {
-        val prefix = "$name($valueTag)"
-        if (values.size == 1) {
-            printer.open(PrettyPrinter.KEY_VALUE, prefix)
-        } else {
-            printer.open(PrettyPrinter.ARRAY, prefix)
+        val prefix = "$name ($valueTag)"
+        when (values.size) {
+            0 -> printer.open(PrettyPrinter.SILENT, prefix)
+            1 -> printer.open(PrettyPrinter.KEY_VALUE, "$prefix =")
+            else -> printer.open(PrettyPrinter.ARRAY, "$prefix =")
         }
 
         values.forEach {
@@ -54,12 +63,16 @@ data class Attribute<T>(val valueTag: Tag, val name: String, val values: List<T>
 
     override fun toString(): String {
         val stringValues = values.map { toPrintable(it) }
-        val valueString = if (stringValues.size == 1) stringValues[0] else stringValues.toString()
-        return "$name($valueTag): $valueString"
+        val valueString = when (stringValues.size) {
+            0 -> ""
+            1 -> " = ${stringValues.first()}"
+            else -> " = $stringValues"
+        }
+        return "$name($valueTag)$valueString"
     }
 
     private fun toPrintable(value: T): String = when (value) {
-        is String -> "\"$value\""
+        is String -> value
         is ByteArray -> "x" + value.toHexString()
         else -> value.toString()
     }

@@ -232,6 +232,12 @@ object DocumentStatusGroup {
     @JvmField val forceFrontSideActual = IntegerType("force-front-side-actual")
 
     /**
+     * "imposition-template-actual" as defined in:
+     * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     */
+    @JvmField val impositionTemplateActual = ImpositionTemplate.Type("imposition-template-actual")
+
+    /**
      * "impressions-completed" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
      */
@@ -278,6 +284,12 @@ object DocumentStatusGroup {
      * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
      */
     @JvmField val materialsColActual = CollectionType("materials-col-actual")
+
+    /**
+     * "media-actual" as defined in:
+     * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     */
+    @JvmField val mediaActual = Media.Type("media-actual")
 
     /**
      * "media-col-actual" as defined in:

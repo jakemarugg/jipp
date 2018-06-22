@@ -14,12 +14,15 @@ enums = { }
 keywords = { }
 collections = { }
 proj_dir = os.path.dirname(os.path.realpath(__file__)) + "/../"
+warns = 0
 
 # Some enums/keywords have a plural 's' on the end, which we remove for clarity.
 # Types ending with these words are not plural for our purposes and should keep their s:
 nonplurals = [ 'sides', 'status', 'print-supports', 'details', 'which-jobs' ]
 
 def warn(output):
+    global warns
+    warns = warns + 1
     print "    WARN: " + output
 
 def note(output):
@@ -55,8 +58,17 @@ def clean_syntax(syntax):
     if syntax is None:
         return None
     if syntax.startswith('(') and syntax.endswith(')'):
-        syntax = syntax[1:-1]
-    syntax = " | ".join(sorted(syntax.split(" | ")))
+        return clean_syntax(syntax[1:-1])
+    # we could be a lot more strict about 1setof, but not yet. Trim it.
+    if syntax.startswith("1setOf "):
+        return clean_syntax(syntax[len("1setOf "):])
+    # Special case: fix up XML
+    if syntax.startswith("1set Of "):
+        return clean_syntax(syntax[len("1set Of "):])
+    syntax = syntax.strip()
+    if '(' not in syntax and " | " in syntax:
+        # Ignore no-value and unknown since those are accepted everywhere
+        syntax = " | ".join(sorted([clean_syntax(part) for part in syntax.split(" | ") if part != "no-value" and part != "unknown"]))
     return syntax
 
 # Make sure that if the syntax is new, take the more complex version
@@ -339,14 +351,7 @@ def emit_collections(env):
             # TODO: Watch out for members and submembers here, which should live in sub-objects
             type = copy.deepcopy(desc)
             syntax = type['syntax']
-
-            # we could be a lot more strict about 1setof, but not yet. Trim it.
-            if syntax.startswith("1setOf "):
-                syntax = syntax[len("1setOf "):]
-            # Special case: fix up XML
-            if syntax.startswith("1set Of "):
-                syntax = syntax[len("1set Of "):]
-            syntax = syntax.strip()
+            original_syntax = type['syntax']
 
             # no-value cases mean the attribute can be empty which is usually not the case.
 
@@ -361,6 +366,10 @@ def emit_collections(env):
             if re.search('^uri(\([0-9]+\))?$', syntax):
                 intro = "UriType("
             elif re.search('^(type[12] )?keyword$', syntax):
+                intro = get_intro(keywords, type['name'])
+            elif syntax == 'type2 keyword | name(MAX)':
+                intro = get_intro(keywords, type['name'])
+            elif syntax == 'name | type2 keyword':
                 intro = get_intro(keywords, type['name'])
             elif re.search('^(type[12] )?enum$', syntax):
                 intro = get_intro(enums, type['name'])
@@ -380,7 +389,7 @@ def emit_collections(env):
                 intro = "ResolutionType("
             elif syntax == "collection":
                 intro = "CollectionType("
-            elif syntax == 'name(MAX)':
+            elif syntax == 'name(MAX)' or syntax == 'name(MAX': # Special case
                 intro = "NameType("
             elif re.search('^name\(([0-9]+)\)$', syntax):
                 m = re.search('name\(([0-9]+)\)', syntax)
@@ -389,6 +398,8 @@ def emit_collections(env):
                 intro = "TextType("
             elif syntax == 'text(MAX)':
                 intro = "TextType("
+            elif syntax == 'uriScheme':
+                intro = "StringType(Tag.uriScheme, "
             elif re.search('^text\(([0-9]+)\)$', syntax):
                 m = re.search('text\(([0-9]+)\)', syntax)
                 intro = "TextType(" + m.group(1) + ", "
@@ -397,8 +408,10 @@ def emit_collections(env):
             elif re.search('^octetString\(([0-9]+)\)$', syntax):
                 m = re.search('octetString\(([0-9]+)\)', syntax)
                 intro = "OctetStringType(" + m.group(1) + ", "
+
             if not intro:
-                warn("Could not identify " + name + " type " + typeName + " with syntax '" + syntax + "'")
+                warn("Could not identify " + name + " type " + typeName + " with syntax '" + syntax + "'" +
+                    " (originally '" + original_syntax + "')")
                 continue
             type['intro'] = intro
             types.append(type)
@@ -452,3 +465,4 @@ pp = pprint.PrettyPrinter(indent=2)
 #pp.pprint(specs)
 
 emit_code()
+print "WARNINGS: " + str(warns)

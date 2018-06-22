@@ -150,8 +150,8 @@ public class AttributeTest {
     @Test
     public void badTag() throws Exception {
         exception.expect(BuildError.class);
-        exception.expectMessage("Invalid tag(x77) for Integer");
-        new Attribute<Integer>(Tag.fromInt(0x77), "", Arrays.asList(5), IntegerType.Encoder);
+        exception.expectMessage("Invalid tag tag(x77) for Integer");
+        new Attribute<Integer>(Tag.fromInt(0x77), "", Collections.singletonList(5), IntegerType.Encoder);
     }
 
     @Test
@@ -160,7 +160,8 @@ public class AttributeTest {
         assertEquals("octetString", OctetStringType.Encoder.getTypeName());
         assertEquals("rangeOfInteger", RangeOfIntegerType.Encoder.getTypeName());
         assertEquals("resolution", ResolutionType.Encoder.getTypeName());
-        assertEquals("LangString", LangStringType.Encoder.getTypeName());
+        assertEquals("Name", NameType.Encoder.getTypeName());
+        assertEquals("Text", TextType.Encoder.getTypeName());
         assertEquals("Integer", IntegerType.Encoder.getTypeName());
         assertEquals("URI", UriType.Encoder.getTypeName());
         assertEquals("Collection", CollectionType.Encoder.getTypeName());
@@ -230,7 +231,7 @@ public class AttributeTest {
 
     @Test
     public void cover() throws IOException {
-        Attribute<String> jobName = Types.jobName.of("hello");
+        Attribute<Name> jobName = Types.jobName.of("hello");
         KotlinTest.cover(jobName,
                 jobName.copy(jobName.component1(), jobName.component2(), jobName.component3(), jobName.component4()),
                 jobName.copy(jobName.component1(), "goodbye", jobName.component3(), jobName.component4()));

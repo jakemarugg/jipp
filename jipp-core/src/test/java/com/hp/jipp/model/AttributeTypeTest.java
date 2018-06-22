@@ -3,21 +3,15 @@ package com.hp.jipp.model;
 import static com.hp.jipp.encoding.AttributeGroup.groupOf;
 import static org.junit.Assert.*;
 
+import com.hp.jipp.encoding.*;
 import com.hp.jipp.pwg.JobState;
 import com.hp.jipp.pwg.Operation;
 import com.hp.jipp.pwg.PrinterState;
 import com.hp.jipp.pwg.Status;
+import com.hp.jipp.util.PrettyPrinter;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
-import com.hp.jipp.encoding.Attribute;
-import com.hp.jipp.encoding.AttributeGroup;
-import com.hp.jipp.encoding.IntegerType;
-import com.hp.jipp.encoding.Resolution;
-import com.hp.jipp.encoding.ResolutionUnit;
-import com.hp.jipp.encoding.StringType;
-import com.hp.jipp.encoding.Tag;
 
 import static com.hp.jipp.encoding.Cycler.*;
 
@@ -98,4 +92,32 @@ public class AttributeTypeTest {
         assertEquals(600, resolution.getFeedResolution());
         assertEquals(ResolutionUnit.dotsPerInch, resolution.getUnit());
     }
+
+    @Test
+    public void unknown() throws Exception {
+        JobState.Type jobStateType = new JobState.Type("job-state");
+        Attribute<JobState> attribute = cycle(jobStateType, jobStateType.unknown());
+        assertEquals(0, attribute.getValues().size());
+        assertEquals(Tag.unknown, attribute.getValueTag());
+        assertTrue(attribute.isUnknown());
+    }
+
+    @Test
+    public void noValue() throws Exception {
+        JobState.Type jobStateType = new JobState.Type("job-state");
+        Attribute<JobState> attribute = cycle(jobStateType, jobStateType.noValue());
+        assertEquals(0, attribute.getValues().size());
+        assertEquals(Tag.noValue, attribute.getValueTag());
+        assertTrue(attribute.isNoValue());
+    }
+
+    @Test
+    public void unsupported() throws Exception {
+        JobState.Type jobStateType = new JobState.Type("job-state");
+        Attribute<JobState> attribute = cycle(jobStateType, jobStateType.unsupported());
+        assertEquals(0, attribute.getValues().size());
+        assertEquals(Tag.unsupported, attribute.getValueTag());
+        assertTrue(attribute.isUnsupported());
+    }
+
 }

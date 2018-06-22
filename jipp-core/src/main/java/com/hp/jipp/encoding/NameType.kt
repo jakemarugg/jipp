@@ -71,5 +71,8 @@ class NameType(
     fun of(vararg values: String) = of(values.map { Name(it) })
 
     /** Convenience operator for names without language */
+    fun ofStrings(values: List<String>) = of(values.map { Name(it) })
+
+    /** Convenience operator for names without language */
     operator fun invoke(vararg values: String) = of(values.map { Name(it) })
 }

@@ -69,6 +69,9 @@ class TextType(
     /** Convenience operator for text without language */
     fun of(vararg values: String) = of(values.map { Text(it) })
 
+    /** Convenience operator for names without language */
+    fun ofStrings(values: List<String>) = of(values.map { Text(it) })
+
     /** Convenience operator for text without language */
     operator fun invoke(vararg values: String) = of(values.map { Text(it) })
 }
