@@ -190,6 +190,12 @@ object DocumentTemplateGroup {
     @JvmField val printObjects = CollectionType("print-objects")
 
     /**
+     * "print-quality" as defined in:
+     * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     */
+    @JvmField val printQuality = PrintQuality.Type("print-quality")
+
+    /**
      * "print-rendering-intent" as defined in:
      * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
      */

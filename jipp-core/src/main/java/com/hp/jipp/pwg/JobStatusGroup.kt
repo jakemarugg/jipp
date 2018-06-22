@@ -28,6 +28,12 @@ object JobStatusGroup {
     @JvmField val attributesNaturalLanguage = StringType(Tag.naturalLanguage, "attributes-natural-language")
 
     /**
+     * "compression-supplied" as defined in:
+     * [PWG5100.7](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobext10-20031031-5100.7.pdf)
+     */
+    @JvmField val compressionSupplied = Compression.Type("compression-supplied")
+
+    /**
      * "copies-actual" as defined in:
      * [PWG5100.8](http://ftp.pwg.org/pub/pwg/candidates/cs-ippactuals10-20030313-5100.8.pdf)
      */
@@ -68,6 +74,12 @@ object JobStatusGroup {
      * [PWG5100.7](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobext10-20031031-5100.7.pdf)
      */
     @JvmField val documentCharsetSupplied = StringType(Tag.charset, "document-charset-supplied")
+
+    /**
+     * "document-digital-signature-supplied" as defined in:
+     * [PWG5100.7](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobext10-20031031-5100.7.pdf)
+     */
+    @JvmField val documentDigitalSignatureSupplied = DocumentDigitalSignature.Type("document-digital-signature-supplied")
 
     /**
      * "document-format-details-supplied" as defined in:
@@ -520,10 +532,22 @@ object JobStatusGroup {
     @JvmField val outputDeviceAssigned = NameType(127, "output-device-assigned")
 
     /**
+     * "output-device-job-state" as defined in:
+     * [PWG5100.18](http://ftp.pwg.org/pub/pwg/candidates/cs-ippinfra10-20150619-5100.18.pdf)
+     */
+    @JvmField val outputDeviceJobState = JobState.Type("output-device-job-state")
+
+    /**
      * "output-device-job-state-message" as defined in:
      * [PWG5100.18](http://ftp.pwg.org/pub/pwg/candidates/cs-ippinfra10-20150619-5100.18.pdf)
      */
     @JvmField val outputDeviceJobStateMessage = TextType("output-device-job-state-message")
+
+    /**
+     * "output-device-job-state-reasons" as defined in:
+     * [PWG5100.18](http://ftp.pwg.org/pub/pwg/candidates/cs-ippinfra10-20150619-5100.18.pdf)
+     */
+    @JvmField val outputDeviceJobStateReasons = JobStateReason.Type("output-device-job-state-reasons")
 
     /**
      * "output-device-uuid-assigned" as defined in:

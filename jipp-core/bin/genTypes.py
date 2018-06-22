@@ -57,20 +57,23 @@ def parse_spec(record, target):
 def clean_syntax(syntax):
     if syntax is None:
         return None
+
+    # XML fix
+    syntax = syntax.replace("type2 num", "type2 enum")
+
     # Some strings we do not care about no matter where they occur
     syntax = syntax.replace("(MAX)", "")
-    #syntax = syntax.replace("(MAX", "") # Special case
     syntax = syntax.replace("type1", "")
     syntax = syntax.replace("type2", "")
-    syntax = syntax.replace("[PWG5100.NN]", "") # Special case
+    syntax = syntax.replace("[PWG5100.NN]", "") # XML fix
     syntax = syntax.replace("1setOf", "")
-    syntax = syntax.replace("1set Of", "") # Special case
+    syntax = syntax.replace("1set Of", "") # XML fix
     syntax = syntax.strip()
 
     if syntax.startswith('(') and syntax.endswith(')'):
         return clean_syntax(syntax[1:-1])
 
-    # Special case to clean up "(name(MAX)" (missing term paren)
+    # XML fix to clean up "(name(MAX)" (missing term paren)
     if syntax.startswith('(') and not syntax.endswith(')'):
         return clean_syntax(syntax[1:])
 
@@ -91,6 +94,7 @@ def parse_syntax(record, target):
 # Parse a single enum record into the global list of enums
 def parse_enum(record):
     attribute = record.find('{*}attribute').text
+
     enum = enums.setdefault(attribute, { 'name': attribute, 'values': { }, 'specs': [ ],
                                          'syntax': clean_syntax(record.find('{*}syntax').text) })
     parse_spec(record, enum)
@@ -109,11 +113,11 @@ def parse_enum(record):
                 value = "any " + m.group(1) + " enum value"
                 name = None
 
-    # Special case: These are all grouped together in the XML
+    # XML fix: These are all grouped together in the XML
     if enum['name'].startswith("job-finishings"):
         enum['ref'] = 'finishings'
 
-    # Special case: this has a strange value
+    # XML fix: this has a strange value
     if enum['name'] == 'fetch-status-code':
         enum['ref'] = 'status'
         return
@@ -122,7 +126,7 @@ def parse_enum(record):
         return
 
     if name is None:
-        m = re.search("< ?(?:[aA]ny |all )\"?([a-z-]+)\"?( enum)? (value(s?)|name(s?)) ?>", value)
+        m = re.search("<? ?(?:[aA]ny |all )\"?([a-z-]+)\"?( enum)? (value(s?)|name(s?)) ?>?", value)
         if m and m.group(1):
             enum['ref'] = m.group(1)
         else:
@@ -181,7 +185,7 @@ def parse_keyword(record):
     if ' ' not in value:
         keyword['values'].append(value)
     else:
-        # Special case: Correct some known irregularities
+        # XML fix: Correct some known irregularities
         value = value.replace('"media" color', "media-color")
         value = value.replace('job-default-output-until', "job-delay-output-until")
 
@@ -287,7 +291,7 @@ def emit_keyword(template, keyword):
 
     keyword['fullname'] = keyword['name']
     keyword['name'] = re.sub('-(supported|requested)$', '', keyword['name'])
-    # Special case because separator-sheets-supported should either be separator-sheets-type-supported, or -type
+    # XML fix because separator-sheets-supported should either be separator-sheets-type-supported, or -type
     # should be gone
     keyword['name'] = re.sub('-sheets-type', '-sheets', keyword['name'])
     if 'name' in keyword['syntax']:
@@ -338,17 +342,23 @@ def emit_kind(env, template_name, items, emit_func):
 
 def get_intro(map, name):
     if name not in map:
-        # Special case: try to find the relevant keyword/enum by trimming
+        # XML fix: try to find the relevant keyword/enum by trimming
         if name.endswith("-default"):
             return get_intro(map, name[:-len("-default")])
         if name.endswith("-supported"):
             return get_intro(map, name[:-len("-supported")])
         if name.endswith("-actual"):
             return get_intro(map, name[:-len("-actual")])
+        if name.endswith("-supplied"):
+            return get_intro(map, name[:-len("-supplied")])
         if name.endswith("-document-state-reasons"):
             return get_intro(map, "document-state-reasons")
         if name.endswith("-document-state"):
             return get_intro(map, "document-state")
+        if name.endswith("-state"):
+            return get_intro(map, name + 's') # Try the plural
+        if name.startswith("output-device-"):
+            return get_intro(map, name[len("output-device-"):])
         return None
     if 'ref' in map[name]:
         return get_intro(map, map[name]['ref'])
@@ -368,7 +378,7 @@ def emit_collections(env):
 
             # no-value cases mean the attribute can be empty which is usually not the case.
 
-            # Special case: job-collation-type-actual should point to enum, not keyword
+            # XML fix: job-collation-type-actual should point to enum, not keyword
             if typeName == "job-collation-type-actual" and syntax == "keyword":
                 syntax = "enum"
 
