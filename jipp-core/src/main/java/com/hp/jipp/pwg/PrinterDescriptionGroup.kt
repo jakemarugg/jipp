@@ -298,6 +298,12 @@ object PrinterDescriptionGroup {
     @JvmField val foldingDirectionSupported = FoldingDirection.Type("folding-direction-supported")
 
     /**
+     * "folding-offset-supported" as defined in:
+     * [PWG5100.1](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfinishings10-20010205-5100.1.pdf)
+     */
+    @JvmField val foldingOffsetSupported = IntegerOrRangeOfIntegerType("folding-offset-supported")
+
+    /**
      * "folding-reference-edge-supported" as defined in:
      * [PWG5100.1](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfinishings10-20010205-5100.1.pdf)
      */
@@ -850,16 +856,40 @@ object PrinterDescriptionGroup {
     @JvmField val materialAmountUnitsSupported = MaterialAmountUnit.Type("material-amount-units-supported")
 
     /**
+     * "material-diameter-supported" as defined in:
+     * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
+     */
+    @JvmField val materialDiameterSupported = IntegerOrRangeOfIntegerType("material-diameter-supported")
+
+    /**
      * "material-purpose-supported" as defined in:
      * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
      */
     @JvmField val materialPurposeSupported = MaterialPurpose.Type("material-purpose-supported")
 
     /**
+     * "material-rate-supported" as defined in:
+     * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
+     */
+    @JvmField val materialRateSupported = IntegerOrRangeOfIntegerType("material-rate-supported")
+
+    /**
      * "material-rate-units-supported" as defined in:
      * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
      */
     @JvmField val materialRateUnitsSupported = MaterialRateUnit.Type("material-rate-units-supported")
+
+    /**
+     * "material-shell-thickness-supported" as defined in:
+     * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
+     */
+    @JvmField val materialShellThicknessSupported = IntegerOrRangeOfIntegerType("material-shell-thickness-supported")
+
+    /**
+     * "material-temperature-supported" as defined in:
+     * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
+     */
+    @JvmField val materialTemperatureSupported = IntegerOrRangeOfIntegerType("material-temperature-supported")
 
     /**
      * "material-type-supported" as defined in:
@@ -1134,6 +1164,12 @@ object PrinterDescriptionGroup {
     @JvmField val notifyLeaseDurationDefault = IntegerType("notify-lease-duration-default")
 
     /**
+     * "notify-lease-duration-supported" as defined in:
+     * [RFC3995](http://www.iana.org/go/rfc3995)
+     */
+    @JvmField val notifyLeaseDurationSupported = IntegerOrRangeOfIntegerType("notify-lease-duration-supported")
+
+    /**
      * "notify-pull-method-supported" as defined in:
      * [RFC3995](http://www.iana.org/go/rfc3995)
      */
@@ -1162,6 +1198,12 @@ object PrinterDescriptionGroup {
      * [RFC8011](http://www.iana.org/go/rfc8011)
      */
     @JvmField val numberUpDefault = IntegerType("number-up-default")
+
+    /**
+     * "number-up-supported" as defined in:
+     * [RFC8011](http://www.iana.org/go/rfc8011)
+     */
+    @JvmField val numberUpSupported = IntegerOrRangeOfIntegerType("number-up-supported")
 
     /**
      * "oauth-authorization-server-uri" as defined in:
@@ -1336,6 +1378,12 @@ object PrinterDescriptionGroup {
      * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
      */
     @JvmField val platformTemperatureDefault = IntegerType("platform-temperature-default")
+
+    /**
+     * "platform-temperature-supported" as defined in:
+     * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
+     */
+    @JvmField val platformTemperatureSupported = IntegerOrRangeOfIntegerType("platform-temperature-supported")
 
     /**
      * "preferred-attributes-supported" as defined in:
@@ -1632,6 +1680,18 @@ object PrinterDescriptionGroup {
     @JvmField val punchingHoleDiameterConfigured = IntegerType("punching-hole-diameter-configured")
 
     /**
+     * "punching-locations-supported" as defined in:
+     * [PWG5100.1](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfinishings10-20010205-5100.1.pdf)
+     */
+    @JvmField val punchingLocationsSupported = IntegerOrRangeOfIntegerType("punching-locations-supported")
+
+    /**
+     * "punching-offset-supported" as defined in:
+     * [PWG5100.1](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfinishings10-20010205-5100.1.pdf)
+     */
+    @JvmField val punchingOffsetSupported = IntegerOrRangeOfIntegerType("punching-offset-supported")
+
+    /**
      * "punching-reference-edge-supported" as defined in:
      * [PWG5100.1](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfinishings10-20010205-5100.1.pdf)
      */
@@ -1764,10 +1824,28 @@ object PrinterDescriptionGroup {
     @JvmField val sidesSupported = Sides.Type("sides-supported")
 
     /**
+     * "stitching-angle-supported" as defined in:
+     * [PWG5100.1](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfinishings10-20010205-5100.1.pdf)
+     */
+    @JvmField val stitchingAngleSupported = IntegerOrRangeOfIntegerType("stitching-angle-supported")
+
+    /**
+     * "stitching-locations-supported" as defined in:
+     * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
+     */
+    @JvmField val stitchingLocationsSupported = IntegerOrRangeOfIntegerType("stitching-locations-supported")
+
+    /**
      * "stitching-method-supported" as defined in:
      * [PWG5100.1](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfinishings10-20010205-5100.1.pdf)
      */
     @JvmField val stitchingMethodSupported = StitchingMethod.Type("stitching-method-supported")
+
+    /**
+     * "stitching-offset-supported" as defined in:
+     * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
+     */
+    @JvmField val stitchingOffsetSupported = IntegerOrRangeOfIntegerType("stitching-offset-supported")
 
     /**
      * "stitching-reference-edge-supported" as defined in:
@@ -1792,6 +1870,12 @@ object PrinterDescriptionGroup {
      * [PWG5100.15](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfaxout10-20131115-5100.15.pdf)
      */
     @JvmField val toNameSupported = IntegerType("to-name-supported")
+
+    /**
+     * "trimming-offset-supported" as defined in:
+     * [PWG5100.1](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfinishings10-20010205-5100.1.pdf)
+     */
+    @JvmField val trimmingOffsetSupported = IntegerOrRangeOfIntegerType("trimming-offset-supported")
 
     /**
      * "trimming-reference-edge-supported" as defined in:

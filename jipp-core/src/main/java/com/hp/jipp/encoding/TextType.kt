@@ -18,6 +18,29 @@ class TextType(
 ) : AttributeType<Text>(Encoder, Tag.textWithoutLanguage) {
     constructor(name: String) : this(DEFAULT_MAX, name)
 
+    override fun of(values: List<Text>): Attribute<Text> {
+        values.forEach {
+            val encodedSize = it.value.toByteArray(Charsets.UTF_8).size
+            if (encodedSize > maxEncodedSize) {
+                throw BuildError("Encoded size $encodedSize is more than $maxEncodedSize: ${it.value}")
+            }
+        }
+        return when (values.mapNotNull { it.lang }.size) {
+            0 -> Attribute(Tag.textWithLanguage, name, values, encoder)
+            values.size -> Attribute(Tag.textWithoutLanguage, name, values, encoder)
+            else -> throw BuildError("If one Text includes a language, then all must have a language")
+        }
+    }
+
+    /** Return an attribute containing values as text strings (without language) */
+    fun of(vararg values: String) = of(values.map { Text(it) })
+
+    /** Return an attribute containing values as text strings (without language) */
+    fun ofStrings(values: List<String>) = of(values.map { Text(it) })
+
+    /** Return an attribute containing values as text strings (without language) */
+    operator fun invoke(vararg values: String) = of(values.map { Text(it) })
+
     companion object Encoder : SimpleEncoder<Text>("Text") {
         const val DEFAULT_MAX = 1023
 
@@ -51,27 +74,4 @@ class TextType(
             return valueTag === Tag.textWithLanguage || valueTag === Tag.textWithoutLanguage
         }
     }
-
-    override fun of(values: List<Text>): Attribute<Text> {
-        values.forEach {
-            val encodedSize = it.value.toByteArray(Charsets.UTF_8).size
-            if (encodedSize > maxEncodedSize) {
-                throw BuildError("Encoded size $encodedSize is more than $maxEncodedSize: ${it.value}")
-            }
-        }
-        return when (values.mapNotNull { it.lang }.size) {
-            0 -> Attribute(Tag.textWithLanguage, name, values, encoder)
-            values.size -> Attribute(Tag.textWithoutLanguage, name, values, encoder)
-            else -> throw BuildError("If one Text includes a language, then all must have a language")
-        }
-    }
-
-    /** Convenience operator for text without language */
-    fun of(vararg values: String) = of(values.map { Text(it) })
-
-    /** Convenience operator for names without language */
-    fun ofStrings(values: List<String>) = of(values.map { Text(it) })
-
-    /** Convenience operator for text without language */
-    operator fun invoke(vararg values: String) = of(values.map { Text(it) })
 }

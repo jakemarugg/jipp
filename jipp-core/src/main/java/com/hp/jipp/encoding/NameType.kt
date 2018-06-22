@@ -19,6 +19,29 @@ class NameType(
 
     constructor(name: String) : this(DEFAULT_MAX, name)
 
+    override fun of(values: List<Name>): Attribute<Name> {
+        values.forEach {
+            val encodedSize = it.value.toByteArray(Charsets.UTF_8).size
+            if (encodedSize > maxEncodedSize) {
+                throw BuildError("Encoded size $encodedSize is more than $maxEncodedSize: ${it.value}")
+            }
+        }
+        return when (values.mapNotNull { it.lang }.size) {
+            0 -> Attribute(Tag.nameWithoutLanguage, name, values, encoder)
+            values.size -> Attribute(Tag.nameWithLanguage, name, values, encoder)
+            else -> throw BuildError("If one Name includes a language, then all must have a language")
+        }
+    }
+
+    /** Return an attribute containing strings as names (without language) */
+    fun ofStrings(values: List<String>) = of(values.map { Name(it) })
+
+    /** Return an attribute containing strings as names (without language) */
+    fun of(vararg values: String) = ofStrings(values.toList())
+
+    /** Return an attribute containing strings as names (without language) */
+    operator fun invoke(vararg values: String) = ofStrings(values.toList())
+
     companion object Encoder : SimpleEncoder<Name>("Name") {
         const val DEFAULT_MAX = 255
 
@@ -52,27 +75,4 @@ class NameType(
             return valueTag === Tag.nameWithLanguage || valueTag === Tag.nameWithoutLanguage
         }
     }
-
-    override fun of(values: List<Name>): Attribute<Name> {
-        values.forEach {
-            val encodedSize = it.value.toByteArray(Charsets.UTF_8).size
-            if (encodedSize > maxEncodedSize) {
-                throw BuildError("Encoded size $encodedSize is more than $maxEncodedSize: ${it.value}")
-            }
-        }
-        return when (values.mapNotNull { it.lang }.size) {
-            0 -> Attribute(Tag.nameWithoutLanguage, name, values, encoder)
-            values.size -> Attribute(Tag.nameWithLanguage, name, values, encoder)
-            else -> throw BuildError("If one Name includes a language, then all must have a language")
-        }
-    }
-
-    /** Convenience operator for names without language */
-    fun of(vararg values: String) = of(values.map { Name(it) })
-
-    /** Convenience operator for names without language */
-    fun ofStrings(values: List<String>) = of(values.map { Name(it) })
-
-    /** Convenience operator for names without language */
-    operator fun invoke(vararg values: String) = of(values.map { Name(it) })
 }

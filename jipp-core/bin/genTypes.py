@@ -383,6 +383,8 @@ def emit_collections(env):
                 intro = get_intro(enums, type['name'])
             elif re.search('^rangeOfInteger(\([0-9MINAX:-]*\))?$', syntax):
                 intro = "RangeOfIntegerType("
+            elif re.search('^integer(\([0-9MINAX:-]*\)) | rangeOfInteger(\([0-9MINAX:-]*\))?$', syntax):
+                intro = "IntegerOrRangeOfIntegerType("
             elif re.search('^integer(\([0-9MINAX:-]*\))?$', syntax):
                 intro = "IntegerType("
             elif syntax == "boolean":

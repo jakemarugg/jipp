@@ -7,8 +7,9 @@ import com.hp.jipp.encoding.IntegerType.Encoder.INT_LENGTH
 import java.io.IOException
 
 /** Attribute type for [IntRange] attributes */
-class RangeOfIntegerType(override val name: String) :
-        AttributeType<IntRange>(Encoder, Tag.rangeOfInteger) {
+class RangeOfIntegerType(
+    override val name: String
+) : AttributeType<IntRange>(Encoder, Tag.rangeOfInteger) {
 
     companion object Encoder : SimpleEncoder<IntRange>("rangeOfInteger") {
         @Throws(IOException::class)
@@ -25,6 +26,6 @@ class RangeOfIntegerType(override val name: String) :
             out.writeInt(value.first)
             out.writeInt(value.last)
         }
-        override fun valid(valueTag: Tag) = valueTag === Tag.rangeOfInteger
+        override fun valid(valueTag: Tag) = valueTag == Tag.rangeOfInteger
     }
 }
