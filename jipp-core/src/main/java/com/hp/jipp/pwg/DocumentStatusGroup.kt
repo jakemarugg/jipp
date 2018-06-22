@@ -502,10 +502,22 @@ object DocumentStatusGroup {
     @JvmField val sidesActual = Sides.Type("sides-actual")
 
     /**
+     * "time-at-completed" as defined in:
+     * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     */
+    @JvmField val timeAtCompleted = IntegerType("time-at-completed")
+
+    /**
      * "time-at-creation" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
      */
     @JvmField val timeAtCreation = IntegerType("time-at-creation")
+
+    /**
+     * "time-at-processing" as defined in:
+     * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     */
+    @JvmField val timeAtProcessing = IntegerType("time-at-processing")
 
     /**
      * "warnings-count" as defined in:

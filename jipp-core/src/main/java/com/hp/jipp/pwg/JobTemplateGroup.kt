@@ -343,6 +343,12 @@ object JobTemplateGroup {
     @JvmField val pdlInitFile = CollectionType("pdl-init-file")
 
     /**
+     * "platform-temperature" as defined in:
+     * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
+     */
+    @JvmField val platformTemperature = IntegerType("platform-temperature")
+
+    /**
      * "presentation-direction-number-up" as defined in:
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
      */

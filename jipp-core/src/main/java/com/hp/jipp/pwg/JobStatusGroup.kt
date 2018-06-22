@@ -634,10 +634,22 @@ object JobStatusGroup {
     @JvmField val sidesActual = Sides.Type("sides-actual")
 
     /**
+     * "time-at-completed" as defined in:
+     * [RFC8011](http://www.iana.org/go/rfc8011)
+     */
+    @JvmField val timeAtCompleted = IntegerType("time-at-completed")
+
+    /**
      * "time-at-creation" as defined in:
      * [RFC8011](http://www.iana.org/go/rfc8011)
      */
     @JvmField val timeAtCreation = IntegerType("time-at-creation")
+
+    /**
+     * "time-at-processing" as defined in:
+     * [RFC8011](http://www.iana.org/go/rfc8011)
+     */
+    @JvmField val timeAtProcessing = IntegerType("time-at-processing")
 
     /**
      * "warnings-count" as defined in:

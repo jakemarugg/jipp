@@ -76,6 +76,12 @@ object PrinterStatusGroup {
     @JvmField val printerFinisherDescription = TextType("printer-finisher-description")
 
     /**
+     * "printer-finisher-supplies" as defined in:
+     * [PWG5100.1](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfinishings10-20010205-5100.1.pdf)
+     */
+    @JvmField val printerFinisherSupplies = OctetStringType("printer-finisher-supplies")
+
+    /**
      * "printer-finisher-supplies-description" as defined in:
      * [PWG5100.1](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfinishings10-20010205-5100.1.pdf)
      */

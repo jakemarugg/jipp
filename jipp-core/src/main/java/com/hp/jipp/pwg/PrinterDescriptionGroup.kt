@@ -352,6 +352,18 @@ object PrinterDescriptionGroup {
     @JvmField val identifyActionsSupported = IdentifyAction.Type("identify-actions-supported")
 
     /**
+     * "imposition-template-default" as defined in:
+     * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
+     */
+    @JvmField val impositionTemplateDefault = ImpositionTemplate.Type("imposition-template-default")
+
+    /**
+     * "imposition-template-supported" as defined in:
+     * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
+     */
+    @JvmField val impositionTemplateSupported = ImpositionTemplate.Type("imposition-template-supported")
+
+    /**
      * "input-attributes-default" as defined in:
      * [PWG5100.15](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfaxout10-20131115-5100.15.pdf)
      */
@@ -448,6 +460,12 @@ object PrinterDescriptionGroup {
     @JvmField val ippgetEventLife = IntegerType("ippget-event-life")
 
     /**
+     * "job-account-id-default" as defined in:
+     * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
+     */
+    @JvmField val jobAccountIdDefault = NameType("job-account-id-default")
+
+    /**
      * "job-account-id-supported" as defined in:
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
      */
@@ -470,6 +488,12 @@ object PrinterDescriptionGroup {
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
      */
     @JvmField val jobAccountingSheetsDefault = CollectionType("job-accounting-sheets-default")
+
+    /**
+     * "job-accounting-user-id-default" as defined in:
+     * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
+     */
+    @JvmField val jobAccountingUserIdDefault = NameType("job-accounting-user-id-default")
 
     /**
      * "job-accounting-user-id-supported" as defined in:
@@ -712,6 +736,12 @@ object PrinterDescriptionGroup {
     @JvmField val jobPrioritySupported = IntegerType("job-priority-supported")
 
     /**
+     * "job-recipient-name-default" as defined in:
+     * [PWG5100.11](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext10-20101030-5100.11.pdf)
+     */
+    @JvmField val jobRecipientNameDefault = NameType("job-recipient-name-default")
+
+    /**
      * "job-recipient-name-supported" as defined in:
      * [PWG5100.11](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext10-20101030-5100.11.pdf)
      */
@@ -916,6 +946,12 @@ object PrinterDescriptionGroup {
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
      */
     @JvmField val mediaColorSupported = MediaColor.Type("media-color-supported")
+
+    /**
+     * "media-default" as defined in:
+     * [RFC8011](http://www.iana.org/go/rfc8011)
+     */
+    @JvmField val mediaDefault = Media.Type("media-default")
 
     /**
      * "media-front-coating-supported" as defined in:
@@ -1168,6 +1204,12 @@ object PrinterDescriptionGroup {
      * [PWG5100.2](http://ftp.pwg.org/pub/pwg/candidates/cs-ippoutputbin10-20010207-5100.2.pdf)
      */
     @JvmField val outputBinDefault = OutputBin.Type("output-bin-default")
+
+    /**
+     * "output-bin-supported" as defined in:
+     * [PWG5100.2](http://ftp.pwg.org/pub/pwg/candidates/cs-ippoutputbin10-20010207-5100.2.pdf)
+     */
+    @JvmField val outputBinSupported = OutputBin.Type("output-bin-supported")
 
     /**
      * "output-device-supported" as defined in:

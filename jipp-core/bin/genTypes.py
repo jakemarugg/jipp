@@ -57,18 +57,28 @@ def parse_spec(record, target):
 def clean_syntax(syntax):
     if syntax is None:
         return None
+    # Some strings we do not care about no matter where they occur
+    syntax = syntax.replace("(MAX)", "")
+    #syntax = syntax.replace("(MAX", "") # Special case
+    syntax = syntax.replace("type1", "")
+    syntax = syntax.replace("type2", "")
+    syntax = syntax.replace("[PWG5100.NN]", "") # Special case
+    syntax = syntax.replace("1setOf", "")
+    syntax = syntax.replace("1set Of", "") # Special case
+    syntax = syntax.strip()
+
     if syntax.startswith('(') and syntax.endswith(')'):
         return clean_syntax(syntax[1:-1])
+
+    # Special case to clean up "(name(MAX)" (missing term paren)
+    if syntax.startswith('(') and not syntax.endswith(')'):
+        return clean_syntax(syntax[1:])
+
     # we could be a lot more strict about 1setof, but not yet. Trim it.
-    if syntax.startswith("1setOf "):
-        return clean_syntax(syntax[len("1setOf "):])
-    # Special case: fix up XML
-    if syntax.startswith("1set Of "):
-        return clean_syntax(syntax[len("1set Of "):])
-    syntax = syntax.strip()
-    if '(' not in syntax and " | " in syntax:
+    if " | " in syntax:
         # Ignore no-value and unknown since those are accepted everywhere
-        syntax = " | ".join(sorted([clean_syntax(part) for part in syntax.split(" | ") if part != "no-value" and part != "unknown"]))
+        parts = [clean_syntax(part.strip()) for part in syntax.split("|")]
+        syntax = " | ".join([part for part in parts if part != "no-value" and part != "unknown"])
     return syntax
 
 # Make sure that if the syntax is new, take the more complex version
@@ -351,27 +361,22 @@ def emit_collections(env):
             # TODO: Watch out for members and submembers here, which should live in sub-objects
             type = copy.deepcopy(desc)
             syntax = type['syntax']
-            original_syntax = type['syntax']
+            original_syntax = syntax
 
             # no-value cases mean the attribute can be empty which is usually not the case.
 
             # Special case: job-collation-type-actual should point to enum, not keyword
-            if typeName == "job-collation-type-actual" and syntax == "type2 keyword":
-                syntax = "type2 enum"
-
-            if syntax.startswith("(") and syntax.endswith(")"):
-                syntax = syntax[1:-1]
+            if typeName == "job-collation-type-actual" and syntax == "keyword":
+                syntax = "enum"
 
             intro = None
             if re.search('^uri(\([0-9]+\))?$', syntax):
                 intro = "UriType("
-            elif re.search('^(type[12] )?keyword$', syntax):
+            elif syntax == 'keyword':
                 intro = get_intro(keywords, type['name'])
-            elif syntax == 'type2 keyword | name(MAX)':
+            elif syntax == 'keyword | name':
                 intro = get_intro(keywords, type['name'])
-            elif syntax == 'name | type2 keyword':
-                intro = get_intro(keywords, type['name'])
-            elif re.search('^(type[12] )?enum$', syntax):
+            elif syntax == 'enum':
                 intro = get_intro(enums, type['name'])
             elif re.search('^rangeOfInteger(\([0-9MINAX:-]*\))?$', syntax):
                 intro = "RangeOfIntegerType("
@@ -389,21 +394,21 @@ def emit_collections(env):
                 intro = "ResolutionType("
             elif syntax == "collection":
                 intro = "CollectionType("
-            elif syntax == 'name(MAX)' or syntax == 'name(MAX': # Special case
+            elif syntax == 'name':
                 intro = "NameType("
             elif re.search('^name\(([0-9]+)\)$', syntax):
                 m = re.search('name\(([0-9]+)\)', syntax)
                 intro = "NameType(" + m.group(1) + ", "
             elif syntax == 'text':
                 intro = "TextType("
-            elif syntax == 'text(MAX)':
+            elif syntax == 'text':
                 intro = "TextType("
             elif syntax == 'uriScheme':
                 intro = "StringType(Tag.uriScheme, "
             elif re.search('^text\(([0-9]+)\)$', syntax):
                 m = re.search('text\(([0-9]+)\)', syntax)
                 intro = "TextType(" + m.group(1) + ", "
-            elif syntax == 'octetString(MAX)':
+            elif syntax == 'octetString':
                 intro = "OctetStringType("
             elif re.search('^octetString\(([0-9]+)\)$', syntax):
                 m = re.search('octetString\(([0-9]+)\)', syntax)
