@@ -18,7 +18,7 @@ import com.hp.jipp.encoding.Tag
  * Also used by:
  *   * `separator-sheets-type-supported`
  */
-data class SeparatorSheetsType(
+data class SeparatorSheet(
     override val value: String,
     override val tag: Tag = Tag.keyword,
     override val language: String? = null
@@ -28,17 +28,17 @@ data class SeparatorSheetsType(
 
     override fun toString() = value
 
-    /** An attribute type for [SeparatorSheetsType] attributes */
-    class Type(name: String) : KeywordType<SeparatorSheetsType>(Encoder, name)
+    /** An attribute type for [SeparatorSheet] attributes */
+    class Type(name: String) : KeywordType<SeparatorSheet>(Encoder, name)
 
     companion object {
-        @JvmField val bothSheets = SeparatorSheetsType("both-sheets")
-        @JvmField val endSheet = SeparatorSheetsType("end-sheet")
-        @JvmField val none = SeparatorSheetsType("none")
-        @JvmField val slipSheets = SeparatorSheetsType("slip-sheets")
-        @JvmField val startSheet = SeparatorSheetsType("start-sheet")
-        @JvmField val Encoder = KeywordType.encoderOf(SeparatorSheetsType::class.java) { value, tag, language ->
-            SeparatorSheetsType(value, tag, language)
+        @JvmField val bothSheets = SeparatorSheet("both-sheets")
+        @JvmField val endSheet = SeparatorSheet("end-sheet")
+        @JvmField val none = SeparatorSheet("none")
+        @JvmField val slipSheets = SeparatorSheet("slip-sheets")
+        @JvmField val startSheet = SeparatorSheet("start-sheet")
+        @JvmField val Encoder = KeywordType.encoderOf(SeparatorSheet::class.java) { value, tag, language ->
+            SeparatorSheet(value, tag, language)
         }
     }
 }

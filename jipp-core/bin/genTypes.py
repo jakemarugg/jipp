@@ -287,6 +287,9 @@ def emit_keyword(template, keyword):
 
     keyword['fullname'] = keyword['name']
     keyword['name'] = re.sub('-(supported|requested)$', '', keyword['name'])
+    # Special case because separator-sheets-supported should either be separator-sheets-type-supported, or -type
+    # should be gone
+    keyword['name'] = re.sub('-sheets-type', '-sheets', keyword['name'])
     if 'name' in keyword['syntax']:
         keyword['orName'] = True
     keyword['name'] = depluralize(keyword['name'])

@@ -15,7 +15,7 @@ import com.hp.jipp.encoding.Tag
  * "job-accounting-sheets-type" keyword as defined in:
  *   * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
  */
-data class JobAccountingSheetsType(
+data class JobAccountingSheet(
     override val value: String,
     override val tag: Tag = Tag.keyword,
     override val language: String? = null
@@ -25,14 +25,14 @@ data class JobAccountingSheetsType(
 
     override fun toString() = value
 
-    /** An attribute type for [JobAccountingSheetsType] attributes */
-    class Type(name: String) : KeywordType<JobAccountingSheetsType>(Encoder, name)
+    /** An attribute type for [JobAccountingSheet] attributes */
+    class Type(name: String) : KeywordType<JobAccountingSheet>(Encoder, name)
 
     companion object {
-        @JvmField val none = JobAccountingSheetsType("none")
-        @JvmField val standard = JobAccountingSheetsType("standard")
-        @JvmField val Encoder = KeywordType.encoderOf(JobAccountingSheetsType::class.java) { value, tag, language ->
-            JobAccountingSheetsType(value, tag, language)
+        @JvmField val none = JobAccountingSheet("none")
+        @JvmField val standard = JobAccountingSheet("standard")
+        @JvmField val Encoder = KeywordType.encoderOf(JobAccountingSheet::class.java) { value, tag, language ->
+            JobAccountingSheet(value, tag, language)
         }
     }
 }
