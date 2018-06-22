@@ -61,6 +61,9 @@ def clean_syntax(syntax):
     # XML fix
     syntax = syntax.replace("type2 num", "type2 enum")
 
+    # XML fix
+    syntax = re.sub("\]\s+\[.*\]", "", syntax)
+
     # Some strings we do not care about no matter where they occur
     syntax = syntax.replace("(MAX)", "")
     syntax = syntax.replace("type1", "")
@@ -222,23 +225,28 @@ def parse_attribute(record):
 
     if member_name is not None:
         if member_name.startswith('<'):
-            m = re.search("<Member attributes are the same as the \"([a-z-]+)\"( .* attribute)?>", member_name)
+            m = re.search("<(?:Member attributes are the same as the |Any )\"([a-z-]+)\"( .* attribute)?>", member_name)
             if m and m.group(1):
                 attr['ref'] = m.group(1)
                 return
 
-            m = re.search("<Any (.*) attribute>", member_name)
-            if m and m.group(1):
-                attr['ref'] = m.group(1)
-                return
-
-            warn("Unparseable member '" + attr_name + "' member_attribute: '" + member_name + "'")
+            warn("Unparseable '" + attr_name + "' member name: '" + member_name + "'")
             return
 
         attr = attr['members'].setdefault(member_name, {
                 'name': member_name, 'specs': [ ], 'syntax': syntax, 'members': { } } )
 
         if submember_name is not None:
+            if submember_name.startswith('<'):
+                m = re.search("<(?:Member attributes are the same as the |Any )\"([a-z-]+)\"( .* attribute)?>", submember_name)
+                if m and m.group(1):
+                    attr['ref'] = m.group(1)
+                    return
+
+                warn("Unparseable '" + attr_name + "' member '" + member_name + "'" +
+                     " submember name '" + submember_name + "'")
+                return
+
             attr['members'].setdefault(submember_name, {
                 'name': submember_name, 'specs': [ ], 'syntax': syntax, 'members': { } } )
 
@@ -371,75 +379,93 @@ def emit_collections(env):
     for name, values in collections.items():
         types = []
         for typeName, desc in sorted(values.items(), key=lambda (k, v): k):
-            # TODO: Watch out for members and submembers here, which should live in sub-objects
             type = copy.deepcopy(desc)
-            syntax = type['syntax']
-            original_syntax = syntax
 
-            # no-value cases mean the attribute can be empty which is usually not the case.
-
-            # XML fix: job-collation-type-actual should point to enum, not keyword
-            if typeName == "job-collation-type-actual" and syntax == "keyword":
-                syntax = "enum"
-
-            intro = None
-            if re.search('^uri(\([0-9]+\))?$', syntax):
-                intro = "UriType("
-            elif syntax == 'keyword':
-                intro = get_intro(keywords, type['name'])
-            elif syntax == 'keyword | name':
-                intro = get_intro(keywords, type['name'])
-            elif syntax == 'enum':
-                intro = get_intro(enums, type['name'])
-            elif re.search('^rangeOfInteger(\([0-9MINAX:-]*\))?$', syntax):
-                intro = "RangeOfIntegerType("
-            elif re.search('^integer(\([0-9MINAX:-]*\)) | rangeOfInteger(\([0-9MINAX:-]*\))?$', syntax):
-                intro = "IntegerOrRangeOfIntegerType("
-            elif re.search('^integer(\([0-9MINAX:-]*\))?$', syntax):
-                intro = "IntegerType("
-            elif syntax == "boolean":
-                intro = "BooleanType("
-            elif syntax == "charset":
-                intro = "StringType(Tag.charset, "
-            elif syntax == "mimeMediaType":
-                intro = "StringType(Tag.mimeMediaType, "
-            elif syntax == "naturalLanguage":
-                intro = "StringType(Tag.naturalLanguage, "
-            elif syntax == "resolution":
-                intro = "ResolutionType("
-            elif syntax == "collection":
-                intro = "CollectionType("
-            elif syntax == "dateTime":
-                intro = "DateTimeType("
-            elif syntax == 'name':
-                intro = "NameType("
-            elif re.search('^name\(([0-9]+)\)$', syntax):
-                m = re.search('name\(([0-9]+)\)', syntax)
-                intro = "NameType(" + m.group(1) + ", "
-            elif syntax == 'text':
-                intro = "TextType("
-            elif syntax == 'text':
-                intro = "TextType("
-            elif syntax == 'uriScheme':
-                intro = "StringType(Tag.uriScheme, "
-            elif re.search('^text\(([0-9]+)\)$', syntax):
-                m = re.search('text\(([0-9]+)\)', syntax)
-                intro = "TextType(" + m.group(1) + ", "
-            elif syntax == 'octetString':
-                intro = "OctetStringType("
-            elif re.search('^octetString\(([0-9]+)\)$', syntax):
-                m = re.search('octetString\(([0-9]+)\)', syntax)
-                intro = "OctetStringType(" + m.group(1) + ", "
-
-            if not intro:
-                warn("Could not identify " + name + " type " + typeName + " with syntax '" + syntax + "'" +
-                    " (originally '" + original_syntax + "')")
+            type['intro'] = find_intro(type)
+            if not type['intro']:
                 continue
-            type['intro'] = intro
+
+            for member in type['members'].values():
+                fix_member(type['members'], member)
+
             types.append(type)
 
         with open(prep_file(name + "-group"), "w") as file:
             file.write(template.render(name=name, types=types, app=os.path.basename(sys.argv[0]), updated=updated, specs=specs))
+
+# For each member recursively find and apply its intro, or remove it
+def fix_member(dict, member):
+    member['intro'] = find_intro(member)
+    if not member['intro']:
+        del dict[member['name']]
+    for submember in member['members'].values():
+        fix_member(member['members'], submember)
+
+# Given an attribute type object, look up its intro and apply it.
+def find_intro(type):
+    syntax = type['syntax']
+    original_syntax = syntax
+    name = type['name']
+
+    # TODO: no-value cases mean the attribute can be empty which is usually not the case.??
+
+    # XML fix: job-collation-type-actual should point to enum, not keyword
+    if name == "job-collation-type-actual" and syntax == "keyword":
+        syntax = "enum"
+
+    intro = None
+    if re.search('^uri(\([0-9]+\))?$', syntax):
+        intro = "UriType("
+    elif syntax == 'keyword':
+        intro = get_intro(keywords, name)
+    elif syntax == 'keyword | name':
+        intro = get_intro(keywords, name)
+    elif syntax == 'enum':
+        intro = get_intro(enums, name)
+    elif re.search('^rangeOfInteger(\([0-9MINAX:-]*\))?$', syntax):
+        intro = "RangeOfIntegerType("
+    elif re.search('^integer(\([0-9MINAX:-]*\)) | rangeOfInteger(\([0-9MINAX:-]*\))?$', syntax):
+        intro = "IntegerOrRangeOfIntegerType("
+    elif re.search('^integer(\([0-9MINAX:-]*\))?$', syntax):
+        intro = "IntegerType("
+    elif syntax == "boolean":
+        intro = "BooleanType("
+    elif syntax == "charset":
+        intro = "StringType(Tag.charset, "
+    elif syntax == "mimeMediaType":
+        intro = "StringType(Tag.mimeMediaType, "
+    elif syntax == "naturalLanguage":
+        intro = "StringType(Tag.naturalLanguage, "
+    elif syntax == "resolution":
+        intro = "ResolutionType("
+    elif syntax == "collection":
+        intro = "CollectionType("
+    elif syntax == "dateTime":
+        intro = "DateTimeType("
+    elif syntax == 'name':
+        intro = "NameType("
+    elif re.search('^name\(([0-9]+)\)$', syntax):
+        m = re.search('name\(([0-9]+)\)', syntax)
+        intro = "NameType(" + m.group(1) + ", "
+    elif syntax == 'text':
+        intro = "TextType("
+    elif syntax == 'text':
+        intro = "TextType("
+    elif syntax == 'uriScheme':
+        intro = "StringType(Tag.uriScheme, "
+    elif re.search('^text\(([0-9]+)\)$', syntax):
+        m = re.search('text\(([0-9]+)\)', syntax)
+        intro = "TextType(" + m.group(1) + ", "
+    elif syntax == 'octetString':
+        intro = "OctetStringType("
+    elif re.search('^octetString\(([0-9]+)\)$', syntax):
+        m = re.search('octetString\(([0-9]+)\)', syntax)
+        intro = "OctetStringType(" + m.group(1) + ", "
+
+    if not intro:
+        warn("Could not identify " + name + " with syntax '" + syntax + "'" +
+             " (originally '" + original_syntax + "')")
+    return intro
 
 def emit_code():
     env = Environment(loader=FileSystemLoader(proj_dir + 'bin'))
@@ -488,3 +514,5 @@ pp = pprint.PrettyPrinter(indent=2)
 
 emit_code()
 print "WARNINGS: " + str(warns)
+
+#pp.pprint(collections['Document Description']['impressions-col'])

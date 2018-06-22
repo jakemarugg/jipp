@@ -286,6 +286,36 @@ object JobStatusGroup {
     @JvmField val jobImpressionsCol = CollectionType("job-impressions-col")
 
     /**
+     * Attributes which may appear within [jobImpressionsCol]
+     */
+     object JobImpressionsCol {
+
+        /** "blank-two-sided" member */
+        @JvmField val blankTwoSided = IntegerType("blank-two-sided")
+
+        /** "highlight-color" member */
+        @JvmField val highlightColor = IntegerType("highlight-color")
+
+        /** "highlight-color-two-sided" member */
+        @JvmField val highlightColorTwoSided = IntegerType("highlight-color-two-sided")
+
+        /** "full-color" member */
+        @JvmField val fullColor = IntegerType("full-color")
+
+        /** "full-color-two-sided" member */
+        @JvmField val fullColorTwoSided = IntegerType("full-color-two-sided")
+
+        /** "blank" member */
+        @JvmField val blank = IntegerType("blank")
+
+        /** "monochrome" member */
+        @JvmField val monochrome = IntegerType("monochrome")
+
+        /** "monochrome-two-sided" member */
+        @JvmField val monochromeTwoSided = IntegerType("monochrome-two-sided")
+    }
+
+    /**
      * "job-impressions-completed" as defined in:
      * [RFC8011](http://www.iana.org/go/rfc8011)
      */
@@ -320,6 +350,36 @@ object JobStatusGroup {
      * [APRIL2015F2F](http://ftp.pwg.org/pub/pwg/ipp/minutes/ippv2-f2f-minutes-20150429.pdf)
      */
     @JvmField val jobMediaSheetsCol = CollectionType("job-media-sheets-col")
+
+    /**
+     * Attributes which may appear within [jobMediaSheetsCol]
+     */
+     object JobMediaSheetsCol {
+
+        /** "blank-two-sided" member */
+        @JvmField val blankTwoSided = IntegerType("blank-two-sided")
+
+        /** "highlight-color" member */
+        @JvmField val highlightColor = IntegerType("highlight-color")
+
+        /** "highlight-color-two-sided" member */
+        @JvmField val highlightColorTwoSided = IntegerType("highlight-color-two-sided")
+
+        /** "full-color" member */
+        @JvmField val fullColor = IntegerType("full-color")
+
+        /** "full-color-two-sided" member */
+        @JvmField val fullColorTwoSided = IntegerType("full-color-two-sided")
+
+        /** "blank" member */
+        @JvmField val blank = IntegerType("blank")
+
+        /** "monochrome" member */
+        @JvmField val monochrome = IntegerType("monochrome")
+
+        /** "monochrome-two-sided" member */
+        @JvmField val monochromeTwoSided = IntegerType("monochrome-two-sided")
+    }
 
     /**
      * "job-media-sheets-completed" as defined in:
@@ -362,6 +422,18 @@ object JobStatusGroup {
      * [APRIL2015F2F](http://ftp.pwg.org/pub/pwg/ipp/minutes/ippv2-f2f-minutes-20150429.pdf)
      */
     @JvmField val jobPagesCol = CollectionType("job-pages-col")
+
+    /**
+     * Attributes which may appear within [jobPagesCol]
+     */
+     object JobPagesCol {
+
+        /** "monochrome" member */
+        @JvmField val monochrome = IntegerType("monochrome")
+
+        /** "full-color" member */
+        @JvmField val fullColor = IntegerType("full-color")
+    }
 
     /**
      * "job-pages-completed" as defined in:

@@ -52,6 +52,30 @@ object OperationGroup {
     @JvmField val destinationAccesses = CollectionType("destination-accesses")
 
     /**
+     * Attributes which may appear within [destinationAccesses]
+     */
+     object DestinationAccesses {
+
+        /** "access-oauth-token" member */
+        @JvmField val accessOauthToken = OctetStringType("access-oauth-token")
+
+        /** "access-x509-certificate" member */
+        @JvmField val accessX509Certificate = OctetStringType("access-x509-certificate")
+
+        /** "access-user-name" member */
+        @JvmField val accessUserName = TextType("access-user-name")
+
+        /** "access-password" member */
+        @JvmField val accessPassword = TextType("access-password")
+
+        /** "access-oauth-uri" member */
+        @JvmField val accessOauthUri = UriType("access-oauth-uri")
+
+        /** "access-pin" member */
+        @JvmField val accessPin = TextType("access-pin")
+    }
+
+    /**
      * "detailed-status-message" as defined in:
      * [RFC8011](http://www.iana.org/go/rfc8011)
      */
@@ -62,6 +86,30 @@ object OperationGroup {
      * [PWG5100.18](http://ftp.pwg.org/pub/pwg/candidates/cs-ippinfra10-20150619-5100.18.pdf)
      */
     @JvmField val documentAccess = CollectionType("document-access")
+
+    /**
+     * Attributes which may appear within [documentAccess]
+     */
+     object DocumentAccess {
+
+        /** "access-oauth-token" member */
+        @JvmField val accessOauthToken = OctetStringType("access-oauth-token")
+
+        /** "access-x509-certificate" member */
+        @JvmField val accessX509Certificate = OctetStringType("access-x509-certificate")
+
+        /** "access-user-name" member */
+        @JvmField val accessUserName = TextType("access-user-name")
+
+        /** "access-password" member */
+        @JvmField val accessPassword = TextType("access-password")
+
+        /** "access-oauth-uri" member */
+        @JvmField val accessOauthUri = UriType("access-oauth-uri")
+
+        /** "access-pin" member */
+        @JvmField val accessPin = TextType("access-pin")
+    }
 
     /**
      * "document-access-error" as defined in:
@@ -110,6 +158,36 @@ object OperationGroup {
      * [PWG5100.7](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobext10-20031031-5100.7.pdf)
      */
     @JvmField val documentFormatDetails = CollectionType("document-format-details")
+
+    /**
+     * Attributes which may appear within [documentFormatDetails]
+     */
+     object DocumentFormatDetails {
+
+        /** "document-source-os-name" member */
+        @JvmField val documentSourceOsName = NameType(40, "document-source-os-name")
+
+        /** "document-source-application-version" member */
+        @JvmField val documentSourceApplicationVersion = TextType(127, "document-source-application-version")
+
+        /** "document-format-version" member */
+        @JvmField val documentFormatVersion = TextType(127, "document-format-version")
+
+        /** "document-format" member */
+        @JvmField val documentFormat = StringType(Tag.mimeMediaType, "document-format")
+
+        /** "document-source-os-version" member */
+        @JvmField val documentSourceOsVersion = TextType(40, "document-source-os-version")
+
+        /** "document-format-device-id" member */
+        @JvmField val documentFormatDeviceId = TextType(127, "document-format-device-id")
+
+        /** "document-natural-language" member */
+        @JvmField val documentNaturalLanguage = StringType(Tag.naturalLanguage, "document-natural-language")
+
+        /** "document-source-application-name" member */
+        @JvmField val documentSourceApplicationName = NameType("document-source-application-name")
+    }
 
     /**
      * "document-message" as defined in:
@@ -183,6 +261,76 @@ object OperationGroup {
      * [PWG5100.15](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfaxout10-20131115-5100.15.pdf)
      */
     @JvmField val inputAttributes = CollectionType("input-attributes")
+
+    /**
+     * Attributes which may appear within [inputAttributes]
+     */
+     object InputAttributes {
+
+        /** "input-brightness" member */
+        @JvmField val inputBrightness = IntegerType("input-brightness")
+
+        /** "input-film-scan-mode" member */
+        @JvmField val inputFilmScanMode = InputFilmScanMode.Type("input-film-scan-mode")
+
+        /** "input-auto-scaling" member */
+        @JvmField val inputAutoScaling = BooleanType("input-auto-scaling")
+
+        /** "input-color-mode" member */
+        @JvmField val inputColorMode = InputColorMode.Type("input-color-mode")
+
+        /** "input-sides" member */
+        @JvmField val inputSides = Sides.Type("input-sides")
+
+        /** "input-content-type" member */
+        @JvmField val inputContentType = InputContentType.Type("input-content-type")
+
+        /** "input-scan-regions" member */
+        @JvmField val inputScanRegions = CollectionType("input-scan-regions")
+
+        /** Attributes which may appear within [inputAttributes].[inputScanRegions] */
+        object InputScanRegions {
+
+            /** "x-dimension" member */
+            @JvmField val xDimension = IntegerType("x-dimension")
+
+            /** "x-origin" member */
+            @JvmField val xOrigin = IntegerType("x-origin")
+
+            /** "y-origin" member */
+            @JvmField val yOrigin = IntegerType("y-origin")
+
+            /** "y-dimension" member */
+            @JvmField val yDimension = IntegerType("y-dimension")
+        }
+
+        /** "input-auto-skew-correction" member */
+        @JvmField val inputAutoSkewCorrection = BooleanType("input-auto-skew-correction")
+
+        /** "input-images-to-transfer" member */
+        @JvmField val inputImagesToTransfer = IntegerType("input-images-to-transfer")
+
+        /** "input-sharpness" member */
+        @JvmField val inputSharpness = IntegerType("input-sharpness")
+
+        /** "input-source" member */
+        @JvmField val inputSource = InputSource.Type("input-source")
+
+        /** "input-scaling-height" member */
+        @JvmField val inputScalingHeight = IntegerType("input-scaling-height")
+
+        /** "input-contrast" member */
+        @JvmField val inputContrast = IntegerType("input-contrast")
+
+        /** "input-resolution" member */
+        @JvmField val inputResolution = ResolutionType("input-resolution")
+
+        /** "input-scaling-width" member */
+        @JvmField val inputScalingWidth = IntegerType("input-scaling-width")
+
+        /** "input-quality" member */
+        @JvmField val inputQuality = PrintQuality.Type("input-quality")
+    }
 
     /**
      * "ipp-attribute-fidelity" as defined in:
@@ -369,6 +517,18 @@ object OperationGroup {
      * [PWG5100.17](http://ftp.pwg.org/pub/pwg/candidates/cs-ippscan10-20140918-5100.17.pdf)
      */
     @JvmField val outputAttributes = CollectionType("output-attributes")
+
+    /**
+     * Attributes which may appear within [outputAttributes]
+     */
+     object OutputAttributes {
+
+        /** "noise-removal" member */
+        @JvmField val noiseRemoval = IntegerType("noise-removal")
+
+        /** "output-compression-quality-factor" member */
+        @JvmField val outputCompressionQualityFactor = IntegerType("output-compression-quality-factor")
+    }
 
     /**
      * "output-device-job-states" as defined in:

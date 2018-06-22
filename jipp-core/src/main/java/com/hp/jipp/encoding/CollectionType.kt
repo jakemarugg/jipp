@@ -15,8 +15,11 @@ import java.io.IOException
 open class CollectionType(override val name: String) :
         AttributeType<AttributeCollection>(Encoder, Tag.beginCollection) {
 
-    /** Return a collection containing the supplied attributes */
-    fun of(vararg attributes: Attribute<*>) = this(AttributeCollection(attributes.toList()))
+    /** Return an attribute of a single collection containing the supplied attributes. */
+    fun collectionOf(attributes: List<Attribute<*>>) = this(AttributeCollection(attributes))
+
+    /** Return an attribute of a single collection containing the supplied attributes. */
+    fun collectionOf(vararg attributes: Attribute<*>) = collectionOf(attributes.toList())
 
     companion object Encoder : com.hp.jipp.encoding.Encoder<AttributeCollection>() {
         override val typeName

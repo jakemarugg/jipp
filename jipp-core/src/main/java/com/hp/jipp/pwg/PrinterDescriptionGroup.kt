@@ -148,6 +148,36 @@ object PrinterDescriptionGroup {
     @JvmField val destinationUriReady = CollectionType("destination-uri-ready")
 
     /**
+     * Attributes which may appear within [destinationUriReady]
+     */
+     object DestinationUriReady {
+
+        /** "destination-info" member */
+        @JvmField val destinationInfo = TextType("destination-info")
+
+        /** "destination-oauth-token" member */
+        @JvmField val destinationOauthToken = OctetStringType("destination-oauth-token")
+
+        /** "destination-attributes" member */
+        @JvmField val destinationAttributes = CollectionType("destination-attributes")
+
+        /** "destination-uri" member */
+        @JvmField val destinationUri = UriType("destination-uri")
+
+        /** "destination-oauth-scope" member */
+        @JvmField val destinationOauthScope = OctetStringType("destination-oauth-scope")
+
+        /** "destination-is-directory" member */
+        @JvmField val destinationIsDirectory = BooleanType("destination-is-directory")
+
+        /** "destination-oauth-uri" member */
+        @JvmField val destinationOauthUri = UriType("destination-oauth-uri")
+
+        /** "destination-name" member */
+        @JvmField val destinationName = NameType("destination-name")
+    }
+
+    /**
      * "destination-uri-schemes-supported" as defined in:
      * [PWG5100.15](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfaxout10-20131115-5100.15.pdf)
      */
@@ -418,6 +448,24 @@ object PrinterDescriptionGroup {
     @JvmField val inputScanRegionsSupported = CollectionType("input-scan-regions-supported")
 
     /**
+     * Attributes which may appear within [inputScanRegionsSupported]
+     */
+     object InputScanRegionsSupported {
+
+        /** "x-dimension" member */
+        @JvmField val xDimension = RangeOfIntegerType("x-dimension")
+
+        /** "x-origin" member */
+        @JvmField val xOrigin = RangeOfIntegerType("x-origin")
+
+        /** "y-origin" member */
+        @JvmField val yOrigin = RangeOfIntegerType("y-origin")
+
+        /** "y-dimension" member */
+        @JvmField val yDimension = RangeOfIntegerType("y-dimension")
+    }
+
+    /**
      * "input-sides-supported" as defined in:
      * [PWG5100.15](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfaxout10-20131115-5100.15.pdf)
      */
@@ -518,6 +566,15 @@ object PrinterDescriptionGroup {
      * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
      */
     @JvmField val jobConstraintsSupported = CollectionType("job-constraints-supported")
+
+    /**
+     * Attributes which may appear within [jobConstraintsSupported]
+     */
+     object JobConstraintsSupported {
+
+        /** "resolver-name" member */
+        @JvmField val resolverName = NameType("resolver-name")
+    }
 
     /**
      * "job-copies-default" as defined in:
@@ -760,6 +817,15 @@ object PrinterDescriptionGroup {
     @JvmField val jobResolversSupported = CollectionType("job-resolvers-supported")
 
     /**
+     * Attributes which may appear within [jobResolversSupported]
+     */
+     object JobResolversSupported {
+
+        /** "resolver-name" member */
+        @JvmField val resolverName = NameType("resolver-name")
+    }
+
+    /**
      * "job-sheet-message-default" as defined in:
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
      */
@@ -953,6 +1019,25 @@ object PrinterDescriptionGroup {
     @JvmField val mediaColDatabase = CollectionType("media-col-database")
 
     /**
+     * Attributes which may appear within [mediaColDatabase]
+     */
+     object MediaColDatabase {
+
+        /** "media-source-properties" member */
+        @JvmField val mediaSourceProperties = CollectionType("media-source-properties")
+
+        /** Attributes which may appear within [mediaColDatabase].[mediaSourceProperties] */
+        object MediaSourceProperties {
+
+            /** "media-source-feed-direction" member */
+            @JvmField val mediaSourceFeedDirection = FeedOrientation.Type("media-source-feed-direction")
+
+            /** "media-source-feed-orientation" member */
+            @JvmField val mediaSourceFeedOrientation = Orientation.Type("media-source-feed-orientation")
+        }
+    }
+
+    /**
      * "media-col-default" as defined in:
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
      */
@@ -964,6 +1049,25 @@ object PrinterDescriptionGroup {
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
      */
     @JvmField val mediaColReady = CollectionType("media-col-ready")
+
+    /**
+     * Attributes which may appear within [mediaColReady]
+     */
+     object MediaColReady {
+
+        /** "media-source-properties" member */
+        @JvmField val mediaSourceProperties = CollectionType("media-source-properties")
+
+        /** Attributes which may appear within [mediaColReady].[mediaSourceProperties] */
+        object MediaSourceProperties {
+
+            /** "media-source-feed-direction" member */
+            @JvmField val mediaSourceFeedDirection = FeedOrientation.Type("media-source-feed-direction")
+
+            /** "media-source-feed-orientation" member */
+            @JvmField val mediaSourceFeedOrientation = Orientation.Type("media-source-feed-orientation")
+        }
+    }
 
     /**
      * "media-col-supported" as defined in:
@@ -1042,6 +1146,18 @@ object PrinterDescriptionGroup {
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
      */
     @JvmField val mediaSizeSupported = CollectionType("media-size-supported")
+
+    /**
+     * Attributes which may appear within [mediaSizeSupported]
+     */
+     object MediaSizeSupported {
+
+        /** "x-dimension" member */
+        @JvmField val xDimension = IntegerOrRangeOfIntegerType("x-dimension")
+
+        /** "y-dimension" member */
+        @JvmField val yDimension = IntegerOrRangeOfIntegerType("y-dimension")
+    }
 
     /**
      * "media-source-supported" as defined in:
@@ -1410,6 +1526,24 @@ object PrinterDescriptionGroup {
     @JvmField val printAccuracySupported = CollectionType("print-accuracy-supported")
 
     /**
+     * Attributes which may appear within [printAccuracySupported]
+     */
+     object PrintAccuracySupported {
+
+        /** "x-accuracy" member */
+        @JvmField val xAccuracy = IntegerType("x-accuracy")
+
+        /** "z-accuracy" member */
+        @JvmField val zAccuracy = IntegerType("z-accuracy")
+
+        /** "accuracy-units" member */
+        @JvmField val accuracyUnits = AccuracyUnit.Type("accuracy-units")
+
+        /** "y-accuracy" member */
+        @JvmField val yAccuracy = IntegerType("y-accuracy")
+    }
+
+    /**
      * "print-base-default" as defined in:
      * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
      */
@@ -1572,6 +1706,18 @@ object PrinterDescriptionGroup {
     @JvmField val printerIccProfiles = CollectionType("printer-icc-profiles")
 
     /**
+     * Attributes which may appear within [printerIccProfiles]
+     */
+     object PrinterIccProfiles {
+
+        /** "profile-url" member */
+        @JvmField val profileUrl = UriType("profile-url")
+
+        /** "profile-name" member */
+        @JvmField val profileName = NameType("profile-name")
+    }
+
+    /**
      * "printer-icons" as defined in:
      * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
      */
@@ -1662,10 +1808,34 @@ object PrinterDescriptionGroup {
     @JvmField val printerVolumeSupported = CollectionType("printer-volume-supported")
 
     /**
+     * Attributes which may appear within [printerVolumeSupported]
+     */
+     object PrinterVolumeSupported {
+
+        /** "x-dimension" member */
+        @JvmField val xDimension = IntegerType("x-dimension")
+
+        /** "y-dimension" member */
+        @JvmField val yDimension = IntegerType("y-dimension")
+
+        /** "z-dimension" member */
+        @JvmField val zDimension = IntegerType("z-dimension")
+    }
+
+    /**
      * "printer-xri-supported" as defined in:
      * [RFC3380](http://www.iana.org/go/rfc3380)
      */
     @JvmField val printerXriSupported = CollectionType("printer-xri-supported")
+
+    /**
+     * Attributes which may appear within [printerXriSupported]
+     */
+     object PrinterXriSupported {
+
+        /** "xri-uri" member */
+        @JvmField val xriUri = UriType("xri-uri")
+    }
 
     /**
      * "proof-print-default" as defined in:
