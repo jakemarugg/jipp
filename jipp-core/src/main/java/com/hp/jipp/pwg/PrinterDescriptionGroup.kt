@@ -1512,6 +1512,12 @@ object PrinterDescriptionGroup {
     @JvmField val printerChargeInfoUri = UriType("printer-charge-info-uri")
 
     /**
+     * "printer-current-time" as defined in:
+     * [RFC8011](http://www.iana.org/go/rfc8011)
+     */
+    @JvmField val printerCurrentTime = DateTimeType("printer-current-time")
+
+    /**
      * "printer-device-id" as defined in:
      * [PWG5107.2](http://ftp.pwg.org/pub/pwg/candidates/cs-pmp1284cmdset10-20100531-5107.2.pdf)
      */

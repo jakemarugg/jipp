@@ -100,6 +100,12 @@ object EventNotificationsGroup {
     @JvmField val notifyUserData = OctetStringType(63, "notify-user-data")
 
     /**
+     * "printer-current-time" as defined in:
+     * [RFC3996](http://www.iana.org/go/rfc3996)
+     */
+    @JvmField val printerCurrentTime = DateTimeType("printer-current-time")
+
+    /**
      * "printer-is-accepting-jobs" as defined in:
      * [RFC3996](http://www.iana.org/go/rfc3996)
      */

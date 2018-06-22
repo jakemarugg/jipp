@@ -58,6 +58,24 @@ object DocumentStatusGroup {
     @JvmField val currentPageOrder = PageOrderReceived.Type("current-page-order")
 
     /**
+     * "date-time-at-completed" as defined in:
+     * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     */
+    @JvmField val dateTimeAtCompleted = DateTimeType("date-time-at-completed")
+
+    /**
+     * "date-time-at-creation" as defined in:
+     * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     */
+    @JvmField val dateTimeAtCreation = DateTimeType("date-time-at-creation")
+
+    /**
+     * "date-time-at-processing" as defined in:
+     * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     */
+    @JvmField val dateTimeAtProcessing = DateTimeType("date-time-at-processing")
+
+    /**
      * "detailed-status-messages" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
      */

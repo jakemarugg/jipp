@@ -46,6 +46,24 @@ object JobStatusGroup {
     @JvmField val coverFrontActual = CollectionType("cover-front-actual")
 
     /**
+     * "date-time-at-completed" as defined in:
+     * [RFC8011](http://www.iana.org/go/rfc8011)
+     */
+    @JvmField val dateTimeAtCompleted = DateTimeType("date-time-at-completed")
+
+    /**
+     * "date-time-at-creation" as defined in:
+     * [RFC8011](http://www.iana.org/go/rfc8011)
+     */
+    @JvmField val dateTimeAtCreation = DateTimeType("date-time-at-creation")
+
+    /**
+     * "date-time-at-processing" as defined in:
+     * [RFC8011](http://www.iana.org/go/rfc8011)
+     */
+    @JvmField val dateTimeAtProcessing = DateTimeType("date-time-at-processing")
+
+    /**
      * "document-charset-supplied" as defined in:
      * [PWG5100.7](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobext10-20031031-5100.7.pdf)
      */

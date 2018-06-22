@@ -399,6 +399,8 @@ def emit_collections(env):
                 intro = "ResolutionType("
             elif syntax == "collection":
                 intro = "CollectionType("
+            elif syntax == "dateTime":
+                intro = "DateTimeType("
             elif syntax == 'name':
                 intro = "NameType("
             elif re.search('^name\(([0-9]+)\)$', syntax):

@@ -160,6 +160,12 @@ object JobTemplateGroup {
     @JvmField val jobDelayOutputUntil = JobDelayOutputUntil.Type("job-delay-output-until")
 
     /**
+     * "job-delay-output-until-time" as defined in:
+     * [PWG5100.11](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext10-20101030-5100.11.pdf)
+     */
+    @JvmField val jobDelayOutputUntilTime = DateTimeType("job-delay-output-until-time")
+
+    /**
      * "job-error-action" as defined in:
      * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
      */
@@ -188,6 +194,12 @@ object JobTemplateGroup {
      * [RFC8011](http://www.iana.org/go/rfc8011)
      */
     @JvmField val jobHoldUntil = JobHoldUntil.Type("job-hold-until")
+
+    /**
+     * "job-hold-until-time" as defined in:
+     * [PWG5100.11](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext10-20101030-5100.11.pdf)
+     */
+    @JvmField val jobHoldUntilTime = DateTimeType("job-hold-until-time")
 
     /**
      * "job-message-to-operator" as defined in:

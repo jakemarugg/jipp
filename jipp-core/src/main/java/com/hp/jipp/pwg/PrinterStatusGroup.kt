@@ -52,6 +52,12 @@ object PrinterStatusGroup {
     @JvmField val printerAlertDescription = TextType("printer-alert-description")
 
     /**
+     * "printer-config-change-date-time" as defined in:
+     * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
+     */
+    @JvmField val printerConfigChangeDateTime = DateTimeType("printer-config-change-date-time")
+
+    /**
      * "printer-config-change-time" as defined in:
      * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
      */
@@ -100,6 +106,12 @@ object PrinterStatusGroup {
     @JvmField val printerIsAcceptingJobs = BooleanType("printer-is-accepting-jobs")
 
     /**
+     * "printer-message-date-time" as defined in:
+     * [RFC3380](http://www.iana.org/go/rfc3380)
+     */
+    @JvmField val printerMessageDateTime = DateTimeType("printer-message-date-time")
+
+    /**
      * "printer-message-from-operator" as defined in:
      * [RFC8011](http://www.iana.org/go/rfc8011)
      */
@@ -128,6 +140,12 @@ object PrinterStatusGroup {
      * [RFC8011](http://www.iana.org/go/rfc8011)
      */
     @JvmField val printerState = PrinterState.Type("printer-state")
+
+    /**
+     * "printer-state-change-date-time" as defined in:
+     * [RFC3995](http://www.iana.org/go/rfc3995)
+     */
+    @JvmField val printerStateChangeDateTime = DateTimeType("printer-state-change-date-time")
 
     /**
      * "printer-state-change-time" as defined in:
