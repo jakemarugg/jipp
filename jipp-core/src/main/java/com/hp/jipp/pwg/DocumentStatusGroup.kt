@@ -42,12 +42,16 @@ object DocumentStatusGroup {
     /**
      * "cover-back-actual" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     *
+     * See [JobTemplateGroup.CoverBack] for allowed collection members.
      */
     @JvmField val coverBackActual = CollectionType("cover-back-actual")
 
     /**
      * "cover-front-actual" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     *
+     * See [JobTemplateGroup.CoverFront] for allowed collection members.
      */
     @JvmField val coverFrontActual = CollectionType("cover-front-actual")
 
@@ -108,12 +112,16 @@ object DocumentStatusGroup {
     /**
      * "document-format-details" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     *
+     * See [OperationGroup.DocumentFormatDetails] for allowed collection members.
      */
     @JvmField val documentFormatDetails = CollectionType("document-format-details")
 
     /**
      * "document-format-details-detected" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     *
+     * See [OperationGroup.DocumentFormatDetails] for allowed collection members.
      */
     @JvmField val documentFormatDetailsDetected = CollectionType("document-format-details-detected")
 
@@ -240,6 +248,8 @@ object DocumentStatusGroup {
     /**
      * "finishings-col-actual" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     *
+     * See [JobTemplateGroup.FinishingsCol] for allowed collection members.
      */
     @JvmField val finishingsColActual = CollectionType("finishings-col-actual")
 
@@ -282,6 +292,8 @@ object DocumentStatusGroup {
     /**
      * "insert-sheet-actual" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     *
+     * See [JobTemplateGroup.InsertSheet] for allowed collection members.
      */
     @JvmField val insertSheetActual = CollectionType("insert-sheet-actual")
 
@@ -312,6 +324,8 @@ object DocumentStatusGroup {
     /**
      * "media-col-actual" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     *
+     * See [JobTemplateGroup.MediaCol] for allowed collection members.
      */
     @JvmField val mediaColActual = CollectionType("media-col-actual")
 
@@ -396,6 +410,8 @@ object DocumentStatusGroup {
     /**
      * "overrides-actual" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     *
+     * See [DocumentTemplateGroup.Overrides] for allowed collection members.
      */
     @JvmField val overridesActual = CollectionType("overrides-actual")
 
@@ -510,6 +526,8 @@ object DocumentStatusGroup {
     /**
      * "separator-sheets-actual" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     *
+     * See [JobTemplateGroup.SeparatorSheets] for allowed collection members.
      */
     @JvmField val separatorSheetsActual = CollectionType("separator-sheets-actual")
 

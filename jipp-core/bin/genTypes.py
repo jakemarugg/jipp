@@ -204,12 +204,20 @@ def parse_keyword(record):
         value = value.replace('"media" color', 'media-color')
         value = value.replace('job-default-output-until', 'job-delay-output-until')
 
-        m = re.search("< ?(?:[aA]ny |all )\"?([a-z-]+)\"?( keyword)? (value(s?)|name(s?)) ?>", value)
+        value = re.sub('^<? ?', '', value)
+        value = re.sub(' ?>?$', '', value)
+        m = re.search("(?:[aA]ny |all )\"?([a-z-]+)\"?( keyword)? (value(s?)|name(s?))", value)
         if m and m.group(1):
             keyword['ref'] = m.group(1)
-        else:
-            keyword['bad'] = True
-            warn("keyword " + attribute + " has unparseable value '" + value + "'")
+            return
+
+        m = re.search("(?:[aA]ny |all )\"?([a-z-]+)\"? attribute keyword name", value)
+        if m and m.group(1):
+            keyword['ref'] = m.group(1)
+            return
+
+        keyword['bad'] = True
+        warn("keyword " + attribute + " has unparseable value '" + value + "'")
 
 # Parse a single attribute record
 def parse_attribute(record):
@@ -237,9 +245,21 @@ def parse_attribute(record):
 
     if member_name is not None:
         if member_name.startswith('<'):
-            m = re.search("<(?:Member attributes are the same as the |Any )\"([a-z-]+)\"( .* attribute)?>", member_name)
+            # XML fix
+            member_name = member_name.replace(' the "media-col">', ' the "media-col" Job Template attribute>')
+            member_name = member_name.replace(' the "separator-sheets">', ' the "separator-sheets" Job Template attribute>')
+            member_name = member_name.replace(' the "cover-back">', ' the "cover-back" Job Template attribute>')
+            member_name = member_name.replace(' the "cover-front">', ' the "cover-front" Job Template attribute>')
+
+            m = re.search("<Any \"([a-z-]+)\"( .* attribute)?>", member_name)
             if m and m.group(1):
                 attr['ref'] = m.group(1)
+                return
+
+            m = re.search("<Member attributes are the same as the \"([a-z-]+)\" (.*) attribute>", member_name)
+            if m and m.group(1) and m.group(2):
+                attr['ref_member'] = m.group(1)
+                attr['ref_group'] = m.group(2)
                 return
 
             warn("Unparseable '" + attr_name + "' member name: '" + member_name + "'")
@@ -250,9 +270,16 @@ def parse_attribute(record):
 
         if submember_name is not None:
             if submember_name.startswith('<'):
-                m = re.search("<(?:Member attributes are the same as the |Any )\"([a-z-]+)\"( .* attribute)?>", submember_name)
+                #(?:Member attributes are the same as the |Any )
+                m = re.search("<Any \"([a-z-]+)\"( .* attribute)?>", submember_name)
                 if m and m.group(1):
                     attr['ref'] = m.group(1)
+                    return
+
+                m = re.search("<Member attributes are the same as the \"([a-z-]+)\" (.*) attribute>", submember_name)
+                if m and m.group(1) and m.group(2):
+                    attr['ref_member'] = m.group(1)
+                    attr['ref_group'] = m.group(2)
                     return
 
                 warn("Unparseable '" + attr_name + "' member '" + member_name + "'" +

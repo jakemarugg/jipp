@@ -426,12 +426,16 @@ object JobTemplateGroup {
     /**
      * "job-cover-back" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     *
+     * See [JobTemplateGroup.CoverBack] for allowed collection members.
      */
     @JvmField val jobCoverBack = CollectionType("job-cover-back")
 
     /**
      * "job-cover-front" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     *
+     * See [JobTemplateGroup.CoverFront] for allowed collection members.
      */
     @JvmField val jobCoverFront = CollectionType("job-cover-front")
 
@@ -486,6 +490,8 @@ object JobTemplateGroup {
     /**
      * "job-finishings-col" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     *
+     * See [JobTemplateGroup.FinishingsCol] for allowed collection members.
      */
     @JvmField val jobFinishingsCol = CollectionType("job-finishings-col")
 

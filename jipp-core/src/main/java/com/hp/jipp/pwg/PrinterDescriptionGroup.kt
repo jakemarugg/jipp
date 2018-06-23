@@ -102,6 +102,8 @@ object PrinterDescriptionGroup {
     /**
      * "cover-back-default" as defined in:
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
+     *
+     * See [JobTemplateGroup.CoverBack] for allowed collection members.
      */
     @JvmField val coverBackDefault = CollectionType("cover-back-default")
 
@@ -114,6 +116,8 @@ object PrinterDescriptionGroup {
     /**
      * "cover-front-default" as defined in:
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
+     *
+     * See [JobTemplateGroup.CoverFront] for allowed collection members.
      */
     @JvmField val coverFrontDefault = CollectionType("cover-front-default")
 
@@ -126,6 +130,8 @@ object PrinterDescriptionGroup {
     /**
      * "cover-sheet-info-default" as defined in:
      * [PWG5100.15](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfaxout10-20131115-5100.15.pdf)
+     *
+     * See [JobTemplateGroup.CoverSheetInfo] for allowed collection members.
      */
     @JvmField val coverSheetInfoDefault = CollectionType("cover-sheet-info-default")
 
@@ -216,6 +222,8 @@ object PrinterDescriptionGroup {
     /**
      * "document-format-details-default" as defined in:
      * [PWG5100.7](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobext10-20031031-5100.7.pdf)
+     *
+     * See [OperationGroup.DocumentFormatDetails] for allowed collection members.
      */
     @JvmField val documentFormatDetailsDefault = CollectionType("document-format-details-default")
 
@@ -288,12 +296,16 @@ object PrinterDescriptionGroup {
     /**
      * "finishings-col-default" as defined in:
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
+     *
+     * See [JobTemplateGroup.FinishingsCol] for allowed collection members.
      */
     @JvmField val finishingsColDefault = CollectionType("finishings-col-default")
 
     /**
      * "finishings-col-ready" as defined in:
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
+     *
+     * See [JobTemplateGroup.FinishingsCol] for allowed collection members.
      */
     @JvmField val finishingsColReady = CollectionType("finishings-col-ready")
 
@@ -498,6 +510,8 @@ object PrinterDescriptionGroup {
     /**
      * "insert-sheet-default" as defined in:
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
+     *
+     * See [JobTemplateGroup.InsertSheet] for allowed collection members.
      */
     @JvmField val insertSheetDefault = CollectionType("insert-sheet-default")
 
@@ -546,6 +560,8 @@ object PrinterDescriptionGroup {
     /**
      * "job-accounting-sheets-default" as defined in:
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
+     *
+     * See [JobTemplateGroup.JobAccountingSheets] for allowed collection members.
      */
     @JvmField val jobAccountingSheetsDefault = CollectionType("job-accounting-sheets-default")
 
@@ -603,6 +619,8 @@ object PrinterDescriptionGroup {
     /**
      * "job-cover-back-default" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     *
+     * See [JobTemplateGroup.CoverBack] for allowed collection members.
      */
     @JvmField val jobCoverBackDefault = CollectionType("job-cover-back-default")
 
@@ -615,6 +633,8 @@ object PrinterDescriptionGroup {
     /**
      * "job-cover-front-default" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     *
+     * See [JobTemplateGroup.CoverFront] for allowed collection members.
      */
     @JvmField val jobCoverFrontDefault = CollectionType("job-cover-front-default")
 
@@ -663,6 +683,8 @@ object PrinterDescriptionGroup {
     /**
      * "job-error-sheet-default" as defined in:
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
+     *
+     * See [JobTemplateGroup.JobErrorSheet] for allowed collection members.
      */
     @JvmField val jobErrorSheetDefault = CollectionType("job-error-sheet-default")
 
@@ -675,12 +697,16 @@ object PrinterDescriptionGroup {
     /**
      * "job-finishings-col-default" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     *
+     * See [JobTemplateGroup.FinishingsCol] for allowed collection members.
      */
     @JvmField val jobFinishingsColDefault = CollectionType("job-finishings-col-default")
 
     /**
      * "job-finishings-col-ready" as defined in:
      * [PWG5100.7](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobext10-20031031-5100.7.pdf)
+     *
+     * See [JobTemplateGroup.FinishingsCol] for allowed collection members.
      */
     @JvmField val jobFinishingsColReady = CollectionType("job-finishings-col-ready")
 
@@ -858,6 +884,8 @@ object PrinterDescriptionGroup {
     /**
      * "job-sheets-col-default" as defined in:
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
+     *
+     * See [JobTemplateGroup.JobSheetsCol] for allowed collection members.
      */
     @JvmField val jobSheetsColDefault = CollectionType("job-sheets-col-default")
 
@@ -1033,6 +1061,8 @@ object PrinterDescriptionGroup {
      * "media-col-database" as defined in:
      * [PWG5100.11](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext10-20101030-5100.11.pdf)
      * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
+     *
+     * See [JobTemplateGroup.MediaCol] for allowed collection members.
      */
     @JvmField val mediaColDatabase = CollectionType("media-col-database")
 
@@ -1058,6 +1088,8 @@ object PrinterDescriptionGroup {
     /**
      * "media-col-default" as defined in:
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
+     *
+     * See [JobTemplateGroup.MediaCol] for allowed collection members.
      */
     @JvmField val mediaColDefault = CollectionType("media-col-default")
 
@@ -1065,6 +1097,8 @@ object PrinterDescriptionGroup {
      * "media-col-ready" as defined in:
      * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
+     *
+     * See [JobTemplateGroup.MediaCol] for allowed collection members.
      */
     @JvmField val mediaColReady = CollectionType("media-col-ready")
 
@@ -1474,6 +1508,8 @@ object PrinterDescriptionGroup {
     /**
      * "pdl-init-file-default" as defined in:
      * [PWG5100.11](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext10-20101030-5100.11.pdf)
+     *
+     * See [JobTemplateGroup.PdlInitFile] for allowed collection members.
      */
     @JvmField val pdlInitFileDefault = CollectionType("pdl-init-file-default")
 
@@ -1870,6 +1906,8 @@ object PrinterDescriptionGroup {
     /**
      * "proof-print-default" as defined in:
      * [PWG5100.11](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext10-20101030-5100.11.pdf)
+     *
+     * See [JobTemplateGroup.ProofPrint] for allowed collection members.
      */
     @JvmField val proofPrintDefault = CollectionType("proof-print-default")
 
@@ -2002,6 +2040,8 @@ object PrinterDescriptionGroup {
     /**
      * "separator-sheets-default" as defined in:
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
+     *
+     * See [JobTemplateGroup.SeparatorSheets] for allowed collection members.
      */
     @JvmField val separatorSheetsDefault = CollectionType("separator-sheets-default")
 
