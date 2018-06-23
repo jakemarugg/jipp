@@ -1028,6 +1028,12 @@ object PrinterDescriptionGroup {
     @JvmField val materialsColReady = CollectionType("materials-col-ready")
 
     /**
+     * "materials-col-supported" as defined in:
+     * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
+     */
+    @JvmField val materialsColSupported = MaterialsCol.Type("materials-col-supported")
+
+    /**
      * "max-materials-col-supported" as defined in:
      * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
      */
@@ -1644,6 +1650,12 @@ object PrinterDescriptionGroup {
      * [PWG5100.7](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobext10-20031031-5100.7.pdf)
      */
     @JvmField val printContentOptimizeSupported = PrintContentOptimize.Type("print-content-optimize-supported")
+
+    /**
+     * "print-objects-supported" as defined in:
+     * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
+     */
+    @JvmField val printObjectsSupported = PrintObject.Type("print-objects-supported")
 
     /**
      * "print-quality-default" as defined in:

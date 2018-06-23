@@ -216,6 +216,16 @@ def parse_keyword(record):
             keyword['ref'] = m.group(1)
             return
 
+        m = re.search("(?:[aA]ny |all )\"?([A-Z a-z-]+)\"? attribute keyword name", value)
+        if m and m.group(1):
+            keyword['ref_group'] = m.group(1)
+            return
+
+        m = re.search("any ([a-z-]+) member attribute name", value)
+        if m and m.group(1):
+            keyword['ref_members'] = m.group(1)
+            return
+
         keyword['bad'] = True
         warn("keyword " + attribute + " has unparseable value '" + value + "'")
 
@@ -333,6 +343,21 @@ def depluralize(name):
 
 def emit_keyword(template, keyword):
     if not keyword['values']:
+        # If this is a reference to collection members, we can now resolve it
+        if 'ref_members' in keyword:
+            for group in collections.values():
+                for type in group.values():
+                    if type['name'] == keyword['ref_members']:
+                        keyword['values'].extend(type['members'].keys())
+            keyword['values'] = sorted(list(set(keyword['values'])))
+        if 'ref_group' in keyword:
+            group_name = keyword['ref_group']
+            if group_name not in collections:
+                warn("Keyword refers to group " + group_name + " but no such group")
+                return
+            keyword['values'] = sorted(collections[group_name].keys())
+
+    if not keyword['values']:
         warn("keyword " + keyword['name'] + " has no values defined")
         return
 
@@ -353,7 +378,7 @@ def prep_file(name):
     out_file = os.path.abspath(proj_dir + 'src/main/java/com/hp/jipp/pwg/' + camel_class(name) + ".kt")
     if not os.path.exists(os.path.dirname(out_file)):
         os.makedirs(os.path.dirname(out_file))
-    print out_file
+    #print out_file
     return out_file
 
 def emit_enum(template, enum):
@@ -552,6 +577,11 @@ for elem in tree.iter('{*}registry'):
 
 parse_records(tree, "Enum Attribute Values", parse_enum)
 parse_records(tree, "Keyword Attribute Values", parse_keyword)
+
+# XML Fixes
+# input-attributes-supported should probably be "any input-attributes member attribute name"
+# document-access-supported should probably be "any document-access member attribute name"
+
 parse_records(tree, "Attributes", parse_attribute)
 parse_records(tree, "Status Codes", parse_status_code)
 
@@ -564,6 +594,9 @@ pp = pprint.PrettyPrinter(indent=2)
 #pp.pprint(enums)
 #print "\nSpecifications: "
 #pp.pprint(specs)
+
+# TODO: For collections emit a data class with nullable attributes and conversion <--> attributes. When this is done
+# include a keyword type of all possible members to be used outside the collection (e.g. PrintObject, MaterialsCol)
 
 emit_code()
 print "WARNINGS: " + str(warns)

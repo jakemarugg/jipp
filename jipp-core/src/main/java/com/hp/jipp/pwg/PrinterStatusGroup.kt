@@ -28,6 +28,12 @@ object PrinterStatusGroup {
     @JvmField val deviceUuid = UriType("device-uuid")
 
     /**
+     * "document-format-varying-attributes" as defined in:
+     * [RFC3380](http://www.iana.org/go/rfc3380)
+     */
+    @JvmField val documentFormatVaryingAttributes = DocumentFormatVaryingAttribute.Type("document-format-varying-attributes")
+
+    /**
      * "pages-per-minute" as defined in:
      * [RFC8011](http://www.iana.org/go/rfc8011)
      */

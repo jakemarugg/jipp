@@ -40,6 +40,12 @@ object JobDescriptionGroup {
     @JvmField val jobCollationType = JobCollationType.Type("job-collation-type")
 
     /**
+     * "job-mandatory-attributes" as defined in:
+     * [PWG5100.7](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobext10-20031031-5100.7.pdf)
+     */
+    @JvmField val jobMandatoryAttributes = JobMandatoryAttribute.Type("job-mandatory-attributes")
+
+    /**
      * "job-message-from-operator" as defined in:
      * [RFC8011](http://www.iana.org/go/rfc8011)
      */
