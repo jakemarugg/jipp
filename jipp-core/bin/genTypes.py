@@ -369,7 +369,6 @@ def emit_keyword(template, keyword):
     if 'name' in keyword['syntax']:
         keyword['orName'] = True
     keyword['name'] = depluralize(keyword['name'])
-
     with open(prep_file(keyword['name']), "w") as file:
         file.write(template.render(keyword=keyword, app=os.path.basename(sys.argv[0]), updated=updated, specs=specs))
 
@@ -581,6 +580,15 @@ parse_records(tree, "Keyword Attribute Values", parse_keyword)
 # XML Fixes
 # input-attributes-supported should probably be "any input-attributes member attribute name"
 # document-access-supported should probably be "any document-access member attribute name"
+# *-supported a lot of cases actually
+
+# XML Fix: missing printer-kind keyword
+keywords['printer-kind'] = {
+    'name': 'printer-kind',
+    'specs': [ 'PWG5100.16'],
+    'syntax': 'keyword',
+    'values' : [ 'disc', 'document', 'envelope', 'label', 'large-format', 'photo', 'postcard', 'receipt', 'roll']
+}
 
 parse_records(tree, "Attributes", parse_attribute)
 parse_records(tree, "Status Codes", parse_status_code)

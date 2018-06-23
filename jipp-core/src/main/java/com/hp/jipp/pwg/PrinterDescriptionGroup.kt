@@ -1808,6 +1808,12 @@ object PrinterDescriptionGroup {
     @JvmField val printerInfo = TextType(127, "printer-info")
 
     /**
+     * "printer-kind" as defined in:
+     * [PWG5100.16](http://ftp.pwg.org/pub/pwg/candidates/cs-ipptrans10-20131108-5100.16.pdf)
+     */
+    @JvmField val printerKind = PrinterKind.Type("printer-kind")
+
+    /**
      * "printer-location" as defined in:
      * [RFC8011](http://www.iana.org/go/rfc8011)
      */
