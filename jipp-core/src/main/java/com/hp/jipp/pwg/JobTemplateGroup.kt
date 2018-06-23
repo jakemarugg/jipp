@@ -232,6 +232,9 @@ object JobTemplateGroup {
         /** "imposition-template" member */
         @JvmField val impositionTemplate = ImpositionTemplate.Type("imposition-template")
 
+        /** "media-size-name" member */
+        @JvmField val mediaSizeName = Media.Type("media-size-name")
+
         /** "media-size" member */
         @JvmField val mediaSize = CollectionType("media-size")
 
@@ -687,6 +690,9 @@ object JobTemplateGroup {
         /** "media-bottom-margin" member */
         @JvmField val mediaBottomMargin = IntegerType("media-bottom-margin")
 
+        /** "media-size-name" member */
+        @JvmField val mediaSizeName = Media.Type("media-size-name")
+
         /** "media-tooth" member */
         @JvmField val mediaTooth = MediaTooth.Type("media-tooth")
 
@@ -721,6 +727,9 @@ object JobTemplateGroup {
         /** "media-front-coating" member */
         @JvmField val mediaFrontCoating = MediaBackCoating.Type("media-front-coating")
 
+        /** "media-key" member */
+        @JvmField val mediaKey = Media.Type("media-key")
+
         /** "media-weight-metric" member */
         @JvmField val mediaWeightMetric = IntegerType("media-weight-metric")
 
@@ -730,6 +739,12 @@ object JobTemplateGroup {
         /** "media-hole-count" member */
         @JvmField val mediaHoleCount = IntegerType("media-hole-count")
     }
+
+    /**
+     * "media-input-tray-check" as defined in:
+     * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
+     */
+    @JvmField val mediaInputTrayCheck = Media.Type("media-input-tray-check")
 
     /**
      * "multiple-document-handling" as defined in:

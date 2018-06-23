@@ -310,6 +310,9 @@ object OperationGroup {
         /** "input-images-to-transfer" member */
         @JvmField val inputImagesToTransfer = IntegerType("input-images-to-transfer")
 
+        /** "input-media" member */
+        @JvmField val inputMedia = Media.Type("input-media")
+
         /** "input-sharpness" member */
         @JvmField val inputSharpness = IntegerType("input-sharpness")
 

@@ -23,7 +23,10 @@ import com.hp.jipp.encoding.Tag
  *   * [RFC8011](http://www.iana.org/go/rfc8011)
  *
  * Also used by:
+ *   * `input-media`
  *   * `media-default`
+ *   * `media-input-tray-check`
+ *   * `media-ready`
  *   * `media-supported`
  */
 data class Media(

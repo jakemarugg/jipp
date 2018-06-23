@@ -316,6 +316,12 @@ object DocumentStatusGroup {
     @JvmField val mediaColActual = CollectionType("media-col-actual")
 
     /**
+     * "media-input-tray-check-actual" as defined in:
+     * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     */
+    @JvmField val mediaInputTrayCheckActual = Media.Type("media-input-tray-check-actual")
+
+    /**
      * "media-sheets-completed" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
      */

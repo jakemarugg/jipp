@@ -145,6 +145,12 @@ object DocumentTemplateGroup {
     @JvmField val mediaCol = CollectionType("media-col")
 
     /**
+     * "media-input-tray-check" as defined in:
+     * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
+     */
+    @JvmField val mediaInputTrayCheck = Media.Type("media-input-tray-check")
+
+    /**
      * "multiple-object-handling" as defined in:
      * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
      */

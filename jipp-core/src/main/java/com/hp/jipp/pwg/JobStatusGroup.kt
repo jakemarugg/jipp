@@ -538,6 +538,12 @@ object JobStatusGroup {
     @JvmField val mediaColActual = CollectionType("media-col-actual")
 
     /**
+     * "media-input-tray-check-actual" as defined in:
+     * [PWG5100.8](http://ftp.pwg.org/pub/pwg/candidates/cs-ippactuals10-20030313-5100.8.pdf)
+     */
+    @JvmField val mediaInputTrayCheckActual = Media.Type("media-input-tray-check-actual")
+
+    /**
      * "multiple-document-handling-actual" as defined in:
      * [PWG5100.8](http://ftp.pwg.org/pub/pwg/candidates/cs-ippactuals10-20030313-5100.8.pdf)
      */

@@ -168,18 +168,23 @@ def parse_status_code(record):
 # Parse a single keyword record
 def parse_keyword(record):
     attribute = record.find('{*}attribute').text
+
     keyword = keywords.setdefault(attribute, { 'name': attribute, 'values': [ ], 'specs': [ ],
                                                'syntax': clean_syntax(record.find('{*}syntax').text) })
     parse_spec(record, keyword)
     parse_syntax(record, keyword)
 
-    # Some values have an additional type specifier (e.g. media "size name" vs "media name" or "input tray")
-    # TODO: Are these actually separate keywords? And how should refs be handled to these?
-    type = record.find('{*}type')
+    # XML fix:
+    # insert-sheet keyword should appear with
+    # "<Member attributes are the same as the "insert-sheet" Job Template attribute>"
 
     value = record.find('{*}value')
     if value is not None:
         value = value.text
+
+    type = record.find('{*}type')
+    if type is not None:
+        keyword['type'] = type.text
 
     # Ignore blank value or values containing stuff like (Reserved)
     if value is None or re.search("\(.*\)", value):
@@ -188,9 +193,16 @@ def parse_keyword(record):
     if ' ' not in value:
         keyword['values'].append(value)
     else:
+        # Smash these into the Media type which has everything on earth
+        if value == '<Any "media" media or size keyword value>' or \
+                value == '<Any "media" input tray keyword value>' or \
+                value == '<any media size name value>':
+            keyword['ref'] = 'media'
+            return
+
         # XML fix: Correct some known irregularities
-        value = value.replace('"media" color', "media-color")
-        value = value.replace('job-default-output-until', "job-delay-output-until")
+        value = value.replace('"media" color', 'media-color')
+        value = value.replace('job-default-output-until', 'job-delay-output-until')
 
         m = re.search("< ?(?:[aA]ny |all )\"?([a-z-]+)\"?( keyword)? (value(s?)|name(s?)) ?>", value)
         if m and m.group(1):
@@ -338,6 +350,7 @@ def emit_kind(env, template_name, items, emit_func):
 
         if 'ref' in item:
             if item['ref'] not in items:
+                pp.pprint(item)
                 warn(item['name'] + " has bad ref=" + item['ref'])
             continue
 
@@ -367,6 +380,15 @@ def get_intro(map, name):
             return get_intro(map, name + 's') # Try the plural
         if name.startswith("output-device-"):
             return get_intro(map, name[len("output-device-"):])
+        # XML fix: job-error-sheet-supported needs to look for -type
+        if name == "job-error-sheet":
+            return get_intro(map, "job-error-sheet-type")
+        # XML fix: separator-sheets-supported needs to look for -type
+        if name == "separator-sheets":
+            return get_intro(map, "separator-sheets-type")
+        # XML fix: job-accounting-sheets-supported needs to look for -type
+        if name == "job-accounting-sheets":
+            return get_intro(map, "job-accounting-sheets-type")
         return None
     if 'ref' in map[name]:
         return get_intro(map, map[name]['ref'])
@@ -412,6 +434,10 @@ def find_intro(type):
     # XML fix: job-collation-type-actual should point to enum, not keyword
     if name == "job-collation-type-actual" and syntax == "keyword":
         syntax = "enum"
+
+    # These is supposed to refer only to certain Media values but we cannot distinguish them easily.
+    if name == 'media-key' or name == 'media-key-supported' or name == "media-size-name":
+        name = 'media'
 
     intro = None
     if re.search('^uri(\([0-9]+\))?$', syntax):

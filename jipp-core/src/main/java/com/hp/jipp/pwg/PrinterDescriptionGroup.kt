@@ -424,6 +424,12 @@ object PrinterDescriptionGroup {
     @JvmField val inputFilmScanModeSupported = InputFilmScanMode.Type("input-film-scan-mode-supported")
 
     /**
+     * "input-media-supported" as defined in:
+     * [PWG5100.15](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfaxout10-20131115-5100.15.pdf)
+     */
+    @JvmField val inputMediaSupported = Media.Type("input-media-supported")
+
+    /**
      * "input-orientation-requested-supported" as defined in:
      * [PWG5100.15](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfaxout10-20131115-5100.15.pdf)
      */
@@ -544,6 +550,12 @@ object PrinterDescriptionGroup {
     @JvmField val jobAccountingSheetsDefault = CollectionType("job-accounting-sheets-default")
 
     /**
+     * "job-accounting-sheets-supported" as defined in:
+     * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
+     */
+    @JvmField val jobAccountingSheetsSupported = JobAccountingSheet.Type("job-accounting-sheets-supported")
+
+    /**
      * "job-accounting-user-id-default" as defined in:
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
      */
@@ -653,6 +665,12 @@ object PrinterDescriptionGroup {
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
      */
     @JvmField val jobErrorSheetDefault = CollectionType("job-error-sheet-default")
+
+    /**
+     * "job-error-sheet-supported" as defined in:
+     * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
+     */
+    @JvmField val jobErrorSheetSupported = JobErrorSheetType.Type("job-error-sheet-supported")
 
     /**
      * "job-finishings-col-default" as defined in:
@@ -1112,6 +1130,12 @@ object PrinterDescriptionGroup {
     @JvmField val mediaInfoSupported = BooleanType("media-info-supported")
 
     /**
+     * "media-key-supported" as defined in:
+     * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
+     */
+    @JvmField val mediaKeySupported = Media.Type("media-key-supported")
+
+    /**
      * "media-left-margin-supported" as defined in:
      * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
      */
@@ -1128,6 +1152,12 @@ object PrinterDescriptionGroup {
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
      */
     @JvmField val mediaPrePrintedSupported = MediaPrePrinted.Type("media-pre-printed-supported")
+
+    /**
+     * "media-ready" as defined in:
+     * [RFC8011](http://www.iana.org/go/rfc8011)
+     */
+    @JvmField val mediaReady = Media.Type("media-ready")
 
     /**
      * "media-recycled-supported" as defined in:
@@ -1974,6 +2004,12 @@ object PrinterDescriptionGroup {
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
      */
     @JvmField val separatorSheetsDefault = CollectionType("separator-sheets-default")
+
+    /**
+     * "separator-sheets-supported" as defined in:
+     * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
+     */
+    @JvmField val separatorSheetsSupported = SeparatorSheet.Type("separator-sheets-supported")
 
     /**
      * "sheet-collate-default" as defined in:
