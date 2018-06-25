@@ -32,7 +32,7 @@ data class Attribute<T>(val valueTag: Tag, val name: String, val values: List<T>
 
     override fun get(index: Int): T = values[index]
 
-    /** Return the first value or null if this attribute contains no values */
+    /** Return the first value or throw if this attribute contains no values */
     fun getValue(): T = get(0)
 
     /** True if the tag for this attribute is [Tag.unknown] */

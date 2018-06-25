@@ -12,7 +12,7 @@ from jinja2 import Environment, FileSystemLoader # pip install Jinja2
 specs = { }
 enums = { }
 keywords = { }
-collections = { }
+attributes = { }
 proj_dir = os.path.dirname(os.path.realpath(__file__)) + "/../"
 warns = 0
 
@@ -235,7 +235,7 @@ def assign_ref(ref, target):
         target['ref_group'] = m.group(1)
         return True
 
-    # A reference to members within a collection
+    # A reference to names of members within a collection
     m = re.search("^([a-z-]+) member attribute name$", ref)
     if m and m.group(1):
         target['ref_members'] = m.group(1)
@@ -252,7 +252,15 @@ def assign_ref(ref, target):
         target['ref_group'] = m.group(2)
         return True
 
+    # e.g. "<Any Job Template attribute>"
+    m = re.search("([A-Za-z ]+) attribute", ref)
+    if m and ' ' in m.group(1):
+        target['ref_group'] = m.group(1)
+        return True
+
     return False
+
+# TODO: For collections we should create a POJO that knows how convert back and forth to its collection attribute.
 
 # Parse a single attribute record
 def parse_attribute(record):
@@ -264,7 +272,7 @@ def parse_attribute(record):
     if re.search("\(.*\)", attr_name):
         return
 
-    collection = collections.setdefault(collection_name, { })
+    collection = attributes.setdefault(collection_name, { })
     attr = collection.setdefault(attr_name, {
         'name': attr_name, 'specs': [ ], 'syntax': syntax, 'members': { } } )
 
@@ -343,17 +351,19 @@ def emit_keyword(template, keyword):
     if not keyword['values']:
         # If this is a reference to collection members, we can now resolve it
         if 'ref_members' in keyword:
-            for group in collections.values():
+            for group in attributes.values():
                 for type in group.values():
                     if type['name'] == keyword['ref_members']:
                         keyword['values'].extend(type['members'].keys())
             keyword['values'] = sorted(list(set(keyword['values'])))
         if 'ref_group' in keyword:
+            # TODO: When encountering a ref_group we could extract to a different reference, e.g. JobStatusAttributes
+            # and replace with ref = 'JobStatusAttributes'
             group_name = keyword['ref_group']
-            if group_name not in collections:
+            if group_name not in attributes:
                 warn("Keyword refers to group " + group_name + " but no such group")
                 return
-            keyword['values'] = sorted(collections[group_name].keys())
+            keyword['values'] = sorted(attributes[group_name].keys())
 
     if not keyword['values']:
         warn("keyword " + keyword['name'] + " has no values defined")
@@ -445,14 +455,13 @@ def get_intro(map, name):
         return None
     return camel_class(map[name]['name']) + ".Type("
 
-def emit_collections(env):
+def emit_attributes(env):
     template = env.get_template('group.kt.tmpl')
-    for name, values in collections.items():
+    for name, values in attributes.items():
         types = []
         for typeName, desc in sorted(values.items(), key=lambda (k, v): k):
             type = copy.deepcopy(desc)
-
-            type['intro'] = find_intro(type)
+            type['intro'] = find_intro(type, type['syntax'], type['name'])
             if not type['intro']:
                 continue
 
@@ -466,19 +475,15 @@ def emit_collections(env):
 
 # For each member recursively find and apply its intro, or remove it
 def fix_member(dict, member):
-    member['intro'] = find_intro(member)
+    member['intro'] = find_intro(member, member['syntax'], member['name'])
     if not member['intro']:
         del dict[member['name']]
     for submember in member['members'].values():
         fix_member(member['members'], submember)
 
 # Given an attribute type object, look up its intro and apply it.
-def find_intro(type):
-    syntax = type['syntax']
+def find_intro(type, syntax, name):
     original_syntax = syntax
-    name = type['name']
-
-    # TODO: no-value cases mean the attribute can be empty which is usually not the case.??
 
     # XML fix: job-collation-type-actual should point to enum, not keyword
     if name == "job-collation-type-actual" and syntax == "keyword":
@@ -488,62 +493,72 @@ def find_intro(type):
     if name == 'media-key' or name == 'media-key-supported' or name == "media-size-name":
         name = 'media'
 
-    intro = None
     if syntax is None:
         print "Type has no syntax"
         pp.pprint(type)
-    if re.search('^uri(\([0-9]+\))?$', syntax):
-        intro = "UriType("
-    elif syntax == 'keyword':
+        return None
+
+    #if name.endswith("-supported"):
+    #    # This may be a reference to member names in a collection
+
+    # Look for known keyword/enum reference
+    intro = None
+    if syntax == 'keyword':
         intro = get_intro(keywords, name)
     elif syntax == 'keyword | name':
         intro = get_intro(keywords, name)
     elif syntax == 'enum':
         intro = get_intro(enums, name)
-    elif re.search('^rangeOfInteger(\([0-9MINAX:-]*\))?$', syntax):
-        intro = "RangeOfIntegerType("
-    elif re.search('^integer(\([0-9MINAX:-]*\)) | rangeOfInteger(\([0-9MINAX:-]*\))?$', syntax):
-        intro = "IntegerOrRangeOfIntegerType("
-    elif re.search('^integer(\([0-9MINAX:-]*\))?$', syntax):
-        intro = "IntegerType("
-    elif syntax == "boolean":
-        intro = "BooleanType("
-    elif syntax == "charset":
-        intro = "StringType(Tag.charset, "
-    elif syntax == "mimeMediaType":
-        intro = "StringType(Tag.mimeMediaType, "
-    elif syntax == "naturalLanguage":
-        intro = "StringType(Tag.naturalLanguage, "
-    elif syntax == "resolution":
-        intro = "ResolutionType("
-    elif syntax == "collection":
-        intro = "CollectionType("
-    elif syntax == "dateTime":
-        intro = "DateTimeType("
-    elif syntax == 'name':
-        intro = "NameType("
-    elif re.search('^name\(([0-9]+)\)$', syntax):
-        m = re.search('name\(([0-9]+)\)', syntax)
-        intro = "NameType(" + m.group(1) + ", "
-    elif syntax == 'text':
-        intro = "TextType("
-    elif syntax == 'text':
-        intro = "TextType("
-    elif syntax == 'uriScheme':
-        intro = "StringType(Tag.uriScheme, "
-    elif re.search('^text\(([0-9]+)\)$', syntax):
-        m = re.search('text\(([0-9]+)\)', syntax)
-        intro = "TextType(" + m.group(1) + ", "
-    elif syntax == 'octetString':
-        intro = "OctetStringType("
-    elif re.search('^octetString\(([0-9]+)\)$', syntax):
-        m = re.search('octetString\(([0-9]+)\)', syntax)
-        intro = "OctetStringType(" + m.group(1) + ", "
+    if intro:
+        return intro
 
-    if not intro:
-        warn("Could not identify " + name + " with syntax '" + syntax + "'" +
-             " (originally '" + original_syntax + "')")
-    return intro
+    # Look for other known references
+    if re.search('^uri(\([0-9]+\))?$', syntax):
+        return "UriType("
+    if re.search('^rangeOfInteger(\([0-9MINAX:-]*\))?$', syntax):
+        return "RangeOfIntegerType("
+    if re.search('^integer(\([0-9MINAX:-]*\)) | rangeOfInteger(\([0-9MINAX:-]*\))?$', syntax):
+        return "IntegerOrRangeOfIntegerType("
+    if re.search('^integer(\([0-9MINAX:-]*\))?$', syntax):
+        return "IntegerType("
+    if syntax == "boolean":
+        return "BooleanType("
+    if syntax == "charset":
+        return "StringType(Tag.charset, "
+    if syntax == "mimeMediaType":
+        return "StringType(Tag.mimeMediaType, "
+    if syntax == "naturalLanguage":
+        return "StringType(Tag.naturalLanguage, "
+    if syntax == "resolution":
+        return "ResolutionType("
+    if syntax == "collection":
+        # TODO: We need to emit a "see" reference to the collection class/object when we write this out
+        return "CollectionType("
+    if syntax == "dateTime":
+        return "DateTimeType("
+    if syntax == 'name':
+        return "NameType("
+    if re.search('^name\(([0-9]+)\)$', syntax):
+        m = re.search('name\(([0-9]+)\)', syntax)
+        return "NameType(" + m.group(1) + ", "
+    if syntax == 'text':
+        return "TextType("
+    if syntax == 'text':
+        return "TextType("
+    if syntax == 'uriScheme':
+        return "StringType(Tag.uriScheme, "
+    if re.search('^text\(([0-9]+)\)$', syntax):
+        m = re.search('text\(([0-9]+)\)', syntax)
+        return "TextType(" + m.group(1) + ", "
+    if syntax == 'octetString':
+        return "OctetStringType("
+    if re.search('^octetString\(([0-9]+)\)$', syntax):
+        m = re.search('octetString\(([0-9]+)\)', syntax)
+        return "OctetStringType(" + m.group(1) + ", "
+
+    warn("Could not find type for attribute " + name + " with syntax '" + original_syntax + "'")
+    return None
+
 
 def emit_code():
     env = Environment(loader=FileSystemLoader(proj_dir + 'bin'))
@@ -554,7 +569,7 @@ def emit_code():
 
     emit_kind(env, 'enum.kt.tmpl', enums, emit_enum)
     emit_kind(env, 'keyword.kt.tmpl', keywords, emit_keyword)
-    emit_collections(env)
+    emit_attributes(env)
 
 
 # MAIN
@@ -596,8 +611,8 @@ pp = pprint.PrettyPrinter(indent=2)
 parse_records(tree, "Attributes", parse_attribute)
 parse_records(tree, "Status Codes", parse_status_code)
 
-#print "\nCollections: "
-#pp.pprint(collections)
+#print "\Attributes: "
+#pp.pprint(attributes)
 #print "\nKeywords: "
 #pp.pprint(keywords)
 #print "\nEnums: "

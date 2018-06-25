@@ -231,7 +231,7 @@ object PrinterDescriptionGroup {
      * "document-format-details-supported" as defined in:
      * [PWG5100.7](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobext10-20031031-5100.7.pdf)
      */
-    @JvmField val documentFormatDetailsSupported = DocumentFormatDetails.Type("document-format-details-supported")
+    @JvmField val documentFormatDetailsSupported = DocumentFormatDetails.Keywords("document-format-details-supported")
 
     /**
      * "document-format-supported" as defined in:
@@ -1548,6 +1548,12 @@ object PrinterDescriptionGroup {
      * [PWG5100.11](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext10-20101030-5100.11.pdf)
      */
     @JvmField val pdlInitFileSupported = PdlInitFile.Type("pdl-init-file-supported")
+
+    /**
+     * "pdl-override-guaranteed-supported" as defined in:
+     * [IPPWG20151019](http://www.pwg.org/archives/ipp/2015/018629.html)
+     */
+    @JvmField val pdlOverrideGuaranteedSupported = PdlOverrideGuaranteed.Type("pdl-override-guaranteed-supported")
 
     /**
      * "pdl-override-supported" as defined in:
