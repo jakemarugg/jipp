@@ -193,41 +193,66 @@ def parse_keyword(record):
     if ' ' not in value:
         keyword['values'].append(value)
     else:
-        # Smash these into the Media type which has everything on earth
-        if value == '<Any "media" media or size keyword value>' or \
-                value == '<Any "media" input tray keyword value>' or \
-                value == '<any media size name value>':
-            keyword['ref'] = 'media'
-            return
+        if not assign_ref(value, keyword):
+            keyword['bad'] = True
+            warn("keyword " + attribute + " has unparseable value '" + value + "'")
 
-        # XML fix: Correct some known irregularities
-        value = value.replace('"media" color', 'media-color')
-        value = value.replace('job-default-output-until', 'job-delay-output-until')
+# Try to figure out what "ref" is referencing, and if successful assign it to target and return True
+def assign_ref(ref, target):
+    ref = re.sub('^<? ?(any|Any|all|All)? ?', '', ref)
+    ref = re.sub(' ?>?$', '', ref)
 
-        value = re.sub('^<? ?', '', value)
-        value = re.sub(' ?>?$', '', value)
-        m = re.search("(?:[aA]ny |all )\"?([a-z-]+)\"?( keyword)? (value(s?)|name(s?))", value)
-        if m and m.group(1):
-            keyword['ref'] = m.group(1)
-            return
+    # Smash these into the Media type which has everything on earth
+    if ref == '"media" media or size keyword value' or \
+            ref == '"media" input tray keyword value' or \
+            ref == 'media size name value':
+        target['ref'] = 'media'
+        return True
 
-        m = re.search("(?:[aA]ny |all )\"?([a-z-]+)\"? attribute keyword name", value)
-        if m and m.group(1):
-            keyword['ref'] = m.group(1)
-            return
+    # XML fix: Correct some known irregularities
+    ref = re.sub('"media" color name$', 'media-color name', ref)
+    ref = re.sub('job-default-output-until', 'job-delay-output-until', ref)
+    ref = re.sub(' the "media-col"$', ' the "media-col" Job Template attribute', ref)
+    ref = re.sub(' the "separator-sheets"$', ' the "separator-sheets" Job Template attribute', ref)
+    ref = re.sub(' the "cover-back"$', ' the "cover-back" Job Template attribute', ref)
+    ref = re.sub(' the "cover-front"$', ' the "cover-front" Job Template attribute', ref)
 
-        m = re.search("(?:[aA]ny |all )\"?([A-Z a-z-]+)\"? attribute keyword name", value)
-        if m and m.group(1):
-            keyword['ref_group'] = m.group(1)
-            return
+    # A reference to a keyword
+    m = re.search("^\"?([a-z-]+)\"?( keyword)? (value(s?)|name(s?))$", ref)
+    if m and m.group(1):
+        target['ref'] = m.group(1)
+        return True
 
-        m = re.search("any ([a-z-]+) member attribute name", value)
-        if m and m.group(1):
-            keyword['ref_members'] = m.group(1)
-            return
+    # A reference to another attribute
+    m = re.search("^\"?([a-z-]+)\"? attribute keyword name$", ref)
+    if m and m.group(1):
+        target['ref'] = m.group(1)
+        return True
 
-        keyword['bad'] = True
-        warn("keyword " + attribute + " has unparseable value '" + value + "'")
+    # A reference to any keyword in a group
+    m = re.search("^\"?([A-Z a-z-]+)\"? attribute keyword name$", ref)
+    if m and m.group(1):
+        target['ref_group'] = m.group(1)
+        return True
+
+    # A reference to members within a collection
+    m = re.search("^([a-z-]+) member attribute name$", ref)
+    if m and m.group(1):
+        target['ref_members'] = m.group(1)
+        return True
+
+    m = re.search("^\"([a-z-]+)\"( .* attribute)?$", ref)
+    if m and m.group(1):
+        target['ref'] = m.group(1)
+        return True
+
+    m = re.search("^Member attributes are the same as the \"([a-z-]+)\" (.*) attribute$", ref)
+    if m and m.group(1) and m.group(2):
+        target['ref_member'] = m.group(1)
+        target['ref_group'] = m.group(2)
+        return True
+
+    return False
 
 # Parse a single attribute record
 def parse_attribute(record):
@@ -255,24 +280,8 @@ def parse_attribute(record):
 
     if member_name is not None:
         if member_name.startswith('<'):
-            # XML fix
-            member_name = member_name.replace(' the "media-col">', ' the "media-col" Job Template attribute>')
-            member_name = member_name.replace(' the "separator-sheets">', ' the "separator-sheets" Job Template attribute>')
-            member_name = member_name.replace(' the "cover-back">', ' the "cover-back" Job Template attribute>')
-            member_name = member_name.replace(' the "cover-front">', ' the "cover-front" Job Template attribute>')
-
-            m = re.search("<Any \"([a-z-]+)\"( .* attribute)?>", member_name)
-            if m and m.group(1):
-                attr['ref'] = m.group(1)
-                return
-
-            m = re.search("<Member attributes are the same as the \"([a-z-]+)\" (.*) attribute>", member_name)
-            if m and m.group(1) and m.group(2):
-                attr['ref_member'] = m.group(1)
-                attr['ref_group'] = m.group(2)
-                return
-
-            warn("Unparseable '" + attr_name + "' member name: '" + member_name + "'")
+            if not assign_ref(member_name, attr):
+                warn("Unparseable '" + attr_name + "' member name: '" + member_name + "'")
             return
 
         attr = attr['members'].setdefault(member_name, {
@@ -280,20 +289,9 @@ def parse_attribute(record):
 
         if submember_name is not None:
             if submember_name.startswith('<'):
-                #(?:Member attributes are the same as the |Any )
-                m = re.search("<Any \"([a-z-]+)\"( .* attribute)?>", submember_name)
-                if m and m.group(1):
-                    attr['ref'] = m.group(1)
-                    return
-
-                m = re.search("<Member attributes are the same as the \"([a-z-]+)\" (.*) attribute>", submember_name)
-                if m and m.group(1) and m.group(2):
-                    attr['ref_member'] = m.group(1)
-                    attr['ref_group'] = m.group(2)
-                    return
-
-                warn("Unparseable '" + attr_name + "' member '" + member_name + "'" +
-                     " submember name '" + submember_name + "'")
+                if not assign_ref(submember_name, attr):
+                    warn("Unparseable '" + attr_name + "' member '" + member_name + "'" +
+                         " submember name '" + submember_name + "'")
                 return
 
             attr['members'].setdefault(submember_name, {
@@ -491,6 +489,9 @@ def find_intro(type):
         name = 'media'
 
     intro = None
+    if syntax is None:
+        print "Type has no syntax"
+        pp.pprint(type)
     if re.search('^uri(\([0-9]+\))?$', syntax):
         intro = "UriType("
     elif syntax == 'keyword':
@@ -590,10 +591,11 @@ keywords['printer-kind'] = {
     'values' : [ 'disc', 'document', 'envelope', 'label', 'large-format', 'photo', 'postcard', 'receipt', 'roll']
 }
 
+pp = pprint.PrettyPrinter(indent=2)
+
 parse_records(tree, "Attributes", parse_attribute)
 parse_records(tree, "Status Codes", parse_status_code)
 
-pp = pprint.PrettyPrinter(indent=2)
 #print "\nCollections: "
 #pp.pprint(collections)
 #print "\nKeywords: "
