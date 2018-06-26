@@ -26,30 +26,6 @@ object {{ name | camel_class }}Group {
 {%- endif %}
      */
     @JvmField val {{ type.name | camel_member }} = {{ type.intro }}"{{ type.name }}")
-{%- if type.members %}
-
-    /**
-     * Attributes which may appear within [{{type.name | camel_member}}]
-     */
-     object {{ type.name | camel_class }} {
-{%- for member in type.members.values() %}
-
-        /** "{{ member.name }}" member */
-        @JvmField val {{ member.name | camel_member }} = {{ member.intro }}"{{ member.name }}")
-{%- if member.members %}
-
-        /** Attributes which may appear within [{{type.name | camel_member}}].[{{ member.name | camel_member}}] */
-        object {{ member.name | camel_class }} {
-{%- for submember in member.members.values() %}
-
-            /** "{{ submember.name }}" member */
-            @JvmField val {{ submember.name | camel_member }} = {{ submember.intro }}"{{ submember.name }}")
-{%- endfor %}
-        }
-{%- endif %}
-{%- endfor %}
-    }
-{%- endif %}
 {%- endfor %}
 
     /** All known attributes */

@@ -13,6 +13,7 @@ specs = { }
 enums = { }
 keywords = { }
 attributes = { }
+out_files = [ ]
 proj_dir = os.path.dirname(os.path.realpath(__file__)) + "/../"
 warns = 0
 
@@ -54,10 +55,13 @@ def parse_spec(record, target):
     if spec is not None and spec not in target['specs']:
         target['specs'].append(spec)
 
-def clean_syntax(syntax):
+def fix_syntax(item, syntax = None):
     if syntax is None:
-        return None
+        syntax = item['syntax']
 
+    # XML fix
+    if 'name' in item and item['name'] == 'input-orientation-requested':
+        syntax = 'enum'
     # XML fix
     syntax = syntax.replace("type2 num", "type2 enum")
 
@@ -68,40 +72,35 @@ def clean_syntax(syntax):
     syntax = syntax.replace("(MAX)", "")
     syntax = syntax.replace("type1", "")
     syntax = syntax.replace("type2", "")
-    syntax = syntax.replace("[PWG5100.NN]", "") # XML fix
-    syntax = syntax.replace("1setOf", "")
-    syntax = syntax.replace("1set Of", "") # XML fix
+    syntax = re.sub('\[.*\]$','', syntax) # XML fix
+    syntax = syntax.replace("1set Of", "1setOf") # XML fix
+    if '1setOf' in syntax:
+        syntax = syntax.replace("1setOf", "")
+        item['set'] = True
     syntax = syntax.strip()
 
     if syntax.startswith('(') and syntax.endswith(')'):
-        return clean_syntax(syntax[1:-1])
+        return fix_syntax(item, syntax[1:-1])
 
     # XML fix to clean up "(name(MAX)" (missing term paren)
     if syntax.startswith('(') and not syntax.endswith(')'):
-        return clean_syntax(syntax[1:])
+        return fix_syntax(item, syntax[1:])
 
-    # we could be a lot more strict about 1setof, but not yet. Trim it.
     if " | " in syntax:
         # Ignore no-value and unknown since those are accepted everywhere
-        parts = [clean_syntax(part.strip()) for part in syntax.split("|")]
+        parts = [fix_syntax({}, part.strip()) for part in syntax.split("|")]
         syntax = " | ".join([part for part in parts if part != "no-value" and part != "unknown"])
+    item['syntax'] = syntax
     return syntax
-
-# Make sure that if the syntax is new, take the more complex version
-def parse_syntax(record, target):
-    syntax = clean_syntax(record.find('{*}syntax').text)
-    if target['syntax'] != syntax:
-        if len(syntax) > len(target['syntax']):
-            target['syntax'] = syntax
 
 # Parse a single enum record into the global list of enums
 def parse_enum(record):
     attribute = record.find('{*}attribute').text
 
     enum = enums.setdefault(attribute, { 'name': attribute, 'values': { }, 'specs': [ ],
-                                         'syntax': clean_syntax(record.find('{*}syntax').text) })
+                                         'syntax': record.find('{*}syntax').text })
+    fix_syntax(enum)
     parse_spec(record, enum)
-    parse_syntax(record, enum)
 
     value = record.find('{*}value')
     if value is not None:
@@ -149,8 +148,6 @@ def parse_enum(record):
     except ValueError:
         warn("enum " + attribute + " has non-integer value " + value)
 
-
-
 # Parse a single status code
 def parse_status_code(record):
     enum = enums.setdefault('status', { 'name': 'status', 'values': { }, 'specs': [ ], 'hex': True })
@@ -169,14 +166,18 @@ def parse_status_code(record):
 def parse_keyword(record):
     attribute = record.find('{*}attribute').text
 
-    keyword = keywords.setdefault(attribute, { 'name': attribute, 'values': [ ], 'specs': [ ],
-                                               'syntax': clean_syntax(record.find('{*}syntax').text) })
-    parse_spec(record, keyword)
-    parse_syntax(record, keyword)
-
     # XML fix:
-    # insert-sheet keyword should appear with
     # "<Member attributes are the same as the "insert-sheet" Job Template attribute>"
+    # (TODO: it does, why mention this?)
+
+    # TODO: proof-print-supported really points to proof-print collection attrs
+    # But currently proof-print-supported gets turned into proof-print and is overwritten
+    # by collection later.
+
+    keyword = keywords.setdefault(attribute, { 'name': attribute, 'values': [ ], 'specs': [ ],
+                                               'syntax': record.find('{*}syntax').text })
+    fix_syntax(keyword)
+    parse_spec(record, keyword)
 
     value = record.find('{*}value')
     if value is not None:
@@ -189,6 +190,11 @@ def parse_keyword(record):
     # Ignore blank value or values containing stuff like (Reserved)
     if value is None or re.search("\(.*\)", value):
         return
+
+    # XML fix: document-format-details-supported should point to document-format-details members
+    if attribute == "document-format-details-supported":
+        # We haven't parsed collections yet so handle this later.
+        keyword['ref_members'] = 'document-format-details'
 
     if ' ' not in value:
         keyword['values'].append(value)
@@ -260,13 +266,10 @@ def assign_ref(ref, target):
 
     return False
 
-# TODO: For collections we should create a POJO that knows how convert back and forth to its collection attribute.
-
 # Parse a single attribute record
 def parse_attribute(record):
     attr_name = record.find('{*}name').text
     collection_name = record.find('{*}collection').text
-    syntax = clean_syntax(record.find('{*}syntax').text)
 
     # Ignore (UnderReview) (Deprecated) etc
     if re.search("\(.*\)", attr_name):
@@ -274,7 +277,8 @@ def parse_attribute(record):
 
     collection = attributes.setdefault(collection_name, { })
     attr = collection.setdefault(attr_name, {
-        'name': attr_name, 'specs': [ ], 'syntax': syntax, 'members': { } } )
+        'name': attr_name, 'specs': [ ], 'syntax': record.find('{*}syntax').text, 'members': { } } )
+    fix_syntax(attr)
 
     parse_spec(record, attr)
 
@@ -293,7 +297,9 @@ def parse_attribute(record):
             return
 
         attr = attr['members'].setdefault(member_name, {
-                'name': member_name, 'specs': [ ], 'syntax': syntax, 'members': { } } )
+            'name': member_name, 'specs': [ ], 'syntax': record.find('{*}syntax').text,
+            'members': { } } )
+        fix_syntax(attr)
 
         if submember_name is not None:
             if submember_name.startswith('<'):
@@ -303,7 +309,9 @@ def parse_attribute(record):
                 return
 
             attr['members'].setdefault(submember_name, {
-                'name': submember_name, 'specs': [ ], 'syntax': syntax, 'members': { } } )
+                'name': submember_name, 'specs': [ ], 'syntax': record.find('{*}syntax').text,
+                'members': { } } )
+            fix_syntax(attr)
 
 # For each record entity in sections titled with "name", invoke parse()
 def parse_records(root, name, parse):
@@ -348,22 +356,25 @@ def depluralize(name):
     return name[:-1]
 
 def emit_keyword(template, keyword):
-    if not keyword['values']:
-        # If this is a reference to collection members, we can now resolve it
-        if 'ref_members' in keyword:
-            for group in attributes.values():
-                for type in group.values():
-                    if type['name'] == keyword['ref_members']:
-                        keyword['values'].extend(type['members'].keys())
-            keyword['values'] = sorted(list(set(keyword['values'])))
-        if 'ref_group' in keyword:
-            # TODO: When encountering a ref_group we could extract to a different reference, e.g. JobStatusAttributes
-            # and replace with ref = 'JobStatusAttributes'
-            group_name = keyword['ref_group']
-            if group_name not in attributes:
-                warn("Keyword refers to group " + group_name + " but no such group")
-                return
-            keyword['values'] = sorted(attributes[group_name].keys())
+    # If this is a reference to collection members, we can now resolve it
+    if 'ref_members' in keyword:
+        for group in attributes.values():
+            for type in group.values():
+                if type['name'] == keyword['ref_members']:
+                    keyword['values'].extend(type['members'].keys())
+        keyword['values'] = sorted(list(set(keyword['values'])))
+        # TODO: Instead, reference the collection type directly
+        return
+
+    if 'ref_group' in keyword:
+        # TODO: When encountering a ref_group we could extract to a different reference, e.g. JobStatusAttributes
+        # and replace with ref = 'JobStatusAttributes'
+        group_name = keyword['ref_group']
+        if group_name not in attributes:
+            warn("Keyword refers to group " + group_name + " but no such group")
+            return
+        # TODO: Combine?
+        keyword['values'] = sorted(attributes[group_name].keys())
 
     if not keyword['values']:
         warn("keyword " + keyword['name'] + " has no values defined")
@@ -386,6 +397,9 @@ def prep_file(name):
     if not os.path.exists(os.path.dirname(out_file)):
         os.makedirs(os.path.dirname(out_file))
     #print out_file
+    if out_file in out_files:
+        warn("About to replace " + out_file + ", two competing definitions?")
+    out_files.append(out_file)
     return out_file
 
 def emit_enum(template, enum):
@@ -420,69 +434,100 @@ def emit_kind(env, template_name, items, emit_func):
 
         emit_func(template, item)
 
-def get_intro(map, name):
+def fuzzy_get(map, name):
     if name not in map:
         # XML fix: try to find the relevant keyword/enum by trimming
         if name.endswith("-default"):
-            return get_intro(map, name[:-len("-default")])
+            return fuzzy_get(map, name[:-len("-default")])
         if name.endswith("-supported"):
-            return get_intro(map, name[:-len("-supported")])
+            return fuzzy_get(map, name[:-len("-supported")])
         if name.endswith("-actual"):
-            return get_intro(map, name[:-len("-actual")])
+            return fuzzy_get(map, name[:-len("-actual")])
         if name.endswith("-supplied"):
-            return get_intro(map, name[:-len("-supplied")])
+            return fuzzy_get(map, name[:-len("-supplied")])
         if name.endswith("-document-state-reasons"):
-            return get_intro(map, "document-state-reasons")
+            return fuzzy_get(map, "document-state-reasons")
         if name.endswith("-document-state"):
-            return get_intro(map, "document-state")
+            return fuzzy_get(map, "document-state")
         if name.endswith("-state"):
-            return get_intro(map, name + 's') # Try the plural
+            return fuzzy_get(map, name + 's') # Try the plural
         if name.startswith("output-device-"):
-            return get_intro(map, name[len("output-device-"):])
+            return fuzzy_get(map, name[len("output-device-"):])
         # XML fix: job-error-sheet-supported needs to look for -type
         if name == "job-error-sheet":
-            return get_intro(map, "job-error-sheet-type")
+            return fuzzy_get(map, "job-error-sheet-type")
         # XML fix: separator-sheets-supported needs to look for -type
         if name == "separator-sheets":
-            return get_intro(map, "separator-sheets-type")
+            return fuzzy_get(map, "separator-sheets-type")
         # XML fix: job-accounting-sheets-supported needs to look for -type
         if name == "job-accounting-sheets":
-            return get_intro(map, "job-accounting-sheets-type")
+            return fuzzy_get(map, "job-accounting-sheets-type")
+        if (name + '-supported') in map:
+            return map[name + '-supported']
         return None
     if 'ref' in map[name]:
-        return get_intro(map, map[name]['ref'])
+        return fuzzy_get(map, map[name]['ref'])
     if 'bad' in map[name]:
         return None
-    return camel_class(map[name]['name']) + ".Type("
+    return map[name]
 
 def emit_attributes(env):
+    # Emit collection attributes
+    collection_template = env.get_template('collection.kt.tmpl')
+    for group in attributes.values():
+        for type in group.values():
+            if type['members']:
+                type = copy.deepcopy(type)
+                for member in type['members'].values():
+                    fix_member(type['members'], member)
+                    if 'ktype' not in member:
+                        pp.pprint(member)
+                        warn("Collection " + type['name'] + ' member ' + member['name'] + ' has no ktype for ' + member['syntax'])
+                name = type['name']
+
+                # TODO: media-col-database has members AND a ref so these need to be combined
+                # TODO: if `set` is true, emit the member in List form
+                # Strip -Col from end of name
+                if name.endswith('-col'):
+                    name = name[:-len('-col')]
+                with open(prep_file(name), 'w') as file:
+                    file.write(collection_template.render(
+                        name=name, collection=type,app=os.path.basename(sys.argv[0]),
+                        updated=updated, specs=specs))
+
     template = env.get_template('group.kt.tmpl')
     for name, values in attributes.items():
         types = []
         for typeName, desc in sorted(values.items(), key=lambda (k, v): k):
             type = copy.deepcopy(desc)
-            type['intro'] = find_intro(type, type['syntax'], type['name'])
-            if not type['intro']:
+            fix_intro(type, type['syntax'], type['name'])
+            if 'intro' not in type:
                 continue
 
+            # Don't do member stuff here anymore
             for member in type['members'].values():
                 fix_member(type['members'], member)
 
             types.append(type)
 
-        with open(prep_file(name + "-group"), "w") as file:
+        with open(prep_file(name + '-group'), 'w') as file:
             file.write(template.render(name=name, types=types, app=os.path.basename(sys.argv[0]), updated=updated, specs=specs))
+
 
 # For each member recursively find and apply its intro, or remove it
 def fix_member(dict, member):
-    member['intro'] = find_intro(member, member['syntax'], member['name'])
-    if not member['intro']:
+    fix_syntax(member)
+    fix_intro(member, member['syntax'], member['name'])
+    if 'intro' not in member:
         del dict[member['name']]
     for submember in member['members'].values():
         fix_member(member['members'], submember)
 
-# Given an attribute type object, look up its intro and apply it.
-def find_intro(type, syntax, name):
+# For the type given, select decorators that help when generating code.
+# 'intro' - string required to begin instantiation of the type
+# 'ktype' - the primitive type associated
+# 'ktype_accessor' - a way to select out the primitive type from the member
+def fix_intro(type, syntax, name):
     original_syntax = syntax
 
     # XML fix: job-collation-type-actual should point to enum, not keyword
@@ -503,62 +548,83 @@ def find_intro(type, syntax, name):
 
     # Look for known keyword/enum reference
     intro = None
-    if syntax == 'keyword':
-        intro = get_intro(keywords, name)
-    elif syntax == 'keyword | name':
-        intro = get_intro(keywords, name)
-    elif syntax == 'enum':
-        intro = get_intro(enums, name)
-    if intro:
-        return intro
+    if syntax == 'keyword' or syntax == 'keyword | name':
+        real_type = fuzzy_get(keywords, name)
+        if real_type:
+            intro = camel_class(real_type['name']) + ".Type("
+            type['ktype'] = camel_class(real_type['name'])
+    if syntax == 'enum':
+        real_type = fuzzy_get(enums, name)
+        if real_type:
+            intro = camel_class(real_type['name']) + ".Type("
+            type['ktype'] = camel_class(real_type['name'])
 
     # Look for other known references
     if re.search('^uri(\([0-9]+\))?$', syntax):
-        return "UriType("
+        intro = "UriType("
+        type['ktype'] = "java.net.URI"
     if re.search('^rangeOfInteger(\([0-9MINAX:-]*\))?$', syntax):
-        return "RangeOfIntegerType("
+        intro = "RangeOfIntegerType("
+        type['ktype'] = 'IntRange'
     if re.search('^integer(\([0-9MINAX:-]*\)) | rangeOfInteger(\([0-9MINAX:-]*\))?$', syntax):
-        return "IntegerOrRangeOfIntegerType("
+        intro = "IntegerOrRangeOfIntegerType("
+        type['ktype'] = 'IntRangeOrInt'
     if re.search('^integer(\([0-9MINAX:-]*\))?$', syntax):
-        return "IntegerType("
+        intro = "IntegerType("
+        type['ktype'] = "Int"
     if syntax == "boolean":
-        return "BooleanType("
+        intro = "BooleanType("
+        type['ktype'] = "Boolean"
     if syntax == "charset":
-        return "StringType(Tag.charset, "
+        intro = "StringType(Tag.charset, "
+        type['ktype'] = "String"
     if syntax == "mimeMediaType":
-        return "StringType(Tag.mimeMediaType, "
+        intro = "StringType(Tag.mimeMediaType, "
+        type['ktype'] = "String"
     if syntax == "naturalLanguage":
-        return "StringType(Tag.naturalLanguage, "
+        intro = "StringType(Tag.naturalLanguage, "
     if syntax == "resolution":
-        return "ResolutionType("
+        intro = "ResolutionType("
+        type['ktype'] = 'Resolution'
     if syntax == "collection":
         # TODO: We need to emit a "see" reference to the collection class/object when we write this out
-        return "CollectionType("
+        intro = "CollectionType("
     if syntax == "dateTime":
-        return "DateTimeType("
+        intro = "DateTimeType("
     if syntax == 'name':
-        return "NameType("
+        intro = "NameType("
     if re.search('^name\(([0-9]+)\)$', syntax):
         m = re.search('name\(([0-9]+)\)', syntax)
-        return "NameType(" + m.group(1) + ", "
+        intro = "NameType(" + m.group(1) + ", "
     if syntax == 'text':
-        return "TextType("
-    if syntax == 'text':
-        return "TextType("
+        intro = "TextType("
     if syntax == 'uriScheme':
-        return "StringType(Tag.uriScheme, "
+        intro = "StringType(Tag.uriScheme, "
     if re.search('^text\(([0-9]+)\)$', syntax):
         m = re.search('text\(([0-9]+)\)', syntax)
-        return "TextType(" + m.group(1) + ", "
+        intro = "TextType(" + m.group(1) + ", "
     if syntax == 'octetString':
-        return "OctetStringType("
+        intro = "OctetStringType("
     if re.search('^octetString\(([0-9]+)\)$', syntax):
         m = re.search('octetString\(([0-9]+)\)', syntax)
-        return "OctetStringType(" + m.group(1) + ", "
+        intro = "OctetStringType(" + m.group(1) + ", "
 
-    warn("Could not find type for attribute " + name + " with syntax '" + original_syntax + "'")
-    return None
+    if not intro:
+        pp.pprint(type)
+        warn("Could not find type for attribute " + name + " with syntax '" + original_syntax + "'")
+        return
 
+    type['intro'] = intro
+    if intro.startswith("StringType("):
+        type['ktype'] = "String"
+    if intro.startswith("NameType("):
+        type['ktype'] = "String"
+        type['ktype_accessor'] = "value"
+    if intro.startswith("TextType("):
+        type['ktype'] = "String"
+        type['ktype_accessor'] = "value"
+    if intro.startswith("OctetStringType("):
+        type['ktype'] = "ByteArray"
 
 def emit_code():
     env = Environment(loader=FileSystemLoader(proj_dir + 'bin'))
@@ -569,6 +635,7 @@ def emit_code():
 
     emit_kind(env, 'enum.kt.tmpl', enums, emit_enum)
     emit_kind(env, 'keyword.kt.tmpl', keywords, emit_keyword)
+
     emit_attributes(env)
 
 
