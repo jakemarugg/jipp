@@ -26,8 +26,8 @@ class TextType(
             }
         }
         return when (values.mapNotNull { it.lang }.size) {
-            0 -> Attribute(Tag.textWithLanguage, name, values, encoder)
-            values.size -> Attribute(Tag.textWithoutLanguage, name, values, encoder)
+            0 -> Attribute(Tag.textWithoutLanguage, name, values, encoder)
+            values.size -> Attribute(Tag.textWithLanguage, name, values, encoder)
             else -> throw BuildError("If one Text includes a language, then all must have a language")
         }
     }

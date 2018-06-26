@@ -4,6 +4,9 @@ import static com.hp.jipp.encoding.Cycler.*;
 
 import static org.junit.Assert.*;
 
+import com.hp.jipp.pwg.DocumentFormatDetails;
+import com.hp.jipp.pwg.OperationGroup;
+import com.hp.jipp.util.BytesKt;
 import com.hp.jipp.util.KotlinTest;
 import com.hp.jipp.util.ParseError;
 
@@ -14,6 +17,7 @@ import org.junit.rules.ExpectedException;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Collections;
 
 public class AttributeCollectionTest {
@@ -132,5 +136,36 @@ public class AttributeCollectionTest {
         KotlinTest.cover(collection,
                 collection.copy(collection.component1()),
                 collection.copy(Collections.singletonList(colorType.of("blue"))));
+    }
+
+    // Tests for TypedCollectionType
+
+    @Test
+    public void generated() throws IOException {
+        DocumentFormatDetails details = new DocumentFormatDetails(
+                "format"
+        );
+
+        Attribute<DocumentFormatDetails> result =
+                cycle(OperationGroup.documentFormatDetails, OperationGroup.documentFormatDetails.of(details));
+        assertEquals(details, result.getValue());
+    }
+
+    @Test
+    public void generatedBuilder() throws IOException {
+        DocumentFormatDetails details = new DocumentFormatDetails.Builder()
+                .documentFormat("format")
+                .documentFormatDeviceId("format-device-id")
+                .documentFormatVersion("format-version")
+                .documentNaturalLanguage(Collections.singletonList("en"))
+                .documentSourceApplicationName("source-app-name")
+                .documentSourceApplicationVersion("source-app-version")
+                .documentSourceOsName("source-os-name")
+                .documentSourceOsVersion("source-os-version")
+                .build();
+
+        DocumentFormatDetails details2 =
+                cycle(OperationGroup.documentFormatDetails, OperationGroup.documentFormatDetails.of(details)).getValue();
+        assertEquals(details, details2);
     }
 }

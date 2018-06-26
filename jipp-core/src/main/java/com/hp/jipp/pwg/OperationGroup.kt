@@ -157,37 +157,7 @@ object OperationGroup {
      * "document-format-details" as defined in:
      * [PWG5100.7](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobext10-20031031-5100.7.pdf)
      */
-    @JvmField val documentFormatDetails = CollectionType("document-format-details")
-
-    /**
-     * Attributes which may appear within [documentFormatDetails]
-     */
-     object DocumentFormatDetails {
-
-        /** "document-source-os-name" member */
-        @JvmField val documentSourceOsName = NameType(40, "document-source-os-name")
-
-        /** "document-source-application-version" member */
-        @JvmField val documentSourceApplicationVersion = TextType(127, "document-source-application-version")
-
-        /** "document-format-version" member */
-        @JvmField val documentFormatVersion = TextType(127, "document-format-version")
-
-        /** "document-format" member */
-        @JvmField val documentFormat = StringType(Tag.mimeMediaType, "document-format")
-
-        /** "document-source-os-version" member */
-        @JvmField val documentSourceOsVersion = TextType(40, "document-source-os-version")
-
-        /** "document-format-device-id" member */
-        @JvmField val documentFormatDeviceId = TextType(127, "document-format-device-id")
-
-        /** "document-natural-language" member */
-        @JvmField val documentNaturalLanguage = StringType(Tag.naturalLanguage, "document-natural-language")
-
-        /** "document-source-application-name" member */
-        @JvmField val documentSourceApplicationName = NameType("document-source-application-name")
-    }
+    @JvmField val documentFormatDetails = TypedCollectionType(DocumentFormatDetails.Members, "document-format-details")
 
     /**
      * "document-message" as defined in:
