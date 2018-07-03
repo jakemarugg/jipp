@@ -223,13 +223,13 @@ object PrinterStatusGroup {
      * "xri-authentication-supported" as defined in:
      * [RFC3380](http://www.iana.org/go/rfc3380)
      */
-    @JvmField val xriAuthenticationSupported = XriAuthentication.Type("xri-authentication-supported")
+    @JvmField val xriAuthenticationSupported = XriAuthenticationSupported.Type("xri-authentication-supported")
 
     /**
      * "xri-security-supported" as defined in:
      * [RFC3380](http://www.iana.org/go/rfc3380)
      */
-    @JvmField val xriSecuritySupported = XriSecurity.Type("xri-security-supported")
+    @JvmField val xriSecuritySupported = XriSecuritySupported.Type("xri-security-supported")
 
     /**
      * "xri-uri-scheme-supported" as defined in:

@@ -45,7 +45,7 @@ object DocumentStatusGroup {
      *
      * See [JobTemplateGroup.CoverBack] for allowed collection members.
      */
-    @JvmField val coverBackActual = CollectionType("cover-back-actual")
+    @JvmField val coverBackActual = CoverBackActual.Type("cover-back-actual")
 
     /**
      * "cover-front-actual" as defined in:
@@ -53,7 +53,7 @@ object DocumentStatusGroup {
      *
      * See [JobTemplateGroup.CoverFront] for allowed collection members.
      */
-    @JvmField val coverFrontActual = CollectionType("cover-front-actual")
+    @JvmField val coverFrontActual = CoverFrontActual.Type("cover-front-actual")
 
     /**
      * "current-page-order" as defined in:
@@ -115,7 +115,7 @@ object DocumentStatusGroup {
      *
      * See [OperationGroup.DocumentFormatDetails] for allowed collection members.
      */
-    @JvmField val documentFormatDetails = CollectionType("document-format-details")
+    @JvmField val documentFormatDetails = DocumentFormatDetails.Type("document-format-details")
 
     /**
      * "document-format-details-detected" as defined in:
@@ -123,7 +123,7 @@ object DocumentStatusGroup {
      *
      * See [OperationGroup.DocumentFormatDetails] for allowed collection members.
      */
-    @JvmField val documentFormatDetailsDetected = CollectionType("document-format-details-detected")
+    @JvmField val documentFormatDetailsDetected = DocumentFormatDetailsDetected.Type("document-format-details-detected")
 
     /**
      * "document-format-detected" as defined in:
@@ -251,7 +251,7 @@ object DocumentStatusGroup {
      *
      * See [JobTemplateGroup.FinishingsCol] for allowed collection members.
      */
-    @JvmField val finishingsColActual = CollectionType("finishings-col-actual")
+    @JvmField val finishingsColActual = FinishingsColActual.Type("finishings-col-actual")
 
     /**
      * "force-front-side-actual" as defined in:
@@ -275,7 +275,7 @@ object DocumentStatusGroup {
      * "impressions-completed-col" as defined in:
      * [APRIL2015F2F](http://ftp.pwg.org/pub/pwg/ipp/minutes/ippv2-f2f-minutes-20150429.pdf)
      */
-    @JvmField val impressionsCompletedCol = CollectionType("impressions-completed-col")
+    @JvmField val impressionsCompletedCol = ImpressionsCompletedCol.Type("impressions-completed-col")
 
     /**
      * "impressions-completed-current-copy" as defined in:
@@ -287,7 +287,7 @@ object DocumentStatusGroup {
      * "input-attributes-actual" as defined in:
      * [PWG5100.15](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfaxout10-20131115-5100.15.pdf)
      */
-    @JvmField val inputAttributesActual = CollectionType("input-attributes-actual")
+    @JvmField val inputAttributesActual = InputAttributesActual.Type("input-attributes-actual")
 
     /**
      * "insert-sheet-actual" as defined in:
@@ -295,7 +295,7 @@ object DocumentStatusGroup {
      *
      * See [JobTemplateGroup.InsertSheet] for allowed collection members.
      */
-    @JvmField val insertSheetActual = CollectionType("insert-sheet-actual")
+    @JvmField val insertSheetActual = InsertSheetActual.Type("insert-sheet-actual")
 
     /**
      * "k-octets-processed" as defined in:
@@ -313,7 +313,7 @@ object DocumentStatusGroup {
      * "materials-col-actual" as defined in:
      * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
      */
-    @JvmField val materialsColActual = CollectionType("materials-col-actual")
+    @JvmField val materialsColActual = MaterialsColActual.Type("materials-col-actual")
 
     /**
      * "media-actual" as defined in:
@@ -327,7 +327,7 @@ object DocumentStatusGroup {
      *
      * See [JobTemplateGroup.MediaCol] for allowed collection members.
      */
-    @JvmField val mediaColActual = CollectionType("media-col-actual")
+    @JvmField val mediaColActual = MediaColActual.Type("media-col-actual")
 
     /**
      * "media-input-tray-check-actual" as defined in:
@@ -345,7 +345,7 @@ object DocumentStatusGroup {
      * "media-sheets-completed-col" as defined in:
      * [APRIL2015F2F](http://ftp.pwg.org/pub/pwg/ipp/minutes/ippv2-f2f-minutes-20150429.pdf)
      */
-    @JvmField val mediaSheetsCompletedCol = CollectionType("media-sheets-completed-col")
+    @JvmField val mediaSheetsCompletedCol = MediaSheetsCompletedCol.Type("media-sheets-completed-col")
 
     /**
      * "more-info" as defined in:
@@ -375,7 +375,7 @@ object DocumentStatusGroup {
      * "output-attributes-actual" as defined in:
      * [PWG5100.17](http://ftp.pwg.org/pub/pwg/candidates/cs-ippscan10-20140918-5100.17.pdf)
      */
-    @JvmField val outputAttributesActual = CollectionType("output-attributes-actual")
+    @JvmField val outputAttributesActual = OutputAttributesActual.Type("output-attributes-actual")
 
     /**
      * "output-bin-actual" as defined in:
@@ -413,7 +413,7 @@ object DocumentStatusGroup {
      *
      * See [DocumentTemplateGroup.Overrides] for allowed collection members.
      */
-    @JvmField val overridesActual = CollectionType("overrides-actual")
+    @JvmField val overridesActual = OverridesActual.Type("overrides-actual")
 
     /**
      * "page-delivery-actual" as defined in:
@@ -443,7 +443,7 @@ object DocumentStatusGroup {
      * "pages-completed-col" as defined in:
      * [APRIL2015F2F](http://ftp.pwg.org/pub/pwg/ipp/minutes/ippv2-f2f-minutes-20150429.pdf)
      */
-    @JvmField val pagesCompletedCol = CollectionType("pages-completed-col")
+    @JvmField val pagesCompletedCol = PagesCompletedCol.Type("pages-completed-col")
 
     /**
      * "pages-completed-current-copy" as defined in:
@@ -467,7 +467,7 @@ object DocumentStatusGroup {
      * "print-accuracy-actual" as defined in:
      * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
      */
-    @JvmField val printAccuracyActual = CollectionType("print-accuracy-actual")
+    @JvmField val printAccuracyActual = PrintAccuracyActual.Type("print-accuracy-actual")
 
     /**
      * "print-base-actual" as defined in:
@@ -491,7 +491,7 @@ object DocumentStatusGroup {
      * "print-objects-actual" as defined in:
      * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
      */
-    @JvmField val printObjectsActual = CollectionType("print-objects-actual")
+    @JvmField val printObjectsActual = PrintObjectsActual.Type("print-objects-actual")
 
     /**
      * "print-quality-actual" as defined in:
@@ -529,7 +529,7 @@ object DocumentStatusGroup {
      *
      * See [JobTemplateGroup.SeparatorSheets] for allowed collection members.
      */
-    @JvmField val separatorSheetsActual = CollectionType("separator-sheets-actual")
+    @JvmField val separatorSheetsActual = SeparatorSheetsActual.Type("separator-sheets-actual")
 
     /**
      * "sheet-completed-copy-number" as defined in:

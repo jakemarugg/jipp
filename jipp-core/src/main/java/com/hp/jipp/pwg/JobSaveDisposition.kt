@@ -7,27 +7,140 @@
 
 package com.hp.jipp.pwg
 
-import com.hp.jipp.encoding.Keyword
-import com.hp.jipp.encoding.KeywordType
+import com.hp.jipp.encoding.* // ktlint-disable no-wildcard-imports
 
 /**
- * "job-save-disposition-supported" keyword as defined in:
+ * Data object corresponding to a "job-save-disposition" collection as defined in:
  *   * [PWG5100.11](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext10-20101030-5100.11.pdf)
  */
-data class JobSaveDisposition(
-    override val value: String
-) : Keyword() {
+data class JobSaveDisposition
+@JvmOverloads constructor(
+    val saveDisposition: SaveDisposition? = null,
+    val saveInfo: List<SaveInfo>? = null,
+    val _extras: List<Attribute<*>> = listOf()
+) : HasAttributeCollection {
 
-    override fun toString() = value
+    /** Generate attribute list */
+    override val attributes: AttributeCollection by lazy {
+        AttributeCollection(mutableListOf<Attribute<*>>().apply {
+            saveDisposition?.also {
+                add(Members.saveDisposition.of(it))
+            }
+            saveInfo?.also {
+                add(Members.saveInfo.of(it))
+            }
+        } + _extras)
+    }
 
-    /** An attribute type for [JobSaveDisposition] attributes */
-    class Type(name: String) : KeywordType<JobSaveDisposition>(Encoder, name)
+    /** Type for attributes of this collection */
+    class Type(name: String): TypedCollectionType<JobSaveDisposition>(Members, name)
 
-    companion object {
-        @JvmField val saveDisposition = JobSaveDisposition("save-disposition")
-        @JvmField val saveInfo = JobSaveDisposition("save-info")
-        @JvmField val Encoder = KeywordType.encoderOf(JobSaveDisposition::class.java) { value, _, _ ->
-            JobSaveDisposition(value)
+    companion object Members : CollectionParser<JobSaveDisposition> {
+        override val typeName = JobSaveDisposition::class.java.simpleName!!
+        override fun fromAttributes(attributes: List<Attribute<*>>): JobSaveDisposition {
+            val remain = attributes.toMutableList()
+            return JobSaveDisposition(
+                extractOne(remain, saveDisposition),
+                extractAll(remain, saveInfo),
+                _extras = remain)
+        }
+        /** "save-disposition" member type */
+        @JvmField val saveDisposition = SaveDisposition.Type("save-disposition")
+        /** "save-info" member type */
+        @JvmField val saveInfo = SaveInfo.Type("save-info")
+    }
+
+    /**
+     * All allowed member names in keyword form.
+     */
+    data class Keywords(
+        override val value: String
+    ) : Keyword() {
+        override fun toString() = value
+        /** An attribute type for [JobSaveDisposition] member names as keywords */
+        class Type(name: String) : KeywordType<Keywords>(Encoder, name)
+
+        companion object {
+            /** "save-disposition" member type */
+            @JvmField val saveDisposition = Keywords(Members.saveDisposition.name)
+            /** "save-info" member type */
+            @JvmField val saveInfo = Keywords(Members.saveInfo.name)
+
+            @JvmField val Encoder = KeywordType.encoderOf(Keywords::class.java) { value, _, _ ->
+                Keywords(value)
+            }
+        }
+    }
+
+    /**
+     * Data object corresponding to a "save-info" collection.
+     */
+    data class SaveInfo
+    @JvmOverloads constructor(
+        val saveDocumentFormat: String? = null,
+        val saveLocation: java.net.URI? = null,
+        val saveName: String? = null,
+        val _extras: List<Attribute<*>> = listOf()
+    ) : HasAttributeCollection {
+    
+        /** Generate attribute list */
+        override val attributes: AttributeCollection by lazy {
+            AttributeCollection(mutableListOf<Attribute<*>>().apply {
+                saveDocumentFormat?.also {
+                    add(Members.saveDocumentFormat.of(it))
+                }
+                saveLocation?.also {
+                    add(Members.saveLocation.of(it))
+                }
+                saveName?.also {
+                    add(Members.saveName.of(it))
+                }
+            } + _extras)
+        }
+    
+        /** Type for attributes of this collection */
+        class Type(name: String): TypedCollectionType<SaveInfo>(Members, name)
+    
+        companion object Members : CollectionParser<SaveInfo> {
+            override val typeName = SaveInfo::class.java.simpleName!!
+            override fun fromAttributes(attributes: List<Attribute<*>>): SaveInfo {
+                val remain = attributes.toMutableList()
+                return SaveInfo(
+                    extractOne(remain, saveDocumentFormat),
+                    extractOne(remain, saveLocation),
+                    extractOne(remain, saveName)?.value,
+                    _extras = remain)
+            }
+            /** "save-document-format" member type */
+            @JvmField val saveDocumentFormat = StringType(Tag.mimeMediaType, "save-document-format")
+            /** "save-location" member type */
+            @JvmField val saveLocation = UriType("save-location")
+            /** "save-name" member type */
+            @JvmField val saveName = NameType("save-name")
+        }
+    
+        /**
+         * All allowed member names in keyword form.
+         */
+        data class Keywords(
+            override val value: String
+        ) : Keyword() {
+            override fun toString() = value
+            /** An attribute type for [SaveInfo] member names as keywords */
+            class Type(name: String) : KeywordType<Keywords>(Encoder, name)
+    
+            companion object {
+                /** "save-document-format" member type */
+                @JvmField val saveDocumentFormat = Keywords(Members.saveDocumentFormat.name)
+                /** "save-location" member type */
+                @JvmField val saveLocation = Keywords(Members.saveLocation.name)
+                /** "save-name" member type */
+                @JvmField val saveName = Keywords(Members.saveName.name)
+    
+                @JvmField val Encoder = KeywordType.encoderOf(Keywords::class.java) { value, _, _ ->
+                    Keywords(value)
+                }
+            }
         }
     }
 }

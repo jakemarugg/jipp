@@ -16,15 +16,18 @@ attributes = { }
 out_files = [ ]
 proj_dir = os.path.dirname(os.path.realpath(__file__)) + "/../"
 warns = 0
+pp = pprint.PrettyPrinter(indent=2)
 
 # Some enums/keywords have a plural 's' on the end, which we remove for clarity.
 # Types ending with these words are not plural for our purposes and should keep their s:
 nonplurals = [ 'sides', 'status', 'print-supports', 'details', 'which-jobs' ]
 
-def warn(output):
+def warn(output, object = None):
     global warns
     warns = warns + 1
-    print "    WARN: " + output
+    print "WARN: " + output
+    if object is not None:
+        print('    ' + pp.pformat(object).replace('\n', '\n    '))
 
 def note(output):
     print "    NOTE: " + output
@@ -88,7 +91,7 @@ def fix_syntax(item, syntax = None):
 
     if " | " in syntax:
         # Ignore no-value and unknown since those are accepted everywhere
-        parts = [fix_syntax({}, part.strip()) for part in syntax.split("|")]
+        parts = sorted([fix_syntax({}, part.strip()) for part in syntax.split("|")])
         syntax = " | ".join([part for part in parts if part != "no-value" and part != "unknown"])
     item['syntax'] = syntax
     return syntax
@@ -191,11 +194,6 @@ def parse_keyword(record):
     if value is None or re.search("\(.*\)", value):
         return
 
-    # XML fix: document-format-details-supported should point to document-format-details members
-    if attribute == "document-format-details-supported":
-        # We haven't parsed collections yet so handle this later.
-        keyword['ref_members'] = 'document-format-details'
-
     if ' ' not in value:
         keyword['values'].append(value)
     else:
@@ -238,7 +236,11 @@ def assign_ref(ref, target):
     # A reference to any keyword in a group
     m = re.search("^\"?([A-Z a-z-]+)\"? attribute keyword name$", ref)
     if m and m.group(1):
-        target['ref_group'] = m.group(1)
+        group = m.group(1)
+        # Fix XML
+        if group == 'Printer':
+            group = 'Printer Description'
+        target['ref_group'] = group
         return True
 
     # A reference to names of members within a collection
@@ -291,6 +293,10 @@ def parse_attribute(record):
         submember_name = submember_name.text
 
     if member_name is not None:
+        if member_name.endswith('(extension)'):
+            # Chop off (extension) and use it to replace former member syntax
+            member_name = member_name[:-len('(extension)')]
+
         if member_name.startswith('<'):
             if not assign_ref(member_name, attr):
                 warn("Unparseable '" + attr_name + "' member name: '" + member_name + "'")
@@ -298,7 +304,11 @@ def parse_attribute(record):
 
         attr = attr['members'].setdefault(member_name, {
             'name': member_name, 'specs': [ ], 'syntax': record.find('{*}syntax').text,
-            'members': { } } )
+            'members': { }
+        } )
+        if submember_name is None:
+            # Re-apply syntax if member appears again (probably "(extension)")
+            attr['syntax'] = record.find('{*}syntax').text
         fix_syntax(attr)
 
         if submember_name is not None:
@@ -371,20 +381,18 @@ def emit_keyword(template, keyword):
         # and replace with ref = 'JobStatusAttributes'
         group_name = keyword['ref_group']
         if group_name not in attributes:
-            warn("Keyword refers to group " + group_name + " but no such group")
+            warn("Keyword refers to group " + group_name + " but no such group", keyword)
             return
         # TODO: Combine?
         keyword['values'] = sorted(attributes[group_name].keys())
 
     if not keyword['values']:
-        warn("keyword " + keyword['name'] + " has no values defined")
-        return
+        # XML fix: material-key is not defined anywhere. Really should be a name but not spec'd that way
+        if keyword['name'] != 'material-key':
+            warn("keyword " + keyword['name'] + " has no values defined", keyword)
+            return
 
     keyword['fullname'] = keyword['name']
-    keyword['name'] = re.sub('-(supported|requested)$', '', keyword['name'])
-    # XML fix because separator-sheets-supported should either be separator-sheets-type-supported, or -type
-    # should be gone
-    keyword['name'] = re.sub('-sheets-type', '-sheets', keyword['name'])
     if 'name' in keyword['syntax']:
         keyword['orName'] = True
     keyword['name'] = depluralize(keyword['name'])
@@ -423,8 +431,7 @@ def emit_kind(env, template_name, items, emit_func):
 
         if 'ref' in item:
             if item['ref'] not in items:
-                pp.pprint(item)
-                warn(item['name'] + " has bad ref=" + item['ref'])
+                warn(item['name'] + " has bad ref=" + item['ref'], item)
             continue
 
         item['refs'] = []
@@ -473,27 +480,10 @@ def fuzzy_get(map, name):
 
 def emit_attributes(env):
     # Emit collection attributes
-    collection_template = env.get_template('collection.kt.tmpl')
     for group in attributes.values():
         for type in group.values():
             if type['members']:
-                type = copy.deepcopy(type)
-                for member in type['members'].values():
-                    fix_member(type['members'], member)
-                    if 'ktype' not in member:
-                        pp.pprint(member)
-                        warn("Collection " + type['name'] + ' member ' + member['name'] + ' has no ktype for ' + member['syntax'])
-                name = type['name']
-
-                # TODO: media-col-database has members AND a ref so these need to be combined
-                # TODO: if `set` is true, emit the member in List form
-                # Strip -Col from end of name
-                if name.endswith('-col'):
-                    name = name[:-len('-col')]
-                with open(prep_file(name), 'w') as file:
-                    file.write(collection_template.render(
-                        name=name, collection=type,app=os.path.basename(sys.argv[0]),
-                        updated=updated, specs=specs))
+                emit_collection(env, type)
 
     template = env.get_template('group.kt.tmpl')
     for name, values in attributes.items():
@@ -504,9 +494,9 @@ def emit_attributes(env):
             if 'intro' not in type:
                 continue
 
-            # Don't do member stuff here anymore
+            # Fix members
             for member in type['members'].values():
-                fix_member(type['members'], member)
+                fix_member(member)
 
             types.append(type)
 
@@ -514,14 +504,40 @@ def emit_attributes(env):
             file.write(template.render(name=name, types=types, app=os.path.basename(sys.argv[0]), updated=updated, specs=specs))
 
 
-# For each member recursively find and apply its intro, or remove it
-def fix_member(dict, member):
+def emit_collection(env, type):
+    collection_template = env.get_template('collection.kt.tmpl')
+    type = copy.deepcopy(type)
+
+    for member in type['members'].values():
+        fix_member(member)
+        if 'ktype' not in member:
+            warn("Collection " + type['name'] + ' member ' + member['name'] + ' has no ktype for ' +
+                 member['syntax'], member)
+            return
+
+        # Create inner class for each member that needs one
+        if member['members']:
+            member['inner'] = '    ' + collection_template.render(name=member['name'], collection=member,
+                                       app=os.path.basename(sys.argv[0]), updated=updated,
+                                       specs=specs, noheader=True).replace('\n', '\n    ').strip()
+    colName = type['name']
+
+    # TODO: media-col-database has members AND a ref so these need to be combined
+    # TODO: if `set` is true, emit the member in List form
+    with open(prep_file(colName), 'w') as file:
+        file.write(collection_template.render(
+            name=colName, collection=type, app=os.path.basename(sys.argv[0]),
+            updated=updated, specs=specs))
+
+# For each member recursively find and apply its intro
+def fix_member(member):
     fix_syntax(member)
     fix_intro(member, member['syntax'], member['name'])
-    if 'intro' not in member:
-        del dict[member['name']]
-    for submember in member['members'].values():
-        fix_member(member['members'], submember)
+    if 'intro' in member:
+        if member['members']:
+            member['ktype'] = camel_class(member['name'])
+            for submember in member['members'].values():
+                fix_member(submember)
 
 # For the type given, select decorators that help when generating code.
 # 'intro' - string required to begin instantiation of the type
@@ -539,12 +555,8 @@ def fix_intro(type, syntax, name):
         name = 'media'
 
     if syntax is None:
-        print "Type has no syntax"
-        pp.pprint(type)
+        warn("Type has no syntax", type)
         return None
-
-    #if name.endswith("-supported"):
-    #    # This may be a reference to member names in a collection
 
     # Look for known keyword/enum reference
     intro = None
@@ -587,8 +599,7 @@ def fix_intro(type, syntax, name):
         intro = "ResolutionType("
         type['ktype'] = 'Resolution'
     if syntax == "collection":
-        # TODO: We need to emit a "see" reference to the collection class/object when we write this out
-        intro = "CollectionType("
+        intro = camel_class(type['name']) + '.Type('
     if syntax == "dateTime":
         intro = "DateTimeType("
     if syntax == 'name':
@@ -610,8 +621,7 @@ def fix_intro(type, syntax, name):
         intro = "OctetStringType(" + m.group(1) + ", "
 
     if not intro:
-        pp.pprint(type)
-        warn("Could not find type for attribute " + name + " with syntax '" + original_syntax + "'")
+        warn("No type for attribute " + name + " with syntax '" + original_syntax + "'", type)
         return
 
     type['intro'] = intro
@@ -673,22 +683,21 @@ keywords['printer-kind'] = {
     'values' : [ 'disc', 'document', 'envelope', 'label', 'large-format', 'photo', 'postcard', 'receipt', 'roll']
 }
 
-pp = pprint.PrettyPrinter(indent=2)
+# XML Fix: material-key not supplied so insert it
+keywords['material-key'] = {
+    'name': 'material-key',
+    'specs': [ 'PWG5100.21'],
+    'syntax': 'keyword',
+    'values' : [ ]
+}
+
 
 parse_records(tree, "Attributes", parse_attribute)
 parse_records(tree, "Status Codes", parse_status_code)
 
-#print "\Attributes: "
-#pp.pprint(attributes)
-#print "\nKeywords: "
-#pp.pprint(keywords)
-#print "\nEnums: "
-#pp.pprint(enums)
-#print "\nSpecifications: "
-#pp.pprint(specs)
-
-# TODO: For collections emit a data class with nullable attributes and conversion <--> attributes. When this is done
-# include a keyword type of all possible members to be used outside the collection (e.g. PrintObject, MaterialsCol)
+# XML Fix: finishings-col has media-size but is not specified (should be same as media-col.media-size)
+attributes['Job Template']['finishings-col']['members']['media-size'] = \
+    copy.deepcopy(attributes['Job Template']['media-col']['members']['media-size'])
 
 emit_code()
 print "WARNINGS: " + str(warns)

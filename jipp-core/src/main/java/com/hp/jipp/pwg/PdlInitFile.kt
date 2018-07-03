@@ -7,28 +7,77 @@
 
 package com.hp.jipp.pwg
 
-import com.hp.jipp.encoding.Keyword
-import com.hp.jipp.encoding.KeywordType
+import com.hp.jipp.encoding.* // ktlint-disable no-wildcard-imports
 
 /**
- * "pdl-init-file-supported" keyword as defined in:
+ * Data object corresponding to a "pdl-init-file" collection as defined in:
  *   * [PWG5100.11](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext10-20101030-5100.11.pdf)
  */
-data class PdlInitFile(
-    override val value: String
-) : Keyword() {
+data class PdlInitFile
+@JvmOverloads constructor(
+    val pdlInitFileEntry: String? = null,
+    val pdlInitFileLocation: java.net.URI? = null,
+    val pdlInitFileName: String? = null,
+    val _extras: List<Attribute<*>> = listOf()
+) : HasAttributeCollection {
 
-    override fun toString() = value
+    /** Generate attribute list */
+    override val attributes: AttributeCollection by lazy {
+        AttributeCollection(mutableListOf<Attribute<*>>().apply {
+            pdlInitFileEntry?.also {
+                add(Members.pdlInitFileEntry.of(it))
+            }
+            pdlInitFileLocation?.also {
+                add(Members.pdlInitFileLocation.of(it))
+            }
+            pdlInitFileName?.also {
+                add(Members.pdlInitFileName.of(it))
+            }
+        } + _extras)
+    }
 
-    /** An attribute type for [PdlInitFile] attributes */
-    class Type(name: String) : KeywordType<PdlInitFile>(Encoder, name)
+    /** Type for attributes of this collection */
+    class Type(name: String): TypedCollectionType<PdlInitFile>(Members, name)
 
-    companion object {
-        @JvmField val pdlInitFileEntry = PdlInitFile("pdl-init-file-entry")
-        @JvmField val pdlInitFileLocation = PdlInitFile("pdl-init-file-location")
-        @JvmField val pdlInitFileName = PdlInitFile("pdl-init-file-name")
-        @JvmField val Encoder = KeywordType.encoderOf(PdlInitFile::class.java) { value, _, _ ->
-            PdlInitFile(value)
+    companion object Members : CollectionParser<PdlInitFile> {
+        override val typeName = PdlInitFile::class.java.simpleName!!
+        override fun fromAttributes(attributes: List<Attribute<*>>): PdlInitFile {
+            val remain = attributes.toMutableList()
+            return PdlInitFile(
+                extractOne(remain, pdlInitFileEntry)?.value,
+                extractOne(remain, pdlInitFileLocation),
+                extractOne(remain, pdlInitFileName)?.value,
+                _extras = remain)
+        }
+        /** "pdl-init-file-entry" member type */
+        @JvmField val pdlInitFileEntry = NameType("pdl-init-file-entry")
+        /** "pdl-init-file-location" member type */
+        @JvmField val pdlInitFileLocation = UriType("pdl-init-file-location")
+        /** "pdl-init-file-name" member type */
+        @JvmField val pdlInitFileName = NameType("pdl-init-file-name")
+    }
+
+    /**
+     * All allowed member names in keyword form.
+     */
+    data class Keywords(
+        override val value: String
+    ) : Keyword() {
+        override fun toString() = value
+        /** An attribute type for [PdlInitFile] member names as keywords */
+        class Type(name: String) : KeywordType<Keywords>(Encoder, name)
+
+        companion object {
+            /** "pdl-init-file-entry" member type */
+            @JvmField val pdlInitFileEntry = Keywords(Members.pdlInitFileEntry.name)
+            /** "pdl-init-file-location" member type */
+            @JvmField val pdlInitFileLocation = Keywords(Members.pdlInitFileLocation.name)
+            /** "pdl-init-file-name" member type */
+            @JvmField val pdlInitFileName = Keywords(Members.pdlInitFileName.name)
+
+            @JvmField val Encoder = KeywordType.encoderOf(Keywords::class.java) { value, _, _ ->
+                Keywords(value)
+            }
         }
     }
 }

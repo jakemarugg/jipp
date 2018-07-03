@@ -32,123 +32,33 @@ object JobTemplateGroup {
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
      * [RFC8011](http://www.iana.org/go/rfc8011)
      */
-    @JvmField val coverBack = CollectionType("cover-back")
-
-    /**
-     * Attributes which may appear within [coverBack]
-     */
-     object CoverBack {
-
-        /** "media-col" member */
-        @JvmField val mediaCol = CollectionType("media-col")
-
-        /** "media" member */
-        @JvmField val media = Media.Type("media")
-
-        /** "cover-type" member */
-        @JvmField val coverType = CoverType.Type("cover-type")
-    }
+    @JvmField val coverBack = CoverBack.Type("cover-back")
 
     /**
      * "cover-front" as defined in:
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
      * [RFC8011](http://www.iana.org/go/rfc8011)
      */
-    @JvmField val coverFront = CollectionType("cover-front")
-
-    /**
-     * Attributes which may appear within [coverFront]
-     */
-     object CoverFront {
-
-        /** "media-col" member */
-        @JvmField val mediaCol = CollectionType("media-col")
-
-        /** "media" member */
-        @JvmField val media = Media.Type("media")
-
-        /** "cover-type" member */
-        @JvmField val coverType = CoverType.Type("cover-type")
-    }
+    @JvmField val coverFront = CoverFront.Type("cover-front")
 
     /**
      * "cover-sheet-info" as defined in:
      * [PWG5100.15](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfaxout10-20131115-5100.15.pdf)
      */
-    @JvmField val coverSheetInfo = CollectionType("cover-sheet-info")
-
-    /**
-     * Attributes which may appear within [coverSheetInfo]
-     */
-     object CoverSheetInfo {
-
-        /** "from-name" member */
-        @JvmField val fromName = TextType("from-name")
-
-        /** "organization-name" member */
-        @JvmField val organizationName = TextType("organization-name")
-
-        /** "logo" member */
-        @JvmField val logo = UriType("logo")
-
-        /** "message" member */
-        @JvmField val message = TextType("message")
-
-        /** "to-name" member */
-        @JvmField val toName = TextType("to-name")
-
-        /** "subject" member */
-        @JvmField val subject = TextType("subject")
-    }
+    @JvmField val coverSheetInfo = CoverSheetInfo.Type("cover-sheet-info")
 
     /**
      * "destination-statuses" as defined in:
      * [PWG5100.15](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfaxout10-20131115-5100.15.pdf)
      */
-    @JvmField val destinationStatuses = CollectionType("destination-statuses")
-
-    /**
-     * Attributes which may appear within [destinationStatuses]
-     */
-     object DestinationStatuses {
-
-        /** "destination-uri" member */
-        @JvmField val destinationUri = UriType("destination-uri")
-
-        /** "transmission-status" member */
-        @JvmField val transmissionStatus = TransmissionStatus.Type("transmission-status")
-
-        /** "images-completed" member */
-        @JvmField val imagesCompleted = IntegerType("images-completed")
-    }
+    @JvmField val destinationStatuses = DestinationStatuses.Type("destination-statuses")
 
     /**
      * "destination-uris" as defined in:
      * [PWG5100.15](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfaxout10-20131115-5100.15.pdf)
      * [PWG5100.17](http://ftp.pwg.org/pub/pwg/candidates/cs-ippscan10-20140918-5100.17.pdf)
      */
-    @JvmField val destinationUris = CollectionType("destination-uris")
-
-    /**
-     * Attributes which may appear within [destinationUris]
-     */
-     object DestinationUris {
-
-        /** "destination-attributes" member */
-        @JvmField val destinationAttributes = CollectionType("destination-attributes")
-
-        /** "post-dial-string" member */
-        @JvmField val postDialString = TextType(127, "post-dial-string")
-
-        /** "destination-uri" member */
-        @JvmField val destinationUri = UriType("destination-uri")
-
-        /** "pre-dial-string" member */
-        @JvmField val preDialString = TextType(127, "pre-dial-string")
-
-        /** "t33-subaddress" member */
-        @JvmField val t33Subaddress = IntegerType("t33-subaddress")
-    }
+    @JvmField val destinationUris = DestinationUris.Type("destination-uris")
 
     /**
      * "feed-orientation" as defined in:
@@ -167,163 +77,7 @@ object JobTemplateGroup {
      * [PWG5100.1](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfinishings10-20010205-5100.1.pdf)
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
      */
-    @JvmField val finishingsCol = CollectionType("finishings-col")
-
-    /**
-     * Attributes which may appear within [finishingsCol]
-     */
-     object FinishingsCol {
-
-        /** "finishing-template" member */
-        @JvmField val finishingTemplate = NameType("finishing-template")
-
-        /** "folding" member */
-        @JvmField val folding = CollectionType("folding")
-
-        /** Attributes which may appear within [finishingsCol].[folding] */
-        object Folding {
-
-            /** "folding-offset" member */
-            @JvmField val foldingOffset = IntegerType("folding-offset")
-
-            /** "folding-reference-edge" member */
-            @JvmField val foldingReferenceEdge = FoldingReferenceEdge.Type("folding-reference-edge")
-
-            /** "folding-direction" member */
-            @JvmField val foldingDirection = FoldingDirection.Type("folding-direction")
-        }
-
-        /** "covering" member */
-        @JvmField val covering = CollectionType("covering")
-
-        /** Attributes which may appear within [finishingsCol].[covering] */
-        object Covering {
-
-            /** "covering-name" member */
-            @JvmField val coveringName = CoveringName.Type("covering-name")
-        }
-
-        /** "coating" member */
-        @JvmField val coating = CollectionType("coating")
-
-        /** Attributes which may appear within [finishingsCol].[coating] */
-        object Coating {
-
-            /** "coating-type" member */
-            @JvmField val coatingType = CoatingType.Type("coating-type")
-
-            /** "coating-sides" member */
-            @JvmField val coatingSides = CoatingSides.Type("coating-sides")
-        }
-
-        /** "binding" member */
-        @JvmField val binding = CollectionType("binding")
-
-        /** Attributes which may appear within [finishingsCol].[binding] */
-        object Binding {
-
-            /** "binding-type" member */
-            @JvmField val bindingType = BindingType.Type("binding-type")
-
-            /** "binding-reference-edge" member */
-            @JvmField val bindingReferenceEdge = BindingReferenceEdge.Type("binding-reference-edge")
-        }
-
-        /** "imposition-template" member */
-        @JvmField val impositionTemplate = ImpositionTemplate.Type("imposition-template")
-
-        /** "media-size-name" member */
-        @JvmField val mediaSizeName = Media.Type("media-size-name")
-
-        /** "media-size" member */
-        @JvmField val mediaSize = CollectionType("media-size")
-
-        /** "laminating" member */
-        @JvmField val laminating = CollectionType("laminating")
-
-        /** Attributes which may appear within [finishingsCol].[laminating] */
-        object Laminating {
-
-            /** "laminating-sides" member */
-            @JvmField val laminatingSides = LaminatingSides.Type("laminating-sides")
-
-            /** "laminating-type" member */
-            @JvmField val laminatingType = LaminatingType.Type("laminating-type")
-        }
-
-        /** "baling" member */
-        @JvmField val baling = CollectionType("baling")
-
-        /** Attributes which may appear within [finishingsCol].[baling] */
-        object Baling {
-
-            /** "baling-type" member */
-            @JvmField val balingType = BalingType.Type("baling-type")
-
-            /** "baling-when" member */
-            @JvmField val balingWhen = BalingWhen.Type("baling-when")
-        }
-
-        /** "punching" member */
-        @JvmField val punching = CollectionType("punching")
-
-        /** Attributes which may appear within [finishingsCol].[punching] */
-        object Punching {
-
-            /** "punching-locations" member */
-            @JvmField val punchingLocations = IntegerType("punching-locations")
-
-            /** "punching-offset" member */
-            @JvmField val punchingOffset = IntegerType("punching-offset")
-
-            /** "punching-reference-edge" member */
-            @JvmField val punchingReferenceEdge = PunchingReferenceEdge.Type("punching-reference-edge")
-        }
-
-        /** "stitching" member */
-        @JvmField val stitching = CollectionType("stitching")
-
-        /** Attributes which may appear within [finishingsCol].[stitching] */
-        object Stitching {
-
-            /** "stitching-angle" member */
-            @JvmField val stitchingAngle = IntegerType("stitching-angle")
-
-            /** "stitching-method" member */
-            @JvmField val stitchingMethod = StitchingMethod.Type("stitching-method")
-
-            /** "stitching-offset" member */
-            @JvmField val stitchingOffset = IntegerType("stitching-offset")
-
-            /** "stitching-locations" member */
-            @JvmField val stitchingLocations = IntegerType("stitching-locations")
-
-            /** "stitching-reference-edge" member */
-            @JvmField val stitchingReferenceEdge = StitchingReferenceEdge.Type("stitching-reference-edge")
-        }
-
-        /** "media-sheets-supported" member */
-        @JvmField val mediaSheetsSupported = RangeOfIntegerType("media-sheets-supported")
-
-        /** "trimming" member */
-        @JvmField val trimming = CollectionType("trimming")
-
-        /** Attributes which may appear within [finishingsCol].[trimming] */
-        object Trimming {
-
-            /** "trimming-reference-edge" member */
-            @JvmField val trimmingReferenceEdge = TrimmingReferenceEdge.Type("trimming-reference-edge")
-
-            /** "trimming-type" member */
-            @JvmField val trimmingType = TrimmingType.Type("trimming-type")
-
-            /** "trimming-offset" member */
-            @JvmField val trimmingOffset = IntegerType("trimming-offset")
-
-            /** "trimming-when" member */
-            @JvmField val trimmingWhen = TrimmingWhen.Type("trimming-when")
-        }
-    }
+    @JvmField val finishingsCol = FinishingsCol.Type("finishings-col")
 
     /**
      * "font-name-requested" as defined in:
@@ -354,25 +108,7 @@ object JobTemplateGroup {
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
      * [RFC8011](http://www.iana.org/go/rfc8011)
      */
-    @JvmField val insertSheet = CollectionType("insert-sheet")
-
-    /**
-     * Attributes which may appear within [insertSheet]
-     */
-     object InsertSheet {
-
-        /** "media-col" member */
-        @JvmField val mediaCol = CollectionType("media-col")
-
-        /** "insert-count" member */
-        @JvmField val insertCount = IntegerType("insert-count")
-
-        /** "insert-after-page-number" member */
-        @JvmField val insertAfterPageNumber = IntegerType("insert-after-page-number")
-
-        /** "media" member */
-        @JvmField val media = Media.Type("media")
-    }
+    @JvmField val insertSheet = InsertSheet.Type("insert-sheet")
 
     /**
      * "job-account-id" as defined in:
@@ -391,25 +127,7 @@ object JobTemplateGroup {
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
      * [RFC8011](http://www.iana.org/go/rfc8011)
      */
-    @JvmField val jobAccountingSheets = CollectionType("job-accounting-sheets")
-
-    /**
-     * Attributes which may appear within [jobAccountingSheets]
-     */
-     object JobAccountingSheets {
-
-        /** "media-col" member */
-        @JvmField val mediaCol = CollectionType("media-col")
-
-        /** "media" member */
-        @JvmField val media = Media.Type("media")
-
-        /** "job-accounting-output-bin" member */
-        @JvmField val jobAccountingOutputBin = OutputBin.Type("job-accounting-output-bin")
-
-        /** "job-accounting-sheets-type" member */
-        @JvmField val jobAccountingSheetsType = JobAccountingSheet.Type("job-accounting-sheets-type")
-    }
+    @JvmField val jobAccountingSheets = JobAccountingSheets.Type("job-accounting-sheets")
 
     /**
      * "job-accounting-user-id" as defined in:
@@ -429,7 +147,7 @@ object JobTemplateGroup {
      *
      * See [JobTemplateGroup.CoverBack] for allowed collection members.
      */
-    @JvmField val jobCoverBack = CollectionType("job-cover-back")
+    @JvmField val jobCoverBack = JobCoverBack.Type("job-cover-back")
 
     /**
      * "job-cover-front" as defined in:
@@ -437,7 +155,7 @@ object JobTemplateGroup {
      *
      * See [JobTemplateGroup.CoverFront] for allowed collection members.
      */
-    @JvmField val jobCoverFront = CollectionType("job-cover-front")
+    @JvmField val jobCoverFront = JobCoverFront.Type("job-cover-front")
 
     /**
      * "job-delay-output-until" as defined in:
@@ -461,25 +179,7 @@ object JobTemplateGroup {
      * "job-error-sheet" as defined in:
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
      */
-    @JvmField val jobErrorSheet = CollectionType("job-error-sheet")
-
-    /**
-     * Attributes which may appear within [jobErrorSheet]
-     */
-     object JobErrorSheet {
-
-        /** "media-col" member */
-        @JvmField val mediaCol = CollectionType("media-col")
-
-        /** "media" member */
-        @JvmField val media = Media.Type("media")
-
-        /** "job-error-sheet-when" member */
-        @JvmField val jobErrorSheetWhen = JobErrorSheetWhen.Type("job-error-sheet-when")
-
-        /** "job-error-sheet-type" member */
-        @JvmField val jobErrorSheetType = JobErrorSheetType.Type("job-error-sheet-type")
-    }
+    @JvmField val jobErrorSheet = JobErrorSheet.Type("job-error-sheet")
 
     /**
      * "job-finishings" as defined in:
@@ -493,7 +193,7 @@ object JobTemplateGroup {
      *
      * See [JobTemplateGroup.FinishingsCol] for allowed collection members.
      */
-    @JvmField val jobFinishingsCol = CollectionType("job-finishings-col")
+    @JvmField val jobFinishingsCol = JobFinishingsCol.Type("job-finishings-col")
 
     /**
      * "job-hold-until" as defined in:
@@ -541,32 +241,7 @@ object JobTemplateGroup {
      * "job-save-disposition" as defined in:
      * [PWG5100.11](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext10-20101030-5100.11.pdf)
      */
-    @JvmField val jobSaveDisposition = CollectionType("job-save-disposition")
-
-    /**
-     * Attributes which may appear within [jobSaveDisposition]
-     */
-     object JobSaveDisposition {
-
-        /** "save-disposition" member */
-        @JvmField val saveDisposition = SaveDisposition.Type("save-disposition")
-
-        /** "save-info" member */
-        @JvmField val saveInfo = CollectionType("save-info")
-
-        /** Attributes which may appear within [jobSaveDisposition].[saveInfo] */
-        object SaveInfo {
-
-            /** "save-location" member */
-            @JvmField val saveLocation = UriType("save-location")
-
-            /** "save-document-format" member */
-            @JvmField val saveDocumentFormat = StringType(Tag.mimeMediaType, "save-document-format")
-
-            /** "save-name" member */
-            @JvmField val saveName = NameType("save-name")
-        }
-    }
+    @JvmField val jobSaveDisposition = JobSaveDisposition.Type("job-save-disposition")
 
     /**
      * "job-sheet-message" as defined in:
@@ -585,73 +260,13 @@ object JobTemplateGroup {
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
      * [RFC8011](http://www.iana.org/go/rfc8011)
      */
-    @JvmField val jobSheetsCol = CollectionType("job-sheets-col")
-
-    /**
-     * Attributes which may appear within [jobSheetsCol]
-     */
-     object JobSheetsCol {
-
-        /** "media-col" member */
-        @JvmField val mediaCol = CollectionType("media-col")
-
-        /** "media" member */
-        @JvmField val media = Media.Type("media")
-
-        /** "job-sheets" member */
-        @JvmField val jobSheets = JobSheet.Type("job-sheets")
-    }
+    @JvmField val jobSheetsCol = JobSheetsCol.Type("job-sheets-col")
 
     /**
      * "materials-col" as defined in:
      * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
      */
-    @JvmField val materialsCol = CollectionType("materials-col")
-
-    /**
-     * Attributes which may appear within [materialsCol]
-     */
-     object MaterialsCol {
-
-        /** "material-name" member */
-        @JvmField val materialName = NameType("material-name")
-
-        /** "material-type" member */
-        @JvmField val materialType = MaterialType.Type("material-type")
-
-        /** "material-amount-units" member */
-        @JvmField val materialAmountUnits = MaterialAmountUnit.Type("material-amount-units")
-
-        /** "material-rate" member */
-        @JvmField val materialRate = IntegerType("material-rate")
-
-        /** "material-diameter-tolerance" member */
-        @JvmField val materialDiameterTolerance = IntegerType("material-diameter-tolerance")
-
-        /** "material-shell-thickness" member */
-        @JvmField val materialShellThickness = IntegerType("material-shell-thickness")
-
-        /** "material-color" member */
-        @JvmField val materialColor = MediaColor.Type("material-color")
-
-        /** "material-rate-units" member */
-        @JvmField val materialRateUnits = MaterialRateUnit.Type("material-rate-units")
-
-        /** "material-diameter" member */
-        @JvmField val materialDiameter = IntegerType("material-diameter")
-
-        /** "material-purpose" member */
-        @JvmField val materialPurpose = MaterialPurpose.Type("material-purpose")
-
-        /** "material-amount" member */
-        @JvmField val materialAmount = IntegerType("material-amount")
-
-        /** "material-temperature" member */
-        @JvmField val materialTemperature = IntegerOrRangeOfIntegerType("material-temperature")
-
-        /** "material-fill-density" member */
-        @JvmField val materialFillDensity = IntegerType("material-fill-density")
-    }
+    @JvmField val materialsCol = MaterialsCol.Type("materials-col")
 
     /**
      * "media" as defined in:
@@ -665,86 +280,7 @@ object JobTemplateGroup {
      * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
      */
-    @JvmField val mediaCol = CollectionType("media-col")
-
-    /**
-     * Attributes which may appear within [mediaCol]
-     */
-     object MediaCol {
-
-        /** "media-recycled" member */
-        @JvmField val mediaRecycled = MediaRecycled.Type("media-recycled")
-
-        /** "media-top-margin" member */
-        @JvmField val mediaTopMargin = IntegerType("media-top-margin")
-
-        /** "media-order-count" member */
-        @JvmField val mediaOrderCount = IntegerType("media-order-count")
-
-        /** "media-source" member */
-        @JvmField val mediaSource = MediaSource.Type("media-source")
-
-        /** "media-pre-printed" member */
-        @JvmField val mediaPrePrinted = MediaPrePrinted.Type("media-pre-printed")
-
-        /** "media-color" member */
-        @JvmField val mediaColor = MediaColor.Type("media-color")
-
-        /** "media-type" member */
-        @JvmField val mediaType = MediaType.Type("media-type")
-
-        /** "media-bottom-margin" member */
-        @JvmField val mediaBottomMargin = IntegerType("media-bottom-margin")
-
-        /** "media-size-name" member */
-        @JvmField val mediaSizeName = Media.Type("media-size-name")
-
-        /** "media-tooth" member */
-        @JvmField val mediaTooth = MediaTooth.Type("media-tooth")
-
-        /** "media-info" member */
-        @JvmField val mediaInfo = TextType(255, "media-info")
-
-        /** "media-left-margin" member */
-        @JvmField val mediaLeftMargin = IntegerType("media-left-margin")
-
-        /** "media-right-margin" member */
-        @JvmField val mediaRightMargin = IntegerType("media-right-margin")
-
-        /** "media-size" member */
-        @JvmField val mediaSize = CollectionType("media-size")
-
-        /** Attributes which may appear within [mediaCol].[mediaSize] */
-        object MediaSize {
-
-            /** "x-dimension" member */
-            @JvmField val xDimension = IntegerType("x-dimension")
-
-            /** "y-dimension" member */
-            @JvmField val yDimension = IntegerType("y-dimension")
-        }
-
-        /** "media-back-coating" member */
-        @JvmField val mediaBackCoating = MediaBackCoating.Type("media-back-coating")
-
-        /** "media-grain" member */
-        @JvmField val mediaGrain = MediaGrain.Type("media-grain")
-
-        /** "media-front-coating" member */
-        @JvmField val mediaFrontCoating = MediaBackCoating.Type("media-front-coating")
-
-        /** "media-key" member */
-        @JvmField val mediaKey = Media.Type("media-key")
-
-        /** "media-weight-metric" member */
-        @JvmField val mediaWeightMetric = IntegerType("media-weight-metric")
-
-        /** "media-thickness" member */
-        @JvmField val mediaThickness = IntegerType("media-thickness")
-
-        /** "media-hole-count" member */
-        @JvmField val mediaHoleCount = IntegerType("media-hole-count")
-    }
+    @JvmField val mediaCol = MediaCol.Type("media-col")
 
     /**
      * "media-input-tray-check" as defined in:
@@ -798,22 +334,7 @@ object JobTemplateGroup {
      * "overrides" as defined in:
      * [PWG5100.6](http://ftp.pwg.org/pub/pwg/candidates/cs-ipppageoverride10-20031031-5100.6.pdf)
      */
-    @JvmField val overrides = CollectionType("overrides")
-
-    /**
-     * Attributes which may appear within [overrides]
-     */
-     object Overrides {
-
-        /** "document-copies" member */
-        @JvmField val documentCopies = RangeOfIntegerType("document-copies")
-
-        /** "pages" member */
-        @JvmField val pages = RangeOfIntegerType("pages")
-
-        /** "document-numbers" member */
-        @JvmField val documentNumbers = RangeOfIntegerType("document-numbers")
-    }
+    @JvmField val overrides = Overrides.Type("overrides")
 
     /**
      * "page-delivery" as defined in:
@@ -843,22 +364,7 @@ object JobTemplateGroup {
      * "pdl-init-file" as defined in:
      * [PWG5100.11](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext10-20101030-5100.11.pdf)
      */
-    @JvmField val pdlInitFile = CollectionType("pdl-init-file")
-
-    /**
-     * Attributes which may appear within [pdlInitFile]
-     */
-     object PdlInitFile {
-
-        /** "pdl-init-file-name" member */
-        @JvmField val pdlInitFileName = NameType("pdl-init-file-name")
-
-        /** "pdl-init-file-entry" member */
-        @JvmField val pdlInitFileEntry = NameType("pdl-init-file-entry")
-
-        /** "pdl-init-file-location" member */
-        @JvmField val pdlInitFileLocation = UriType("pdl-init-file-location")
-    }
+    @JvmField val pdlInitFile = PdlInitFile.Type("pdl-init-file")
 
     /**
      * "platform-temperature" as defined in:
@@ -876,25 +382,7 @@ object JobTemplateGroup {
      * "print-accuracy" as defined in:
      * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
      */
-    @JvmField val printAccuracy = CollectionType("print-accuracy")
-
-    /**
-     * Attributes which may appear within [printAccuracy]
-     */
-     object PrintAccuracy {
-
-        /** "x-accuracy" member */
-        @JvmField val xAccuracy = IntegerType("x-accuracy")
-
-        /** "z-accuracy" member */
-        @JvmField val zAccuracy = IntegerType("z-accuracy")
-
-        /** "accuracy-units" member */
-        @JvmField val accuracyUnits = AccuracyUnit.Type("accuracy-units")
-
-        /** "y-accuracy" member */
-        @JvmField val yAccuracy = IntegerType("y-accuracy")
-    }
+    @JvmField val printAccuracy = PrintAccuracy.Type("print-accuracy")
 
     /**
      * "print-base" as defined in:
@@ -918,51 +406,7 @@ object JobTemplateGroup {
      * "print-objects" as defined in:
      * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
      */
-    @JvmField val printObjects = CollectionType("print-objects")
-
-    /**
-     * Attributes which may appear within [printObjects]
-     */
-     object PrintObjects {
-
-        /** "document-number" member */
-        @JvmField val documentNumber = IntegerType("document-number")
-
-        /** "object-uuid" member */
-        @JvmField val objectUuid = UriType("object-uuid")
-
-        /** "object-offset" member */
-        @JvmField val objectOffset = CollectionType("object-offset")
-
-        /** Attributes which may appear within [printObjects].[objectOffset] */
-        object ObjectOffset {
-
-            /** "z-offset" member */
-            @JvmField val zOffset = IntegerType("z-offset")
-
-            /** "x-offset" member */
-            @JvmField val xOffset = IntegerType("x-offset")
-
-            /** "y-offset" member */
-            @JvmField val yOffset = IntegerType("y-offset")
-        }
-
-        /** "object-size" member */
-        @JvmField val objectSize = CollectionType("object-size")
-
-        /** Attributes which may appear within [printObjects].[objectSize] */
-        object ObjectSize {
-
-            /** "x-dimension" member */
-            @JvmField val xDimension = IntegerType("x-dimension")
-
-            /** "y-dimension" member */
-            @JvmField val yDimension = IntegerType("y-dimension")
-
-            /** "z-dimension" member */
-            @JvmField val zDimension = IntegerType("z-dimension")
-        }
-    }
+    @JvmField val printObjects = PrintObjects.Type("print-objects")
 
     /**
      * "print-quality" as defined in:
@@ -998,22 +442,7 @@ object JobTemplateGroup {
      * "proof-print" as defined in:
      * [PWG5100.11](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext10-20101030-5100.11.pdf)
      */
-    @JvmField val proofPrint = CollectionType("proof-print")
-
-    /**
-     * Attributes which may appear within [proofPrint]
-     */
-     object ProofPrint {
-
-        /** "media-col" member */
-        @JvmField val mediaCol = CollectionType("media-col")
-
-        /** "media" member */
-        @JvmField val media = Media.Type("media")
-
-        /** "proof-print-copies" member */
-        @JvmField val proofPrintCopies = IntegerType("proof-print-copies")
-    }
+    @JvmField val proofPrint = ProofPrint.Type("proof-print")
 
     /**
      * "retry-interval" as defined in:
@@ -1032,22 +461,7 @@ object JobTemplateGroup {
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
      * [RFC8011](http://www.iana.org/go/rfc8011)
      */
-    @JvmField val separatorSheets = CollectionType("separator-sheets")
-
-    /**
-     * Attributes which may appear within [separatorSheets]
-     */
-     object SeparatorSheets {
-
-        /** "media-col" member */
-        @JvmField val mediaCol = CollectionType("media-col")
-
-        /** "media" member */
-        @JvmField val media = Media.Type("media")
-
-        /** "separator-sheets-type" member */
-        @JvmField val separatorSheetsType = SeparatorSheet.Type("separator-sheets-type")
-    }
+    @JvmField val separatorSheets = SeparatorSheets.Type("separator-sheets")
 
     /**
      * "sheet-collate" as defined in:

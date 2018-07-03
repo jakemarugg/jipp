@@ -37,37 +37,7 @@ object DocumentDescriptionGroup {
      * "impressions-col" as defined in:
      * [APRIL2015F2F](http://ftp.pwg.org/pub/pwg/ipp/minutes/ippv2-f2f-minutes-20150429.pdf)
      */
-    @JvmField val impressionsCol = CollectionType("impressions-col")
-
-    /**
-     * Attributes which may appear within [impressionsCol]
-     */
-     object ImpressionsCol {
-
-        /** "blank-two-sided" member */
-        @JvmField val blankTwoSided = IntegerType("blank-two-sided")
-
-        /** "highlight-color" member */
-        @JvmField val highlightColor = IntegerType("highlight-color")
-
-        /** "highlight-color-two-sided" member */
-        @JvmField val highlightColorTwoSided = IntegerType("highlight-color-two-sided")
-
-        /** "full-color" member */
-        @JvmField val fullColor = IntegerType("full-color")
-
-        /** "full-color-two-sided" member */
-        @JvmField val fullColorTwoSided = IntegerType("full-color-two-sided")
-
-        /** "blank" member */
-        @JvmField val blank = IntegerType("blank")
-
-        /** "monochrome" member */
-        @JvmField val monochrome = IntegerType("monochrome")
-
-        /** "monochrome-two-sided" member */
-        @JvmField val monochromeTwoSided = IntegerType("monochrome-two-sided")
-    }
+    @JvmField val impressionsCol = ImpressionsCol.Type("impressions-col")
 
     /**
      * "k-octets" as defined in:
@@ -85,37 +55,7 @@ object DocumentDescriptionGroup {
      * "media-sheets-col" as defined in:
      * [APRIL2015F2F](http://ftp.pwg.org/pub/pwg/ipp/minutes/ippv2-f2f-minutes-20150429.pdf)
      */
-    @JvmField val mediaSheetsCol = CollectionType("media-sheets-col")
-
-    /**
-     * Attributes which may appear within [mediaSheetsCol]
-     */
-     object MediaSheetsCol {
-
-        /** "blank-two-sided" member */
-        @JvmField val blankTwoSided = IntegerType("blank-two-sided")
-
-        /** "highlight-color" member */
-        @JvmField val highlightColor = IntegerType("highlight-color")
-
-        /** "highlight-color-two-sided" member */
-        @JvmField val highlightColorTwoSided = IntegerType("highlight-color-two-sided")
-
-        /** "full-color" member */
-        @JvmField val fullColor = IntegerType("full-color")
-
-        /** "full-color-two-sided" member */
-        @JvmField val fullColorTwoSided = IntegerType("full-color-two-sided")
-
-        /** "blank" member */
-        @JvmField val blank = IntegerType("blank")
-
-        /** "monochrome" member */
-        @JvmField val monochrome = IntegerType("monochrome")
-
-        /** "monochrome-two-sided" member */
-        @JvmField val monochromeTwoSided = IntegerType("monochrome-two-sided")
-    }
+    @JvmField val mediaSheetsCol = MediaSheetsCol.Type("media-sheets-col")
 
     /**
      * "pages" as defined in:
@@ -127,19 +67,7 @@ object DocumentDescriptionGroup {
      * "pages-col" as defined in:
      * [APRIL2015F2F](http://ftp.pwg.org/pub/pwg/ipp/minutes/ippv2-f2f-minutes-20150429.pdf)
      */
-    @JvmField val pagesCol = CollectionType("pages-col")
-
-    /**
-     * Attributes which may appear within [pagesCol]
-     */
-     object PagesCol {
-
-        /** "monochrome" member */
-        @JvmField val monochrome = IntegerType("monochrome")
-
-        /** "full-color" member */
-        @JvmField val fullColor = IntegerType("full-color")
-    }
+    @JvmField val pagesCol = PagesCol.Type("pages-col")
 
     /** All known attributes */
     @JvmField

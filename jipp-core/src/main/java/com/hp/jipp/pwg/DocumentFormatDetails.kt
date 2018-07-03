@@ -10,7 +10,8 @@ package com.hp.jipp.pwg
 import com.hp.jipp.encoding.* // ktlint-disable no-wildcard-imports
 
 /**
- * Frontis....
+ * Data object corresponding to a "document-format-details" collection as defined in:
+ *   * [PWG5100.7](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobext10-20031031-5100.7.pdf)
  */
 data class DocumentFormatDetails
 @JvmOverloads constructor(
@@ -22,11 +23,11 @@ data class DocumentFormatDetails
     val documentSourceApplicationVersion: String? = null,
     val documentSourceOsName: String? = null,
     val documentSourceOsVersion: String? = null,
-    val allAttributes: List<Attribute<*>> = listOf()
+    val _extras: List<Attribute<*>> = listOf()
 ) : HasAttributeCollection {
 
+    /** Generate attribute list */
     override val attributes: AttributeCollection by lazy {
-        // TODO: Needs to be distinct, and all may ALSO contain them -- so merge like attributes.
         AttributeCollection(mutableListOf<Attribute<*>>().apply {
             documentFormat?.also {
                 add(Members.documentFormat.of(it))
@@ -52,52 +53,42 @@ data class DocumentFormatDetails
             documentSourceOsVersion?.also {
                 add(Members.documentSourceOsVersion.of(it))
             }
-        } + allAttributes)
+        } + _extras)
     }
 
-    /**
-     * Member types and conversions for this collection type.
-     */
+    /** Type for attributes of this collection */
+    class Type(name: String): TypedCollectionType<DocumentFormatDetails>(Members, name)
+
     companion object Members : CollectionParser<DocumentFormatDetails> {
         override val typeName = DocumentFormatDetails::class.java.simpleName!!
-
-        /** Create a [DocumentFormatDetails] object from supplied attributes */
         override fun fromAttributes(attributes: List<Attribute<*>>): DocumentFormatDetails {
             val remain = attributes.toMutableList()
             return DocumentFormatDetails(
                 extractOne(remain, documentFormat),
                 extractOne(remain, documentFormatDeviceId)?.value,
                 extractOne(remain, documentFormatVersion)?.value,
-                extractAll(remain, documentNaturalLanguage), // Note: different for 1setof member
+                extractAll(remain, documentNaturalLanguage),
                 extractOne(remain, documentSourceApplicationName)?.value,
                 extractOne(remain, documentSourceApplicationVersion)?.value,
-                extractOne(remain, documentSourceOsName)?.value, // Note: Text, Name need add'l conversion
+                extractOne(remain, documentSourceOsName)?.value,
                 extractOne(remain, documentSourceOsVersion)?.value,
-                allAttributes = remain)
+                _extras = remain)
         }
-
-        /** "document-format" member */
+        /** "document-format" member type */
         @JvmField val documentFormat = StringType(Tag.mimeMediaType, "document-format")
-
-        /** "document-format-device-id" member */
+        /** "document-format-device-id" member type */
         @JvmField val documentFormatDeviceId = TextType(127, "document-format-device-id")
-
-        /** "document-format-version" member */
+        /** "document-format-version" member type */
         @JvmField val documentFormatVersion = TextType(127, "document-format-version")
-
-        /** "document-natural-language" member */
+        /** "document-natural-language" member type */
         @JvmField val documentNaturalLanguage = StringType(Tag.naturalLanguage, "document-natural-language")
-
-        /** "document-source-application-name" member */
+        /** "document-source-application-name" member type */
         @JvmField val documentSourceApplicationName = NameType("document-source-application-name")
-
-        /** "document-source-application-version" member */
+        /** "document-source-application-version" member type */
         @JvmField val documentSourceApplicationVersion = TextType(127, "document-source-application-version")
-
-        /** "document-source-os-name" member */
+        /** "document-source-os-name" member type */
         @JvmField val documentSourceOsName = NameType(40, "document-source-os-name")
-
-        /** "document-source-os-version" member */
+        /** "document-source-os-version" member type */
         @JvmField val documentSourceOsVersion = TextType(40, "document-source-os-version")
     }
 
@@ -112,66 +103,26 @@ data class DocumentFormatDetails
         class Type(name: String) : KeywordType<Keywords>(Encoder, name)
 
         companion object {
-            @JvmField val documentFormat = Keywords(Members.documentSourceApplicationName.name)
-            @JvmField val documentFormatDeviceId = Keywords(Members.documentSourceApplicationName.name)
-            @JvmField val documentFormatVersion = Keywords(Members.documentSourceApplicationName.name)
-            @JvmField val documentNaturalLanguage = Keywords(Members.documentSourceApplicationName.name)
+            /** "document-format" member type */
+            @JvmField val documentFormat = Keywords(Members.documentFormat.name)
+            /** "document-format-device-id" member type */
+            @JvmField val documentFormatDeviceId = Keywords(Members.documentFormatDeviceId.name)
+            /** "document-format-version" member type */
+            @JvmField val documentFormatVersion = Keywords(Members.documentFormatVersion.name)
+            /** "document-natural-language" member type */
+            @JvmField val documentNaturalLanguage = Keywords(Members.documentNaturalLanguage.name)
+            /** "document-source-application-name" member type */
             @JvmField val documentSourceApplicationName = Keywords(Members.documentSourceApplicationName.name)
+            /** "document-source-application-version" member type */
             @JvmField val documentSourceApplicationVersion = Keywords(Members.documentSourceApplicationVersion.name)
+            /** "document-source-os-name" member type */
             @JvmField val documentSourceOsName = Keywords(Members.documentSourceOsName.name)
-            @JvmField val documentSourceOsVersion = Keywords(Members.documentSourceApplicationName.name)
+            /** "document-source-os-version" member type */
+            @JvmField val documentSourceOsVersion = Keywords(Members.documentSourceOsVersion.name)
+
             @JvmField val Encoder = KeywordType.encoderOf(Keywords::class.java) { value, _, _ ->
                 Keywords(value)
             }
         }
-    }
-
-    /**
-     * Builder for [DocumentFormatDetails] objects.
-     */
-    class Builder() {
-        private var documentFormat: String? = null
-        private var documentFormatDeviceId: String? = null
-        private var documentFormatVersion: String? = null
-        private var documentNaturalLanguage: List<String>? = null
-        private var documentSourceApplicationName: String? = null
-        private var documentSourceApplicationVersion: String? = null
-        private var documentSourceOsName: String? = null
-        private var documentSourceOsVersion: String? = null
-        private var allAttributes: List<Attribute<*>> = listOf()
-
-        /** Create a [Builder] from an instance of the type */
-        constructor(other: DocumentFormatDetails) : this() {
-            documentFormat = other.documentFormat
-            documentFormatDeviceId = other.documentFormatDeviceId
-            documentFormatVersion = other.documentFormatVersion
-            documentNaturalLanguage = other.documentNaturalLanguage
-            documentSourceApplicationName = other.documentSourceApplicationName
-            documentSourceApplicationVersion = other.documentSourceApplicationVersion
-            documentSourceOsName = other.documentSourceOsName
-            documentSourceOsVersion = other.documentSourceOsVersion
-            allAttributes = other.allAttributes
-        }
-
-        fun documentFormat(value: String) = apply { documentFormat = value }
-        fun documentFormatDeviceId(value: String) = apply { documentFormatDeviceId = value }
-        fun documentFormatVersion(value: String) = apply { documentFormatVersion = value }
-        fun documentNaturalLanguage(value: List<String>) = apply { documentNaturalLanguage = value }
-        fun documentSourceApplicationName(value: String) = apply { documentSourceApplicationName = value }
-        fun documentSourceApplicationVersion(value: String) = apply { documentSourceApplicationVersion = value }
-        fun documentSourceOsVersion(value: String) = apply { documentSourceOsVersion = value }
-        fun documentSourceOsName(value: String) = apply { documentSourceOsName = value }
-        fun allAttributes(value: List<Attribute<*>>) = apply { allAttributes = value }
-
-        fun build() = DocumentFormatDetails(
-            documentFormat,
-            documentFormatDeviceId,
-            documentFormatVersion,
-            documentNaturalLanguage,
-            documentSourceApplicationName,
-            documentSourceApplicationVersion,
-            documentSourceOsName,
-            documentSourceOsVersion,
-            allAttributes)
     }
 }

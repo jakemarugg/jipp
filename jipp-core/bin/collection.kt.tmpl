@@ -1,3 +1,4 @@
+{%- if not noheader -%}
 // Copyright 2018 HP Development Company, L.P.
 // SPDX-License-Identifier: MIT
 //
@@ -9,9 +10,11 @@ package com.hp.jipp.pwg
 
 import com.hp.jipp.encoding.* // ktlint-disable no-wildcard-imports
 
+{%- endif %}
+
 /**
- * Data object corresponding to a "{{ collection.name }}" collection as defined in:{%- for spec in collection.specs | sort %}
- *   * [{{ spec | upper }}]({{ specs[spec] }}){%- endfor %}{%- if collection['refs']%}
+ * Data object corresponding to a "{{ collection.name }}" collection{%- if collection.specs %} as defined in:{%- for spec in collection.specs | sort %}
+ *   * [{{ spec | upper }}]({{ specs[spec] }}){%- endfor %}{%- else %}.{%- endif %}{%- if collection['refs']%}
  *
  * Also used by:{%- for ref in collection['refs'] | sort %}
  *   * `{{ ref }}`{%- endfor%}{%- endif %}
@@ -19,12 +22,11 @@ import com.hp.jipp.encoding.* // ktlint-disable no-wildcard-imports
 data class {{ collection.name | camel_class }}
 @JvmOverloads constructor(
 {%- for name, member in collection.members | dictsort %}
-    val {{ name | camel_member }}: {{ member.ktype }}? = null,
+    val {{ name | camel_member }}: {%- if member.set %} List<{{ member.ktype }}>{% else %} {{ member.ktype }}{% endif %}? = null,
 {%- endfor %}
     val _extras: List<Attribute<*>> = listOf()
 ) : HasAttributeCollection {
 
-// TODO: Need a primitive type and way to extract/encode the primitive type
     /** Generate attribute list */
     override val attributes: AttributeCollection by lazy {
         AttributeCollection(mutableListOf<Attribute<*>>().apply {
@@ -36,13 +38,18 @@ data class {{ collection.name | camel_class }}
         } + _extras)
     }
 
+    /** Type for attributes of this collection */
+    class Type(name: String): TypedCollectionType<{{ collection.name | camel_class }}>(Members, name)
+
     companion object Members : CollectionParser<{{ collection.name | camel_class }}> {
         override val typeName = {{ collection.name | camel_class}}::class.java.simpleName!!
-        override fun fromAttributes(attributes: List<Attribute<*>>): {{ collection.name | camel_class}} {
+        override fun fromAttributes(attributes: List<Attribute<*>>): {{ collection.name | camel_class }} {
             val remain = attributes.toMutableList()
             return {{ collection.name | camel_class}}(
 {%- for name, member in collection.members | dictsort %}
-                extractOne(remain, {{ name | camel_member }})
+{%- if member.set %}
+                extractAll{% else %}
+                extractOne{% endif %}(remain, {{ name | camel_member }})
                 {%- if member.ktype_accessor %}?.{{ member.ktype_accessor }}{%- endif %},
 {%- endfor %}
                 _extras = remain)
@@ -76,6 +83,7 @@ data class {{ collection.name | camel_class }}
         }
     }
 
-    /** TODO: Builder */
-}
+{%- for name, member in collection.members | dictsort %}{%- if member.inner %}
 
+{{ member.inner }}{%- endif %}{%- endfor %}
+}

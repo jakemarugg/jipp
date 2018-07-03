@@ -49,31 +49,7 @@ object OperationGroup {
      * "destination-accesses" as defined in:
      * [PWG5100.17](http://ftp.pwg.org/pub/pwg/candidates/cs-ippscan10-20140918-5100.17.pdf)
      */
-    @JvmField val destinationAccesses = CollectionType("destination-accesses")
-
-    /**
-     * Attributes which may appear within [destinationAccesses]
-     */
-     object DestinationAccesses {
-
-        /** "access-oauth-token" member */
-        @JvmField val accessOauthToken = OctetStringType("access-oauth-token")
-
-        /** "access-x509-certificate" member */
-        @JvmField val accessX509Certificate = OctetStringType("access-x509-certificate")
-
-        /** "access-user-name" member */
-        @JvmField val accessUserName = TextType("access-user-name")
-
-        /** "access-password" member */
-        @JvmField val accessPassword = TextType("access-password")
-
-        /** "access-oauth-uri" member */
-        @JvmField val accessOauthUri = UriType("access-oauth-uri")
-
-        /** "access-pin" member */
-        @JvmField val accessPin = TextType("access-pin")
-    }
+    @JvmField val destinationAccesses = DestinationAccesses.Type("destination-accesses")
 
     /**
      * "detailed-status-message" as defined in:
@@ -85,31 +61,7 @@ object OperationGroup {
      * "document-access" as defined in:
      * [PWG5100.18](http://ftp.pwg.org/pub/pwg/candidates/cs-ippinfra10-20150619-5100.18.pdf)
      */
-    @JvmField val documentAccess = CollectionType("document-access")
-
-    /**
-     * Attributes which may appear within [documentAccess]
-     */
-     object DocumentAccess {
-
-        /** "access-oauth-token" member */
-        @JvmField val accessOauthToken = OctetStringType("access-oauth-token")
-
-        /** "access-x509-certificate" member */
-        @JvmField val accessX509Certificate = OctetStringType("access-x509-certificate")
-
-        /** "access-user-name" member */
-        @JvmField val accessUserName = TextType("access-user-name")
-
-        /** "access-password" member */
-        @JvmField val accessPassword = TextType("access-password")
-
-        /** "access-oauth-uri" member */
-        @JvmField val accessOauthUri = UriType("access-oauth-uri")
-
-        /** "access-pin" member */
-        @JvmField val accessPin = TextType("access-pin")
-    }
+    @JvmField val documentAccess = DocumentAccess.Type("document-access")
 
     /**
      * "document-access-error" as defined in:
@@ -157,7 +109,7 @@ object OperationGroup {
      * "document-format-details" as defined in:
      * [PWG5100.7](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobext10-20031031-5100.7.pdf)
      */
-    @JvmField val documentFormatDetails = TypedCollectionType(DocumentFormatDetails.Members, "document-format-details")
+    @JvmField val documentFormatDetails = DocumentFormatDetails.Type("document-format-details")
 
     /**
      * "document-message" as defined in:
@@ -230,80 +182,7 @@ object OperationGroup {
      * "input-attributes" as defined in:
      * [PWG5100.15](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfaxout10-20131115-5100.15.pdf)
      */
-    @JvmField val inputAttributes = CollectionType("input-attributes")
-
-    /**
-     * Attributes which may appear within [inputAttributes]
-     */
-     object InputAttributes {
-
-        /** "input-brightness" member */
-        @JvmField val inputBrightness = IntegerType("input-brightness")
-
-        /** "input-film-scan-mode" member */
-        @JvmField val inputFilmScanMode = InputFilmScanMode.Type("input-film-scan-mode")
-
-        /** "input-auto-scaling" member */
-        @JvmField val inputAutoScaling = BooleanType("input-auto-scaling")
-
-        /** "input-color-mode" member */
-        @JvmField val inputColorMode = InputColorMode.Type("input-color-mode")
-
-        /** "input-sides" member */
-        @JvmField val inputSides = Sides.Type("input-sides")
-
-        /** "input-content-type" member */
-        @JvmField val inputContentType = InputContentType.Type("input-content-type")
-
-        /** "input-scan-regions" member */
-        @JvmField val inputScanRegions = CollectionType("input-scan-regions")
-
-        /** Attributes which may appear within [inputAttributes].[inputScanRegions] */
-        object InputScanRegions {
-
-            /** "x-dimension" member */
-            @JvmField val xDimension = IntegerType("x-dimension")
-
-            /** "x-origin" member */
-            @JvmField val xOrigin = IntegerType("x-origin")
-
-            /** "y-origin" member */
-            @JvmField val yOrigin = IntegerType("y-origin")
-
-            /** "y-dimension" member */
-            @JvmField val yDimension = IntegerType("y-dimension")
-        }
-
-        /** "input-auto-skew-correction" member */
-        @JvmField val inputAutoSkewCorrection = BooleanType("input-auto-skew-correction")
-
-        /** "input-images-to-transfer" member */
-        @JvmField val inputImagesToTransfer = IntegerType("input-images-to-transfer")
-
-        /** "input-media" member */
-        @JvmField val inputMedia = Media.Type("input-media")
-
-        /** "input-sharpness" member */
-        @JvmField val inputSharpness = IntegerType("input-sharpness")
-
-        /** "input-source" member */
-        @JvmField val inputSource = InputSource.Type("input-source")
-
-        /** "input-scaling-height" member */
-        @JvmField val inputScalingHeight = IntegerType("input-scaling-height")
-
-        /** "input-contrast" member */
-        @JvmField val inputContrast = IntegerType("input-contrast")
-
-        /** "input-resolution" member */
-        @JvmField val inputResolution = ResolutionType("input-resolution")
-
-        /** "input-scaling-width" member */
-        @JvmField val inputScalingWidth = IntegerType("input-scaling-width")
-
-        /** "input-quality" member */
-        @JvmField val inputQuality = PrintQuality.Type("input-quality")
-    }
+    @JvmField val inputAttributes = InputAttributes.Type("input-attributes")
 
     /**
      * "ipp-attribute-fidelity" as defined in:
@@ -345,7 +224,7 @@ object OperationGroup {
      * "job-impressions-col" as defined in:
      * [APRIL2015F2F](http://ftp.pwg.org/pub/pwg/ipp/minutes/ippv2-f2f-minutes-20150429.pdf)
      */
-    @JvmField val jobImpressionsCol = CollectionType("job-impressions-col")
+    @JvmField val jobImpressionsCol = JobImpressionsCol.Type("job-impressions-col")
 
     /**
      * "job-impressions-estimated" as defined in:
@@ -375,7 +254,7 @@ object OperationGroup {
      * "job-media-sheets-col" as defined in:
      * [APRIL2015F2F](http://ftp.pwg.org/pub/pwg/ipp/minutes/ippv2-f2f-minutes-20150429.pdf)
      */
-    @JvmField val jobMediaSheetsCol = CollectionType("job-media-sheets-col")
+    @JvmField val jobMediaSheetsCol = JobMediaSheetsCol.Type("job-media-sheets-col")
 
     /**
      * "job-message-from-operator" as defined in:
@@ -399,7 +278,7 @@ object OperationGroup {
      * "job-pages-col" as defined in:
      * [APRIL2015F2F](http://ftp.pwg.org/pub/pwg/ipp/minutes/ippv2-f2f-minutes-20150429.pdf)
      */
-    @JvmField val jobPagesCol = CollectionType("job-pages-col")
+    @JvmField val jobPagesCol = JobPagesCol.Type("job-pages-col")
 
     /**
      * "job-password" as defined in:
@@ -495,19 +374,7 @@ object OperationGroup {
      * "output-attributes" as defined in:
      * [PWG5100.17](http://ftp.pwg.org/pub/pwg/candidates/cs-ippscan10-20140918-5100.17.pdf)
      */
-    @JvmField val outputAttributes = CollectionType("output-attributes")
-
-    /**
-     * Attributes which may appear within [outputAttributes]
-     */
-     object OutputAttributes {
-
-        /** "noise-removal" member */
-        @JvmField val noiseRemoval = IntegerType("noise-removal")
-
-        /** "output-compression-quality-factor" member */
-        @JvmField val outputCompressionQualityFactor = IntegerType("output-compression-quality-factor")
-    }
+    @JvmField val outputAttributes = OutputAttributes.Type("output-attributes")
 
     /**
      * "output-device-job-states" as defined in:
@@ -525,7 +392,7 @@ object OperationGroup {
      * "preferred-attributes" as defined in:
      * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
      */
-    @JvmField val preferredAttributes = CollectionType("preferred-attributes")
+    @JvmField val preferredAttributes = PreferredAttributes.Type("preferred-attributes")
 
     /**
      * "printer-message-from-operator" as defined in:

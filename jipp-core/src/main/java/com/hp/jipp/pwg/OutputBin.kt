@@ -7,9 +7,8 @@
 
 package com.hp.jipp.pwg
 
-import com.hp.jipp.encoding.KeywordOrName
+import com.hp.jipp.encoding.Keyword
 import com.hp.jipp.encoding.KeywordType
-import com.hp.jipp.encoding.Tag
 
 /**
  * "output-bin" keyword as defined in:
@@ -22,12 +21,8 @@ import com.hp.jipp.encoding.Tag
  *   * `output-bin-supported`
  */
 data class OutputBin(
-    override val value: String,
-    override val tag: Tag = Tag.keyword,
-    override val language: String? = null
-) : KeywordOrName() {
-
-    constructor(value: String): this(value, Tag.keyword)
+    override val value: String
+) : Keyword() {
 
     override fun toString() = value
 
@@ -78,8 +73,8 @@ data class OutputBin(
         @JvmField val tray7 = OutputBin("tray-7")
         @JvmField val tray8 = OutputBin("tray-8")
         @JvmField val tray9 = OutputBin("tray-9")
-        @JvmField val Encoder = KeywordType.encoderOf(OutputBin::class.java) { value, tag, language ->
-            OutputBin(value, tag, language)
+        @JvmField val Encoder = KeywordType.encoderOf(OutputBin::class.java) { value, _, _ ->
+            OutputBin(value)
         }
     }
 }

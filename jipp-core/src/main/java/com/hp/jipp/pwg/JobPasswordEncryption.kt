@@ -7,9 +7,8 @@
 
 package com.hp.jipp.pwg
 
-import com.hp.jipp.encoding.KeywordOrName
+import com.hp.jipp.encoding.Keyword
 import com.hp.jipp.encoding.KeywordType
-import com.hp.jipp.encoding.Tag
 
 /**
  * "job-password-encryption" keyword as defined in:
@@ -22,12 +21,8 @@ import com.hp.jipp.encoding.Tag
  *   * `job-password-encryption-supported`
  */
 data class JobPasswordEncryption(
-    override val value: String,
-    override val tag: Tag = Tag.keyword,
-    override val language: String? = null
-) : KeywordOrName() {
-
-    constructor(value: String): this(value, Tag.keyword)
+    override val value: String
+) : Keyword() {
 
     override fun toString() = value
 
@@ -54,8 +49,8 @@ data class JobPasswordEncryption(
         @JvmField val sha3512256 = JobPasswordEncryption("sha3-512_256")
         @JvmField val shake128 = JobPasswordEncryption("shake-128")
         @JvmField val shake256 = JobPasswordEncryption("shake-256")
-        @JvmField val Encoder = KeywordType.encoderOf(JobPasswordEncryption::class.java) { value, tag, language ->
-            JobPasswordEncryption(value, tag, language)
+        @JvmField val Encoder = KeywordType.encoderOf(JobPasswordEncryption::class.java) { value, _, _ ->
+            JobPasswordEncryption(value)
         }
     }
 }

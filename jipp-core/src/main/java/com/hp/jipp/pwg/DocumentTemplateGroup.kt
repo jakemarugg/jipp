@@ -27,7 +27,7 @@ object DocumentTemplateGroup {
      *
      * See [JobTemplateGroup.CoverBack] for allowed collection members.
      */
-    @JvmField val coverBack = CollectionType("cover-back")
+    @JvmField val coverBack = CoverBack.Type("cover-back")
 
     /**
      * "cover-front" as defined in:
@@ -35,7 +35,7 @@ object DocumentTemplateGroup {
      *
      * See [JobTemplateGroup.CoverFront] for allowed collection members.
      */
-    @JvmField val coverFront = CollectionType("cover-front")
+    @JvmField val coverFront = CoverFront.Type("cover-front")
 
     /**
      * "feed-orientation" as defined in:
@@ -55,7 +55,7 @@ object DocumentTemplateGroup {
      *
      * See [JobTemplateGroup.FinishingsCol] for allowed collection members.
      */
-    @JvmField val finishingsCol = CollectionType("finishings-col")
+    @JvmField val finishingsCol = FinishingsCol.Type("finishings-col")
 
     /**
      * "font-name-requested" as defined in:
@@ -87,58 +87,13 @@ object DocumentTemplateGroup {
      *
      * See [JobTemplateGroup.InsertSheet] for allowed collection members.
      */
-    @JvmField val insertSheet = CollectionType("insert-sheet")
+    @JvmField val insertSheet = InsertSheet.Type("insert-sheet")
 
     /**
      * "materials-col" as defined in:
      * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
      */
-    @JvmField val materialsCol = CollectionType("materials-col")
-
-    /**
-     * Attributes which may appear within [materialsCol]
-     */
-     object MaterialsCol {
-
-        /** "material-name" member */
-        @JvmField val materialName = NameType("material-name")
-
-        /** "material-type" member */
-        @JvmField val materialType = MaterialType.Type("material-type")
-
-        /** "material-amount-units" member */
-        @JvmField val materialAmountUnits = MaterialAmountUnit.Type("material-amount-units")
-
-        /** "material-rate" member */
-        @JvmField val materialRate = IntegerType("material-rate")
-
-        /** "material-diameter-tolerance" member */
-        @JvmField val materialDiameterTolerance = IntegerType("material-diameter-tolerance")
-
-        /** "material-shell-thickness" member */
-        @JvmField val materialShellThickness = IntegerType("material-shell-thickness")
-
-        /** "material-color" member */
-        @JvmField val materialColor = MediaColor.Type("material-color")
-
-        /** "material-rate-units" member */
-        @JvmField val materialRateUnits = MaterialRateUnit.Type("material-rate-units")
-
-        /** "material-diameter" member */
-        @JvmField val materialDiameter = IntegerType("material-diameter")
-
-        /** "material-purpose" member */
-        @JvmField val materialPurpose = MaterialPurpose.Type("material-purpose")
-
-        /** "material-amount" member */
-        @JvmField val materialAmount = IntegerType("material-amount")
-
-        /** "material-temperature" member */
-        @JvmField val materialTemperature = IntegerOrRangeOfIntegerType("material-temperature")
-
-        /** "material-fill-density" member */
-        @JvmField val materialFillDensity = IntegerType("material-fill-density")
-    }
+    @JvmField val materialsCol = MaterialsCol.Type("materials-col")
 
     /**
      * "media" as defined in:
@@ -152,7 +107,7 @@ object DocumentTemplateGroup {
      *
      * See [JobTemplateGroup.MediaCol] for allowed collection members.
      */
-    @JvmField val mediaCol = CollectionType("media-col")
+    @JvmField val mediaCol = MediaCol.Type("media-col")
 
     /**
      * "media-input-tray-check" as defined in:
@@ -182,22 +137,7 @@ object DocumentTemplateGroup {
      * "overrides" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
      */
-    @JvmField val overrides = CollectionType("overrides")
-
-    /**
-     * Attributes which may appear within [overrides]
-     */
-     object Overrides {
-
-        /** "document-copies" member */
-        @JvmField val documentCopies = RangeOfIntegerType("document-copies")
-
-        /** "pages" member */
-        @JvmField val pages = RangeOfIntegerType("pages")
-
-        /** "document-numbers" member */
-        @JvmField val documentNumbers = RangeOfIntegerType("document-numbers")
-    }
+    @JvmField val overrides = Overrides.Type("overrides")
 
     /**
      * "page-delivery" as defined in:
@@ -223,7 +163,7 @@ object DocumentTemplateGroup {
      *
      * See [JobTemplateGroup.PdlInitFile] for allowed collection members.
      */
-    @JvmField val pdlInitFile = CollectionType("pdl-init-file")
+    @JvmField val pdlInitFile = PdlInitFile.Type("pdl-init-file")
 
     /**
      * "platform-temperature" as defined in:
@@ -241,25 +181,7 @@ object DocumentTemplateGroup {
      * "print-accuracy" as defined in:
      * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
      */
-    @JvmField val printAccuracy = CollectionType("print-accuracy")
-
-    /**
-     * Attributes which may appear within [printAccuracy]
-     */
-     object PrintAccuracy {
-
-        /** "x-accuracy" member */
-        @JvmField val xAccuracy = IntegerType("x-accuracy")
-
-        /** "z-accuracy" member */
-        @JvmField val zAccuracy = IntegerType("z-accuracy")
-
-        /** "accuracy-units" member */
-        @JvmField val accuracyUnits = AccuracyUnit.Type("accuracy-units")
-
-        /** "y-accuracy" member */
-        @JvmField val yAccuracy = IntegerType("y-accuracy")
-    }
+    @JvmField val printAccuracy = PrintAccuracy.Type("print-accuracy")
 
     /**
      * "print-base" as defined in:
@@ -283,51 +205,7 @@ object DocumentTemplateGroup {
      * "print-objects" as defined in:
      * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
      */
-    @JvmField val printObjects = CollectionType("print-objects")
-
-    /**
-     * Attributes which may appear within [printObjects]
-     */
-     object PrintObjects {
-
-        /** "document-number" member */
-        @JvmField val documentNumber = IntegerType("document-number")
-
-        /** "object-uuid" member */
-        @JvmField val objectUuid = UriType("object-uuid")
-
-        /** "object-offset" member */
-        @JvmField val objectOffset = CollectionType("object-offset")
-
-        /** Attributes which may appear within [printObjects].[objectOffset] */
-        object ObjectOffset {
-
-            /** "z-offset" member */
-            @JvmField val zOffset = IntegerType("z-offset")
-
-            /** "x-offset" member */
-            @JvmField val xOffset = IntegerType("x-offset")
-
-            /** "y-offset" member */
-            @JvmField val yOffset = IntegerType("y-offset")
-        }
-
-        /** "object-size" member */
-        @JvmField val objectSize = CollectionType("object-size")
-
-        /** Attributes which may appear within [printObjects].[objectSize] */
-        object ObjectSize {
-
-            /** "x-dimension" member */
-            @JvmField val xDimension = IntegerType("x-dimension")
-
-            /** "y-dimension" member */
-            @JvmField val yDimension = IntegerType("y-dimension")
-
-            /** "z-dimension" member */
-            @JvmField val zDimension = IntegerType("z-dimension")
-        }
-    }
+    @JvmField val printObjects = PrintObjects.Type("print-objects")
 
     /**
      * "print-quality" as defined in:
@@ -359,7 +237,7 @@ object DocumentTemplateGroup {
      *
      * See [JobTemplateGroup.SeparatorSheets] for allowed collection members.
      */
-    @JvmField val separatorSheets = CollectionType("separator-sheets")
+    @JvmField val separatorSheets = SeparatorSheets.Type("separator-sheets")
 
     /**
      * "sheet-collate" as defined in:
