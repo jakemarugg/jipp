@@ -373,13 +373,6 @@ def emit_keyword(template, keyword):
         if keyword['values']:
             warn("Cannot handle keyword with both ref and values", keyword)
         return
-        # for group in attributes.values():
-        #     for type in group.values():
-        #         if type['name'] == keyword['ref_members']:
-        #             keyword['values'].extend(type['members'].keys())
-        # keyword['values'] = sorted(list(set(keyword['values'])))
-        # # TODO: Instead, reference the collection type directly
-
 
     if 'ref_group' in keyword:
         # TODO: When encountering a ref_group we could extract to a different reference, e.g. JobStatusAttributes
@@ -532,22 +525,41 @@ def find_collection_ref(group, type):
         # It's already OK
         return
 
-    name = type['name']
-    if name.endswith('-actual'):
-        # We'll assume these are the same as the root collection
-        name = name[:-len('-actual')]
+    if type['name'] in collections:
+        # Fix XML: We have the collection already, nevermind (e.g. job-media-sheets-col)
+        return
+
+    if type['name'].endswith('-actual'):
+        # Fix XML: We'll assume these are the same as the root collection
+        name = type['name'][:-len('-actual')]
         if name in collections:
             type['ref_col'] = name
             return
 
-    if '-completed-' in name:
-        name = name.replace('-completed-', '-')
+    if type['name'].endswith('-default'):
+        # Fix XML: We'll assume these are the same as the root collection
+        name = type['name'][:-len('-default')]
         if name in collections:
             type['ref_col'] = name
             return
+
+    if '-completed-' in type['name']:
+        name = type['name'].replace('-completed-', '-')
+        if name in collections:
+            type['ref_col'] = name
+            return
+
+    # We have a solution in place for this elsewhere
+    if type['name'] == 'preferred-attributes':
+        return
+
+    del group[type['name']]
+
+    # Fix XML: document-overrides is from 5100.4 and is now obsolete. This should be deprecated.
+    if type['name'] == 'document-overrides-actual':
+        return
 
     warn('no members found for collection', type)
-    del group[type['name']]
 
 def emit_collection(env, type):
     collection_template = env.get_template('collection.kt.tmpl')
@@ -669,8 +681,8 @@ def fix_intro(type, syntax, name):
         else:
             name = type['name']
 
-        if name == 'destination-attributes':
-            # The contents of this collection are beyond what we can model.
+        # Some collections are beyond our ability to model cleanly, having too many possibilities
+        if name == 'destination-attributes' or name == 'preferred-attributes':
             intro = 'CollectionType('
             type['ktype'] = 'AttributeCollection'
         else:

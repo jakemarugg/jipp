@@ -382,6 +382,12 @@ object PrinterDescriptionGroup {
     @JvmField val impositionTemplateSupported = ImpositionTemplate.Type("imposition-template-supported")
 
     /**
+     * "input-attributes-default" as defined in:
+     * [PWG5100.15](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfaxout10-20131115-5100.15.pdf)
+     */
+    @JvmField val inputAttributesDefault = InputAttributes.Type("input-attributes-default")
+
+    /**
      * "input-attributes-supported" as defined in:
      * [PWG5100.15](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfaxout10-20131115-5100.15.pdf)
      */
@@ -952,6 +958,12 @@ object PrinterDescriptionGroup {
     @JvmField val materialTypeSupported = MaterialType.Type("material-type-supported")
 
     /**
+     * "materials-col-default" as defined in:
+     * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
+     */
+    @JvmField val materialsColDefault = MaterialsCol.Type("materials-col-default")
+
+    /**
      * "materials-col-supported" as defined in:
      * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
      */
@@ -1288,6 +1300,12 @@ object PrinterDescriptionGroup {
      * [RFC8011](http://www.iana.org/go/rfc8011)
      */
     @JvmField val orientationRequestedSupported = Orientation.Type("orientation-requested-supported")
+
+    /**
+     * "output-attributes-default" as defined in:
+     * [PWG5100.17](http://ftp.pwg.org/pub/pwg/candidates/cs-ippscan10-20140918-5100.17.pdf)
+     */
+    @JvmField val outputAttributesDefault = OutputAttributes.Type("output-attributes-default")
 
     /**
      * "output-attributes-supported" as defined in:
