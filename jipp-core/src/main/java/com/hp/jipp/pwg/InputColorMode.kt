@@ -11,9 +11,9 @@ import com.hp.jipp.encoding.Keyword
 import com.hp.jipp.encoding.KeywordType
 
 /**
- * "input-color-mode" keyword as defined in:
- *   * [PWG5100.15](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfaxout10-20131115-5100.15.pdf)
- *   * [PWG5100.17](http://ftp.pwg.org/pub/pwg/candidates/cs-ippscan10-20140918-5100.17.pdf)
+ * "input-color-mode" keyword as defined in
+ * [PWG5100.15](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfaxout10-20131115-5100.15.pdf),
+ * [PWG5100.17](http://ftp.pwg.org/pub/pwg/candidates/cs-ippscan10-20140918-5100.17.pdf).
  *
  * Also used by:
  *   * `input-color-mode-supported`

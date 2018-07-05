@@ -11,8 +11,8 @@ import com.hp.jipp.encoding.Keyword
 import com.hp.jipp.encoding.KeywordType
 
 /**
- * "multiple-operation-time-out-action" keyword as defined in:
- *   * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
+ * "multiple-operation-time-out-action" keyword as defined in
+ * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf).
  */
 data class MultipleOperationTimeOutAction(
     override val value: String

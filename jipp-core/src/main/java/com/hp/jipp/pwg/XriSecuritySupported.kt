@@ -11,9 +11,9 @@ import com.hp.jipp.encoding.Keyword
 import com.hp.jipp.encoding.KeywordType
 
 /**
- * "xri-security-supported" keyword as defined in:
- *   * [RFC3380](http://www.iana.org/go/rfc3380)
- *   * [RFC8011](http://www.iana.org/go/rfc8011)
+ * "xri-security-supported" keyword as defined in
+ * [RFC3380](http://www.iana.org/go/rfc3380),
+ * [RFC8011](http://www.iana.org/go/rfc8011).
  */
 data class XriSecuritySupported(
     override val value: String

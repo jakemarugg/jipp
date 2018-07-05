@@ -11,8 +11,8 @@ import com.hp.jipp.encoding.Keyword
 import com.hp.jipp.encoding.KeywordType
 
 /**
- * "pdl-override-guaranteed-supported" keyword as defined in:
- *   * [IPPWG20151019](http://www.pwg.org/archives/ipp/2015/018629.html)
+ * "pdl-override-guaranteed-supported" keyword as defined in
+ * [IPPWG20151019](http://www.pwg.org/archives/ipp/2015/018629.html).
  */
 data class PdlOverrideGuaranteedSupported(
     override val value: String

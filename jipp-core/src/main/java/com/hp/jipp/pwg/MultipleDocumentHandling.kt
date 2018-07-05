@@ -11,8 +11,8 @@ import com.hp.jipp.encoding.Keyword
 import com.hp.jipp.encoding.KeywordType
 
 /**
- * "multiple-document-handling" keyword as defined in:
- *   * [RFC8011](http://www.iana.org/go/rfc8011)
+ * "multiple-document-handling" keyword as defined in
+ * [RFC8011](http://www.iana.org/go/rfc8011).
  *
  * Also used by:
  *   * `multiple-document-handling-default`

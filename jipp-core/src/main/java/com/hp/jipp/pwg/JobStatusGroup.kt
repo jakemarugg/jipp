@@ -42,18 +42,14 @@ object JobStatusGroup {
     /**
      * "cover-back-actual" as defined in:
      * [PWG5100.8](http://ftp.pwg.org/pub/pwg/candidates/cs-ippactuals10-20030313-5100.8.pdf)
-     *
-     * See [JobTemplateGroup.CoverBack] for allowed collection members.
      */
-    @JvmField val coverBackActual = CoverBackActual.Type("cover-back-actual")
+    @JvmField val coverBackActual = CoverBack.Type("cover-back-actual")
 
     /**
      * "cover-front-actual" as defined in:
      * [PWG5100.8](http://ftp.pwg.org/pub/pwg/candidates/cs-ippactuals10-20030313-5100.8.pdf)
-     *
-     * See [JobTemplateGroup.CoverFront] for allowed collection members.
      */
-    @JvmField val coverFrontActual = CoverFrontActual.Type("cover-front-actual")
+    @JvmField val coverFrontActual = CoverFront.Type("cover-front-actual")
 
     /**
      * "date-time-at-completed" as defined in:
@@ -88,10 +84,8 @@ object JobStatusGroup {
     /**
      * "document-format-details-supplied" as defined in:
      * [PWG5100.7](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobext10-20031031-5100.7.pdf)
-     *
-     * See [OperationGroup.DocumentFormatDetails] for allowed collection members.
      */
-    @JvmField val documentFormatDetailsSupplied = DocumentFormatDetailsSupplied.Type("document-format-details-supplied")
+    @JvmField val documentFormatDetailsSupplied = DocumentFormatDetails.Type("document-format-details-supplied")
 
     /**
      * "document-format-ready" as defined in:
@@ -130,12 +124,6 @@ object JobStatusGroup {
     @JvmField val documentNaturalLanguageSupplied = StringType(Tag.naturalLanguage, "document-natural-language-supplied")
 
     /**
-     * "document-overrides-actual" as defined in:
-     * [PWG5100.8](http://ftp.pwg.org/pub/pwg/candidates/cs-ippactuals10-20030313-5100.8.pdf)
-     */
-    @JvmField val documentOverridesActual = DocumentOverridesActual.Type("document-overrides-actual")
-
-    /**
      * "errors-count" as defined in:
      * [PWG5100.7](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobext10-20031031-5100.7.pdf)
      */
@@ -150,10 +138,8 @@ object JobStatusGroup {
     /**
      * "finishings-col-actual" as defined in:
      * [PWG5100.8](http://ftp.pwg.org/pub/pwg/candidates/cs-ippactuals10-20030313-5100.8.pdf)
-     *
-     * See [JobTemplateGroup.FinishingsCol] for allowed collection members.
      */
-    @JvmField val finishingsColActual = FinishingsColActual.Type("finishings-col-actual")
+    @JvmField val finishingsColActual = FinishingsCol.Type("finishings-col-actual")
 
     /**
      * "force-front-side-actual" as defined in:
@@ -177,15 +163,13 @@ object JobStatusGroup {
      * "input-attributes-actual" as defined in:
      * [PWG5100.15](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfaxout10-20131115-5100.15.pdf)
      */
-    @JvmField val inputAttributesActual = InputAttributesActual.Type("input-attributes-actual")
+    @JvmField val inputAttributesActual = InputAttributes.Type("input-attributes-actual")
 
     /**
      * "insert-sheet-actual" as defined in:
      * [PWG5100.8](http://ftp.pwg.org/pub/pwg/candidates/cs-ippactuals10-20030313-5100.8.pdf)
-     *
-     * See [JobTemplateGroup.InsertSheet] for allowed collection members.
      */
-    @JvmField val insertSheetActual = InsertSheetActual.Type("insert-sheet-actual")
+    @JvmField val insertSheetActual = InsertSheet.Type("insert-sheet-actual")
 
     /**
      * "job-account-id-actual" as defined in:
@@ -202,10 +186,8 @@ object JobStatusGroup {
     /**
      * "job-accounting-sheets-actual" as defined in:
      * [PWG5100.8](http://ftp.pwg.org/pub/pwg/candidates/cs-ippactuals10-20030313-5100.8.pdf)
-     *
-     * See [JobTemplateGroup.JobAccountingSheets] for allowed collection members.
      */
-    @JvmField val jobAccountingSheetsActual = JobAccountingSheetsActual.Type("job-accounting-sheets-actual")
+    @JvmField val jobAccountingSheetsActual = JobAccountingSheets.Type("job-accounting-sheets-actual")
 
     /**
      * "job-accounting-user-id-actual" as defined in:
@@ -234,18 +216,14 @@ object JobStatusGroup {
     /**
      * "job-cover-back-actual" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
-     *
-     * See [JobTemplateGroup.CoverBack] for allowed collection members.
      */
-    @JvmField val jobCoverBackActual = JobCoverBackActual.Type("job-cover-back-actual")
+    @JvmField val jobCoverBackActual = CoverBack.Type("job-cover-back-actual")
 
     /**
      * "job-cover-front-actual" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
-     *
-     * See [JobTemplateGroup.CoverFront] for allowed collection members.
      */
-    @JvmField val jobCoverFrontActual = JobCoverFrontActual.Type("job-cover-front-actual")
+    @JvmField val jobCoverFrontActual = CoverFront.Type("job-cover-front-actual")
 
     /**
      * "job-detailed-status-messages" as defined in:
@@ -262,10 +240,8 @@ object JobStatusGroup {
     /**
      * "job-error-sheet-actual" as defined in:
      * [PWG5100.8](http://ftp.pwg.org/pub/pwg/candidates/cs-ippactuals10-20030313-5100.8.pdf)
-     *
-     * See [JobTemplateGroup.JobErrorSheet] for allowed collection members.
      */
-    @JvmField val jobErrorSheetActual = JobErrorSheetActual.Type("job-error-sheet-actual")
+    @JvmField val jobErrorSheetActual = JobErrorSheet.Type("job-error-sheet-actual")
 
     /**
      * "job-finishings-actual" as defined in:
@@ -276,10 +252,8 @@ object JobStatusGroup {
     /**
      * "job-finishings-col-actual" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
-     *
-     * See [JobTemplateGroup.MediaCol] for allowed collection members.
      */
-    @JvmField val jobFinishingsColActual = JobFinishingsColActual.Type("job-finishings-col-actual")
+    @JvmField val jobFinishingsColActual = MediaCol.Type("job-finishings-col-actual")
 
     /**
      * "job-hold-until-actual" as defined in:
@@ -315,7 +289,7 @@ object JobStatusGroup {
      * "job-impressions-completed-col" as defined in:
      * [APRIL2015F2F](http://ftp.pwg.org/pub/pwg/ipp/minutes/ippv2-f2f-minutes-20150429.pdf)
      */
-    @JvmField val jobImpressionsCompletedCol = JobImpressionsCompletedCol.Type("job-impressions-completed-col")
+    @JvmField val jobImpressionsCompletedCol = JobImpressionsCol.Type("job-impressions-completed-col")
 
     /**
      * "job-k-octets" as defined in:
@@ -351,7 +325,7 @@ object JobStatusGroup {
      * "job-media-sheets-completed-col" as defined in:
      * [APRIL2015F2F](http://ftp.pwg.org/pub/pwg/ipp/minutes/ippv2-f2f-minutes-20150429.pdf)
      */
-    @JvmField val jobMediaSheetsCompletedCol = JobMediaSheetsCompletedCol.Type("job-media-sheets-completed-col")
+    @JvmField val jobMediaSheetsCompletedCol = JobMediaSheetsCol.Type("job-media-sheets-completed-col")
 
     /**
      * "job-more-info" as defined in:
@@ -393,7 +367,7 @@ object JobStatusGroup {
      * "job-pages-completed-col" as defined in:
      * [APRIL2015F2F](http://ftp.pwg.org/pub/pwg/ipp/minutes/ippv2-f2f-minutes-20150429.pdf)
      */
-    @JvmField val jobPagesCompletedCol = JobPagesCompletedCol.Type("job-pages-completed-col")
+    @JvmField val jobPagesCompletedCol = JobPagesCol.Type("job-pages-completed-col")
 
     /**
      * "job-pages-completed-current-copy" as defined in:
@@ -434,10 +408,8 @@ object JobStatusGroup {
     /**
      * "job-sheets-col-actual" as defined in:
      * [PWG5100.8](http://ftp.pwg.org/pub/pwg/candidates/cs-ippactuals10-20030313-5100.8.pdf)
-     *
-     * See [JobTemplateGroup.JobSheetsCol] for allowed collection members.
      */
-    @JvmField val jobSheetsColActual = JobSheetsColActual.Type("job-sheets-col-actual")
+    @JvmField val jobSheetsColActual = JobSheetsCol.Type("job-sheets-col-actual")
 
     /**
      * "job-state" as defined in:
@@ -473,7 +445,7 @@ object JobStatusGroup {
      * "materials-col-actual" as defined in:
      * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
      */
-    @JvmField val materialsColActual = MaterialsColActual.Type("materials-col-actual")
+    @JvmField val materialsColActual = MaterialsCol.Type("materials-col-actual")
 
     /**
      * "media-actual" as defined in:
@@ -484,10 +456,8 @@ object JobStatusGroup {
     /**
      * "media-col-actual" as defined in:
      * [PWG5100.8](http://ftp.pwg.org/pub/pwg/candidates/cs-ippactuals10-20030313-5100.8.pdf)
-     *
-     * See [JobTemplateGroup.MediaCol] for allowed collection members.
      */
-    @JvmField val mediaColActual = MediaColActual.Type("media-col-actual")
+    @JvmField val mediaColActual = MediaCol.Type("media-col-actual")
 
     /**
      * "media-input-tray-check-actual" as defined in:
@@ -541,7 +511,7 @@ object JobStatusGroup {
      * "output-attributes-actual" as defined in:
      * [PWG5100.17](http://ftp.pwg.org/pub/pwg/candidates/cs-ippscan10-20140918-5100.17.pdf)
      */
-    @JvmField val outputAttributesActual = OutputAttributesActual.Type("output-attributes-actual")
+    @JvmField val outputAttributesActual = OutputAttributes.Type("output-attributes-actual")
 
     /**
      * "output-bin-actual" as defined in:
@@ -588,10 +558,8 @@ object JobStatusGroup {
     /**
      * "overrides-actual" as defined in:
      * [PWG5100.6](http://ftp.pwg.org/pub/pwg/candidates/cs-ipppageoverride10-20031031-5100.6.pdf)
-     *
-     * See [JobTemplateGroup.Overrides] for allowed collection members.
      */
-    @JvmField val overridesActual = OverridesActual.Type("overrides-actual")
+    @JvmField val overridesActual = Overrides.Type("overrides-actual")
 
     /**
      * "page-delivery-actual" as defined in:
@@ -627,7 +595,7 @@ object JobStatusGroup {
      * "print-accuracy-actual" as defined in:
      * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
      */
-    @JvmField val printAccuracyActual = PrintAccuracyActual.Type("print-accuracy-actual")
+    @JvmField val printAccuracyActual = PrintAccuracy.Type("print-accuracy-actual")
 
     /**
      * "print-base-actual" as defined in:
@@ -651,7 +619,7 @@ object JobStatusGroup {
      * "print-objects-actual" as defined in:
      * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
      */
-    @JvmField val printObjectsActual = PrintObjectsActual.Type("print-objects-actual")
+    @JvmField val printObjectsActual = PrintObjects.Type("print-objects-actual")
 
     /**
      * "print-quality-actual" as defined in:
@@ -680,10 +648,8 @@ object JobStatusGroup {
     /**
      * "separator-sheets-actual" as defined in:
      * [PWG5100.8](http://ftp.pwg.org/pub/pwg/candidates/cs-ippactuals10-20030313-5100.8.pdf)
-     *
-     * See [JobTemplateGroup.SeparatorSheets] for allowed collection members.
      */
-    @JvmField val separatorSheetsActual = SeparatorSheetsActual.Type("separator-sheets-actual")
+    @JvmField val separatorSheetsActual = SeparatorSheets.Type("separator-sheets-actual")
 
     /**
      * "sheet-collate-actual" as defined in:

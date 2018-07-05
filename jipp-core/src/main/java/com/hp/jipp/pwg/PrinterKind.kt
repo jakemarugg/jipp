@@ -11,8 +11,8 @@ import com.hp.jipp.encoding.Keyword
 import com.hp.jipp.encoding.KeywordType
 
 /**
- * "printer-kind" keyword as defined in:
- *   * [PWG5100.16](http://ftp.pwg.org/pub/pwg/candidates/cs-ipptrans10-20131108-5100.16.pdf)
+ * "printer-kind" keyword as defined in
+ * [PWG5100.16](http://ftp.pwg.org/pub/pwg/candidates/cs-ipptrans10-20131108-5100.16.pdf).
  */
 data class PrinterKind(
     override val value: String

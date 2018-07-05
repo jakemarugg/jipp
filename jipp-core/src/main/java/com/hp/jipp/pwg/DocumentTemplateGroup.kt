@@ -24,16 +24,12 @@ object DocumentTemplateGroup {
     /**
      * "cover-back" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
-     *
-     * See [JobTemplateGroup.CoverBack] for allowed collection members.
      */
     @JvmField val coverBack = CoverBack.Type("cover-back")
 
     /**
      * "cover-front" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
-     *
-     * See [JobTemplateGroup.CoverFront] for allowed collection members.
      */
     @JvmField val coverFront = CoverFront.Type("cover-front")
 
@@ -52,8 +48,6 @@ object DocumentTemplateGroup {
     /**
      * "finishings-col" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
-     *
-     * See [JobTemplateGroup.FinishingsCol] for allowed collection members.
      */
     @JvmField val finishingsCol = FinishingsCol.Type("finishings-col")
 
@@ -84,8 +78,6 @@ object DocumentTemplateGroup {
     /**
      * "insert-sheet" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
-     *
-     * See [JobTemplateGroup.InsertSheet] for allowed collection members.
      */
     @JvmField val insertSheet = InsertSheet.Type("insert-sheet")
 
@@ -104,8 +96,6 @@ object DocumentTemplateGroup {
     /**
      * "media-col" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
-     *
-     * See [JobTemplateGroup.MediaCol] for allowed collection members.
      */
     @JvmField val mediaCol = MediaCol.Type("media-col")
 
@@ -160,8 +150,6 @@ object DocumentTemplateGroup {
     /**
      * "pdl-init-file" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
-     *
-     * See [JobTemplateGroup.PdlInitFile] for allowed collection members.
      */
     @JvmField val pdlInitFile = PdlInitFile.Type("pdl-init-file")
 
@@ -234,8 +222,6 @@ object DocumentTemplateGroup {
     /**
      * "separator-sheets" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
-     *
-     * See [JobTemplateGroup.SeparatorSheets] for allowed collection members.
      */
     @JvmField val separatorSheets = SeparatorSheets.Type("separator-sheets")
 

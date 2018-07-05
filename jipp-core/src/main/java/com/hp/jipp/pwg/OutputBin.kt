@@ -11,9 +11,9 @@ import com.hp.jipp.encoding.Keyword
 import com.hp.jipp.encoding.KeywordType
 
 /**
- * "output-bin" keyword as defined in:
- *   * [APPLE-OUTPUT-BIN](http://www.pwg.org/pipermail/ipp/2016/018950.html)
- *   * [PWG5100.2](http://ftp.pwg.org/pub/pwg/candidates/cs-ippoutputbin10-20010207-5100.2.pdf)
+ * "output-bin" keyword as defined in
+ * [APPLE-OUTPUT-BIN](http://www.pwg.org/pipermail/ipp/2016/018950.html),
+ * [PWG5100.2](http://ftp.pwg.org/pub/pwg/candidates/cs-ippoutputbin10-20010207-5100.2.pdf).
  *
  * Also used by:
  *   * `job-accounting-output-bin`

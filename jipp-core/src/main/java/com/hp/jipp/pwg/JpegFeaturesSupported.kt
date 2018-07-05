@@ -11,8 +11,8 @@ import com.hp.jipp.encoding.Keyword
 import com.hp.jipp.encoding.KeywordType
 
 /**
- * "jpeg-features-supported" keyword as defined in:
- *   * [APPLE20151021](http://www.pwg.org/pipermail/ipp/2015/018634.html)
+ * "jpeg-features-supported" keyword as defined in
+ * [APPLE20151021](http://www.pwg.org/pipermail/ipp/2015/018634.html).
  */
 data class JpegFeaturesSupported(
     override val value: String

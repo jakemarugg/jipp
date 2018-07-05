@@ -12,9 +12,9 @@ import com.hp.jipp.encoding.KeywordType
 import com.hp.jipp.encoding.Tag
 
 /**
- * "media-color" keyword as defined in:
- *   * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
- *   * [PWG5101.1](http://ftp.pwg.org/pub/pwg/candidates/cs-pwgmsn10-20020226-5101.1.pdf)
+ * "media-color" keyword as defined in
+ * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf),
+ * [PWG5101.1](http://ftp.pwg.org/pub/pwg/candidates/cs-pwgmsn10-20020226-5101.1.pdf).
  *
  * Also used by:
  *   * `material-color`
@@ -26,6 +26,7 @@ data class MediaColor(
     override val language: String? = null
 ) : KeywordOrName() {
 
+    /** Construct a [Tag.keyword] form of this preset */
     constructor(value: String): this(value, Tag.keyword)
 
     override fun toString() = value

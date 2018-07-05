@@ -11,11 +11,11 @@ import com.hp.jipp.encoding.Keyword
 import com.hp.jipp.encoding.KeywordType
 
 /**
- * "job-password-encryption" keyword as defined in:
- *   * [IPPWG20140616](http://www.pwg.org/archives/ipp/2014/018054.html)
- *   * [IPPWG20151009](http://www.pwg.org/pipermail/ipp/2015/018621.html)
- *   * [IPPWG20160229-1](http://ftp.pwg.org/pub/pwg/ipp/wd/wp-job-password-repertoire-20160101.pdf)
- *   * [PWG5100.11](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext10-20101030-5100.11.pdf)
+ * "job-password-encryption" keyword as defined in
+ * [IPPWG20140616](http://www.pwg.org/archives/ipp/2014/018054.html),
+ * [IPPWG20151009](http://www.pwg.org/pipermail/ipp/2015/018621.html),
+ * [IPPWG20160229-1](http://ftp.pwg.org/pub/pwg/ipp/wd/wp-job-password-repertoire-20160101.pdf),
+ * [PWG5100.11](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext10-20101030-5100.11.pdf).
  *
  * Also used by:
  *   * `job-password-encryption-supported`

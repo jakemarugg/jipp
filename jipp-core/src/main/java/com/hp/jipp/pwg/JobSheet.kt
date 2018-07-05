@@ -12,9 +12,9 @@ import com.hp.jipp.encoding.KeywordType
 import com.hp.jipp.encoding.Tag
 
 /**
- * "job-sheets" keyword as defined in:
- *   * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
- *   * [RFC8011](http://www.iana.org/go/rfc8011)
+ * "job-sheets" keyword as defined in
+ * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf),
+ * [RFC8011](http://www.iana.org/go/rfc8011).
  *
  * Also used by:
  *   * `job-sheets-default`
@@ -26,6 +26,7 @@ data class JobSheet(
     override val language: String? = null
 ) : KeywordOrName() {
 
+    /** Construct a [Tag.keyword] form of this preset */
     constructor(value: String): this(value, Tag.keyword)
 
     override fun toString() = value

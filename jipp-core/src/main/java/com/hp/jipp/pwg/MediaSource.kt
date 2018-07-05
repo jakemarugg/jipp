@@ -12,8 +12,8 @@ import com.hp.jipp.encoding.KeywordType
 import com.hp.jipp.encoding.Tag
 
 /**
- * "media-source" keyword as defined in:
- *   * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
+ * "media-source" keyword as defined in
+ * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf).
  *
  * Also used by:
  *   * `media-source-supported`
@@ -24,6 +24,7 @@ data class MediaSource(
     override val language: String? = null
 ) : KeywordOrName() {
 
+    /** Construct a [Tag.keyword] form of this preset */
     constructor(value: String): this(value, Tag.keyword)
 
     override fun toString() = value

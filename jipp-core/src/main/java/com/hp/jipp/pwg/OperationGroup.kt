@@ -221,12 +221,6 @@ object OperationGroup {
     @JvmField val jobImpressions = IntegerType("job-impressions")
 
     /**
-     * "job-impressions-col" as defined in:
-     * [APRIL2015F2F](http://ftp.pwg.org/pub/pwg/ipp/minutes/ippv2-f2f-minutes-20150429.pdf)
-     */
-    @JvmField val jobImpressionsCol = JobImpressionsCol.Type("job-impressions-col")
-
-    /**
      * "job-impressions-estimated" as defined in:
      * [PWG5100.16](http://ftp.pwg.org/pub/pwg/candidates/cs-ipptrans10-20131108-5100.16.pdf)
      */
@@ -251,12 +245,6 @@ object OperationGroup {
     @JvmField val jobMediaSheets = IntegerType("job-media-sheets")
 
     /**
-     * "job-media-sheets-col" as defined in:
-     * [APRIL2015F2F](http://ftp.pwg.org/pub/pwg/ipp/minutes/ippv2-f2f-minutes-20150429.pdf)
-     */
-    @JvmField val jobMediaSheetsCol = JobMediaSheetsCol.Type("job-media-sheets-col")
-
-    /**
      * "job-message-from-operator" as defined in:
      * [RFC3380](http://www.iana.org/go/rfc3380)
      */
@@ -273,12 +261,6 @@ object OperationGroup {
      * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
      */
     @JvmField val jobPages = IntegerType("job-pages")
-
-    /**
-     * "job-pages-col" as defined in:
-     * [APRIL2015F2F](http://ftp.pwg.org/pub/pwg/ipp/minutes/ippv2-f2f-minutes-20150429.pdf)
-     */
-    @JvmField val jobPagesCol = JobPagesCol.Type("job-pages-col")
 
     /**
      * "job-password" as defined in:
@@ -387,12 +369,6 @@ object OperationGroup {
      * [PWG5100.18](http://ftp.pwg.org/pub/pwg/candidates/cs-ippinfra10-20150619-5100.18.pdf)
      */
     @JvmField val outputDeviceUuid = UriType("output-device-uuid")
-
-    /**
-     * "preferred-attributes" as defined in:
-     * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
-     */
-    @JvmField val preferredAttributes = PreferredAttributes.Type("preferred-attributes")
 
     /**
      * "printer-message-from-operator" as defined in:

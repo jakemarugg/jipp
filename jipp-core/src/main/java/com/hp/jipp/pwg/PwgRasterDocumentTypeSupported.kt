@@ -11,8 +11,8 @@ import com.hp.jipp.encoding.Keyword
 import com.hp.jipp.encoding.KeywordType
 
 /**
- * "pwg-raster-document-type-supported" keyword as defined in:
- *   * [PWG5102.4](http://ftp.pwg.org/pub/pwg/candidates/cs-ippraster10-20120420-5102.4.pdf)
+ * "pwg-raster-document-type-supported" keyword as defined in
+ * [PWG5102.4](http://ftp.pwg.org/pub/pwg/candidates/cs-ippraster10-20120420-5102.4.pdf).
  */
 data class PwgRasterDocumentTypeSupported(
     override val value: String

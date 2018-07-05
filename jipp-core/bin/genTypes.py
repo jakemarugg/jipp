@@ -13,6 +13,8 @@ specs = { }
 enums = { }
 keywords = { }
 attributes = { }
+collections = { }
+pending_collections = { }
 out_files = [ ]
 proj_dir = os.path.dirname(os.path.realpath(__file__)) + "/../"
 warns = 0
@@ -256,7 +258,7 @@ def assign_ref(ref, target):
 
     m = re.search("^Member attributes are the same as the \"([a-z-]+)\" (.*) attribute$", ref)
     if m and m.group(1) and m.group(2):
-        target['ref_member'] = m.group(1)
+        target['ref_col'] = m.group(1)
         target['ref_group'] = m.group(2)
         return True
 
@@ -368,13 +370,16 @@ def depluralize(name):
 def emit_keyword(template, keyword):
     # If this is a reference to collection members, we can now resolve it
     if 'ref_members' in keyword:
-        for group in attributes.values():
-            for type in group.values():
-                if type['name'] == keyword['ref_members']:
-                    keyword['values'].extend(type['members'].keys())
-        keyword['values'] = sorted(list(set(keyword['values'])))
-        # TODO: Instead, reference the collection type directly
+        if keyword['values']:
+            warn("Cannot handle keyword with both ref and values", keyword)
         return
+        # for group in attributes.values():
+        #     for type in group.values():
+        #         if type['name'] == keyword['ref_members']:
+        #             keyword['values'].extend(type['members'].keys())
+        # keyword['values'] = sorted(list(set(keyword['values'])))
+        # # TODO: Instead, reference the collection type directly
+
 
     if 'ref_group' in keyword:
         # TODO: When encountering a ref_group we could extract to a different reference, e.g. JobStatusAttributes
@@ -386,11 +391,9 @@ def emit_keyword(template, keyword):
         # TODO: Combine?
         keyword['values'] = sorted(attributes[group_name].keys())
 
-    if not keyword['values']:
-        # XML fix: material-key is not defined anywhere. Really should be a name but not spec'd that way
-        if keyword['name'] != 'material-key':
-            warn("keyword " + keyword['name'] + " has no values defined", keyword)
-            return
+    if not keyword['values'] and 'empty_ok' not in keyword:
+        warn("keyword " + keyword['name'] + " has no values defined", keyword)
+        return
 
     keyword['fullname'] = keyword['name']
     if 'name' in keyword['syntax']:
@@ -479,12 +482,23 @@ def fuzzy_get(map, name):
     return map[name]
 
 def emit_attributes(env):
-    # Emit collection attributes
+    # Emit collection types having members
     for group in attributes.values():
         for type in group.values():
             if type['members']:
                 emit_collection(env, type)
 
+    # Second pass for collections without members or refs:
+    for group in attributes.values():
+        for type in group.values():
+            if type['syntax'] == 'collection':
+                find_collection_ref(group, type)
+
+    # Third pass: any remaining collection references
+    for key, value in pending_collections.items():
+        warn("Invalid collection reference to " + key, value)
+
+    # Emit group attributes
     template = env.get_template('group.kt.tmpl')
     for name, values in attributes.items():
         types = []
@@ -499,39 +513,72 @@ def emit_attributes(env):
             for member in type['members'].values():
                 fix_member(member)
 
-            if type['name'] == 'finishings-col-actual':
-                warn("Something wrong with", type)
-
             types.append(type)
 
         with open(prep_file(name + '-group'), 'w') as file:
             file.write(template.render(name=name, types=types, app=os.path.basename(sys.argv[0]), updated=updated, specs=specs))
 
 
+# Make sure collection type has values or at least a ref_col in it. If not, delete type from group.
+def find_collection_ref(group, type):
+    if type['members'] or 'ref_col' in type:
+        # It's already OK
+        return
+
+    name = type['name']
+    if name.endswith('-actual'):
+        # We'll assume these are the same as the root collection
+        name = name[:-len('-actual')]
+        if name in collections:
+            type['ref_col'] = name
+            return
+
+    if '-completed-' in name:
+        name = name.replace('-completed-', '-')
+        if name in collections:
+            type['ref_col'] = name
+            return
+
+    warn('no members found for collection', type)
+    del group[type['name']]
+
 def emit_collection(env, type):
     collection_template = env.get_template('collection.kt.tmpl')
-    type = copy.deepcopy(type)
+    name = type['name']
+    if name in collections:
+        if collections[name]['members'] != type['members']:
+            warn('Collection already exists with different members', [collections[name], type])
+        else:
+            # Already done a matching one so skip
+            return
+    collections[name] = type
 
-    # TODO: CoverBack, CoverFront are examples of duplicates -- these should refer to the same base collection type.
+    type = copy.deepcopy(type)
     for member in type['members'].values():
         fix_member(member)
         if 'ktype' not in member:
-            warn("Collection " + type['name'] + ' member ' + member['name'] + ' has no ktype for ' +
+            warn("Collection " + name + ' member ' + member['name'] + ' has no ktype for ' +
                  member['syntax'], member)
+            del collections[name]
             return
+
 
         # Create inner class for each member that needs one
         if member['members']:
-            member['inner'] = '    ' + collection_template.render(name=member['name'], collection=member,
-                                       app=os.path.basename(sys.argv[0]), updated=updated,
-                                       specs=specs, noheader=True).replace('\n', '\n    ').strip()
-    col_name = type['name']
+            member['inner'] = '    ' + collection_template.render(
+                name=member['name'], collection=member, app=os.path.basename(sys.argv[0]), updated=updated,
+                specs=specs, noheader=True).replace('\n', '\n    ').strip()
+            if member['name'] in pending_collections:
+                del pending_collections[member['name']]
+
+    if name in pending_collections:
+        del pending_collections[name]
 
     # TODO: media-col-database has members AND a ref so these need to be combined
     # TODO: if `set` is true, emit the member in List form
-    with open(prep_file(col_name), 'w') as file:
+    with open(prep_file(name), 'w') as file:
         file.write(collection_template.render(
-            name=col_name, collection=type, app=os.path.basename(sys.argv[0]),
+            name=name, collection=type, app=os.path.basename(sys.argv[0]),
             updated=updated, specs=specs))
 
 # For each member recursively find and apply its intro
@@ -570,8 +617,12 @@ def fix_intro(type, syntax, name):
     if syntax == 'keyword' or syntax == 'keyword | name':
         real_type = fuzzy_get(keywords, name)
         if real_type:
-            intro = camel_class(real_type['name']) + ".Type("
-            type['ktype'] = camel_class(real_type['name'])
+            if 'ref_members' in real_type:
+                intro = camel_class(real_type['ref_members']) + ".Keywords.Type("
+                type['ktype'] = camel_class(real_type['ref_members']) + ".Keywords"
+            else:
+                intro = camel_class(real_type['name']) + ".Type("
+                type['ktype'] = camel_class(real_type['name'])
     if syntax == 'enum':
         real_type = fuzzy_get(enums, name)
         if real_type:
@@ -582,53 +633,62 @@ def fix_intro(type, syntax, name):
     if re.search('^uri(\([0-9]+\))?$', syntax):
         intro = "UriType("
         type['ktype'] = "java.net.URI"
-    if re.search('^rangeOfInteger(\([0-9MINAX:-]*\))?$', syntax):
+    elif re.search('^rangeOfInteger(\([0-9MINAX:-]*\))?$', syntax):
         intro = "RangeOfIntegerType("
         type['ktype'] = 'IntRange'
-    if re.search('^integer(\([0-9MINAX:-]*\)) | rangeOfInteger(\([0-9MINAX:-]*\))?$', syntax):
+    elif re.search('^integer(\([0-9MINAX:-]*\)) | rangeOfInteger(\([0-9MINAX:-]*\))?$', syntax):
         intro = "IntegerOrRangeOfIntegerType("
         type['ktype'] = 'IntRangeOrInt'
-    if re.search('^integer(\([0-9MINAX:-]*\))?$', syntax):
+    elif re.search('^integer(\([0-9MINAX:-]*\))?$', syntax):
         intro = "IntegerType("
         type['ktype'] = "Int"
-    if syntax == "boolean":
+    elif syntax == "boolean":
         intro = "BooleanType("
         type['ktype'] = "Boolean"
-    if syntax == "charset":
+    elif syntax == "charset":
         intro = "StringType(Tag.charset, "
         type['ktype'] = "String"
-    if syntax == "mimeMediaType":
+    elif syntax == "mimeMediaType":
         intro = "StringType(Tag.mimeMediaType, "
         type['ktype'] = "String"
-    if syntax == "naturalLanguage":
+    elif syntax == "naturalLanguage":
         intro = "StringType(Tag.naturalLanguage, "
-    if syntax == "resolution":
+    elif syntax == "resolution":
         intro = "ResolutionType("
         type['ktype'] = 'Resolution'
-    if syntax == "collection":
-        intro = camel_class(type['name']) + '.Type('
-    if syntax == "dateTime":
+    elif syntax == "collection":
+        if 'ref_col' in type:
+            name = type['ref_col']
+        else:
+            name = type['name']
+
+        if name == 'destination-attributes':
+            # The contents of this collection are beyond what we can model.
+            intro = 'CollectionType('
+            type['ktype'] = 'AttributeCollection'
+        else:
+            # It's possible this collection never appears
+            intro = camel_class(name) + '.Type('
+            pending_collections[name] = type
+    elif syntax == "dateTime":
         intro = "DateTimeType("
-    if syntax == 'name':
+    elif syntax == 'name':
         intro = "NameType("
-    if re.search('^name\(([0-9]+)\)$', syntax):
+    elif re.search('^name\(([0-9]+)\)$', syntax):
         m = re.search('name\(([0-9]+)\)', syntax)
         intro = "NameType(" + m.group(1) + ", "
-    if syntax == 'text':
+    elif syntax == 'text':
         intro = "TextType("
-    if syntax == 'uriScheme':
+    elif syntax == 'uriScheme':
         intro = "StringType(Tag.uriScheme, "
-    if re.search('^text\(([0-9]+)\)$', syntax):
+    elif re.search('^text\(([0-9]+)\)$', syntax):
         m = re.search('text\(([0-9]+)\)', syntax)
         intro = "TextType(" + m.group(1) + ", "
-    if syntax == 'octetString':
+    elif syntax == 'octetString':
         intro = "OctetStringType("
-    if re.search('^octetString\(([0-9]+)\)$', syntax):
+    elif re.search('^octetString\(([0-9]+)\)$', syntax):
         m = re.search('octetString\(([0-9]+)\)', syntax)
         intro = "OctetStringType(" + m.group(1) + ", "
-    if type['name'] == 'destination-attributes':
-        intro = 'CollectionType('
-        type['ktype'] = 'AttributeCollection'
 
     if not intro:
         warn("No type for attribute " + name + " with syntax '" + original_syntax + "'", type)
@@ -637,13 +697,13 @@ def fix_intro(type, syntax, name):
     type['intro'] = intro
     if intro.startswith("StringType("):
         type['ktype'] = "String"
-    if intro.startswith("NameType("):
+    elif intro.startswith("NameType("):
         type['ktype'] = "String"
         type['ktype_accessor'] = "value"
-    if intro.startswith("TextType("):
+    elif intro.startswith("TextType("):
         type['ktype'] = "String"
         type['ktype_accessor'] = "value"
-    if intro.startswith("OctetStringType("):
+    elif intro.startswith("OctetStringType("):
         type['ktype'] = "ByteArray"
 
 def emit_code():
@@ -693,14 +753,41 @@ keywords['printer-kind'] = {
     'values' : [ 'disc', 'document', 'envelope', 'label', 'large-format', 'photo', 'postcard', 'receipt', 'roll']
 }
 
-# XML Fix: material-key not supplied so insert it
+# XML Fix: preset-name not in keywords listing because no values are defined for it.
+keywords['preset-name'] = {
+    'name': 'preset-name',
+    'specs': [ 'IPPPRESET'],
+    'syntax': 'keyword | name',
+    'values' : [ ],
+    'empty_ok' : True
+}
+
+# XML Fix: material-key not in keywords listing, so supply it
 keywords['material-key'] = {
     'name': 'material-key',
     'specs': [ 'PWG5100.21'],
     'syntax': 'keyword',
-    'values' : [ ]
+    'values': [ ],
+    'empty_ok' : True
 }
 
+# XML Fix: not listed with other keywords
+keywords['destination-mandatory-access-attributes'] = {
+    'name': 'destination-mandatory-access-attributes',
+    'specs': 'PWG5100.17',
+    'syntax': 'keyword',
+    'ref_members': 'destination-accesses',
+    'values': [ ]
+}
+
+# Beyond our ability to model
+keywords['destination-attributes-supported'] = {
+    'name': 'destination-attributes-supported',
+    'specs': [ 'PWG5100.17' ],
+    'syntax': 'keyword',
+    'values': [ ],
+    'empty_ok': True
+}
 
 parse_records(tree, "Attributes", parse_attribute)
 parse_records(tree, "Status Codes", parse_status_code)
@@ -710,6 +797,6 @@ attributes['Job Template']['finishings-col']['members']['media-size'] = \
     copy.deepcopy(attributes['Job Template']['media-col']['members']['media-size'])
 
 emit_code()
+#warn("TODO", attributes['Printer Description']['materials-col-supported'])
 print "WARNINGS: " + str(warns)
 
-#pp.pprint(collections['Document Description']['impressions-col'])

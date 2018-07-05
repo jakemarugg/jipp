@@ -11,23 +11,21 @@ import com.hp.jipp.encoding.Keyword
 import com.hp.jipp.encoding.KeywordType
 
 /**
- * "platform-shape" keyword as defined in
- * [APPLE20170629](http://www.pwg.org/pipermail/ipp/2017/019246.html).
+ * "destination-attributes-supported" keyword as defined in
+ * [PWG5100.17](http://ftp.pwg.org/pub/pwg/candidates/cs-ippscan10-20140918-5100.17.pdf).
  */
-data class PlatformShape(
+data class DestinationAttributesSupported(
     override val value: String
 ) : Keyword() {
 
     override fun toString() = value
 
-    /** An attribute type for [PlatformShape] attributes */
-    class Type(name: String) : KeywordType<PlatformShape>(Encoder, name)
+    /** An attribute type for [DestinationAttributesSupported] attributes */
+    class Type(name: String) : KeywordType<DestinationAttributesSupported>(Encoder, name)
 
     companion object {
-        @JvmField val ellipse = PlatformShape("ellipse")
-        @JvmField val rectangle = PlatformShape("rectangle")
-        @JvmField val Encoder = KeywordType.encoderOf(PlatformShape::class.java) { value, _, _ ->
-            PlatformShape(value)
+        @JvmField val Encoder = KeywordType.encoderOf(DestinationAttributesSupported::class.java) { value, _, _ ->
+            DestinationAttributesSupported(value)
         }
     }
 }

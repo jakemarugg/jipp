@@ -11,9 +11,9 @@ import com.hp.jipp.encoding.Keyword
 import com.hp.jipp.encoding.KeywordType
 
 /**
- * "notify-events" keyword as defined in:
- *   * [PWG5100.18](http://ftp.pwg.org/pub/pwg/candidates/cs-ippinfra10-20150619-5100.18.pdf)
- *   * [RFC3995](http://www.iana.org/go/rfc3995)
+ * "notify-events" keyword as defined in
+ * [PWG5100.18](http://ftp.pwg.org/pub/pwg/candidates/cs-ippinfra10-20150619-5100.18.pdf),
+ * [RFC3995](http://www.iana.org/go/rfc3995).
  *
  * Also used by:
  *   * `notify-events-default`

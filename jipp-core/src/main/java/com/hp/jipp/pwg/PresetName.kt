@@ -12,14 +12,10 @@ import com.hp.jipp.encoding.KeywordType
 import com.hp.jipp.encoding.Tag
 
 /**
- * "job-account-type" keyword as defined in
- * [PWG5100.16](http://ftp.pwg.org/pub/pwg/candidates/cs-ipptrans10-20131108-5100.16.pdf).
- *
- * Also used by:
- *   * `job-account-type-default`
- *   * `job-account-type-supported`
+ * "preset-name" keyword as defined in
+ * [IPPPRESET](https://ftp.pwg.org/pub/pwg/ipp/registrations/reg-ipppreset-20171214.pdf).
  */
-data class JobAccountType(
+data class PresetName(
     override val value: String,
     override val tag: Tag = Tag.keyword,
     override val language: String? = null
@@ -30,15 +26,12 @@ data class JobAccountType(
 
     override fun toString() = value
 
-    /** An attribute type for [JobAccountType] attributes */
-    class Type(name: String) : KeywordType<JobAccountType>(Encoder, name)
+    /** An attribute type for [PresetName] attributes */
+    class Type(name: String) : KeywordType<PresetName>(Encoder, name)
 
     companion object {
-        @JvmField val general = JobAccountType("general")
-        @JvmField val group = JobAccountType("group")
-        @JvmField val none = JobAccountType("none")
-        @JvmField val Encoder = KeywordType.encoderOf(JobAccountType::class.java) { value, tag, language ->
-            JobAccountType(value, tag, language)
+        @JvmField val Encoder = KeywordType.encoderOf(PresetName::class.java) { value, tag, language ->
+            PresetName(value, tag, language)
         }
     }
 }

@@ -20,10 +20,6 @@ object {{ name | camel_class }}Group {
     /**
      * "{{ type.name }}" as defined in:{%- for spec in type.specs | sort %}
      * [{{ spec | upper }}]({{ specs[spec] }}){{ "," if not loop.last }}{%- endfor%}
-{%- if type.ref_member %}
-     *
-     * See [{{ (type.ref_group + "-group") | camel_class }}.{{ type.ref_member | camel_class }}] for allowed collection members.
-{%- endif %}
      */
     @JvmField val {{ type.name | camel_member }} = {{ type.intro }}"{{ type.name }}")
 {%- endfor %}

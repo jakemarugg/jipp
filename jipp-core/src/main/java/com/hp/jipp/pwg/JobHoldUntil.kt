@@ -12,8 +12,8 @@ import com.hp.jipp.encoding.KeywordType
 import com.hp.jipp.encoding.Tag
 
 /**
- * "job-hold-until" keyword as defined in:
- *   * [RFC8011](http://www.iana.org/go/rfc8011)
+ * "job-hold-until" keyword as defined in
+ * [RFC8011](http://www.iana.org/go/rfc8011).
  *
  * Also used by:
  *   * `job-hold-until-default`
@@ -25,6 +25,7 @@ data class JobHoldUntil(
     override val language: String? = null
 ) : KeywordOrName() {
 
+    /** Construct a [Tag.keyword] form of this preset */
     constructor(value: String): this(value, Tag.keyword)
 
     override fun toString() = value

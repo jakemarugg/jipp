@@ -12,8 +12,8 @@ import com.hp.jipp.encoding.KeywordType
 import com.hp.jipp.encoding.Tag
 
 /**
- * "job-password-repertoire-supported" keyword as defined in:
- *   * [IPPWG20160229-1](http://ftp.pwg.org/pub/pwg/ipp/wd/wp-job-password-repertoire-20160101.pdf)
+ * "job-password-repertoire-supported" keyword as defined in
+ * [IPPWG20160229-1](http://ftp.pwg.org/pub/pwg/ipp/wd/wp-job-password-repertoire-20160101.pdf).
  *
  * Also used by:
  *   * `job-password-repertoire-configured`
@@ -24,6 +24,7 @@ data class JobPasswordRepertoireSupported(
     override val language: String? = null
 ) : KeywordOrName() {
 
+    /** Construct a [Tag.keyword] form of this preset */
     constructor(value: String): this(value, Tag.keyword)
 
     override fun toString() = value

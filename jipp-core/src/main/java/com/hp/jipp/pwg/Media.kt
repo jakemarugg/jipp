@@ -12,15 +12,15 @@ import com.hp.jipp.encoding.KeywordType
 import com.hp.jipp.encoding.Tag
 
 /**
- * "media" keyword as defined in:
- *   * [APPLE20171002](http://www.pwg.org/pipermail/ipp/2017/019352.html)
- *   * [CANON20180329](http://www.pwg.org/pipermail/ipp/2018/019542.html)
- *   * [HP-MEDIA](http://www.pwg.org/pipermail/ipp/2016/018826.html)
- *   * [IPPWG20160229-2](http://www.pwg.org/pipermail/ipp/2016/018729.html)
- *   * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
- *   * [PWG5100.7](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobext10-20031031-5100.7.pdf)
- *   * [PWG5101.1](http://ftp.pwg.org/pub/pwg/candidates/cs-pwgmsn10-20020226-5101.1.pdf)
- *   * [RFC8011](http://www.iana.org/go/rfc8011)
+ * "media" keyword as defined in
+ * [APPLE20171002](http://www.pwg.org/pipermail/ipp/2017/019352.html),
+ * [CANON20180329](http://www.pwg.org/pipermail/ipp/2018/019542.html),
+ * [HP-MEDIA](http://www.pwg.org/pipermail/ipp/2016/018826.html),
+ * [IPPWG20160229-2](http://www.pwg.org/pipermail/ipp/2016/018729.html),
+ * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf),
+ * [PWG5100.7](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobext10-20031031-5100.7.pdf),
+ * [PWG5101.1](http://ftp.pwg.org/pub/pwg/candidates/cs-pwgmsn10-20020226-5101.1.pdf),
+ * [RFC8011](http://www.iana.org/go/rfc8011).
  *
  * Also used by:
  *   * `input-media`
@@ -35,6 +35,7 @@ data class Media(
     override val language: String? = null
 ) : KeywordOrName() {
 
+    /** Construct a [Tag.keyword] form of this preset */
     constructor(value: String): this(value, Tag.keyword)
 
     override fun toString() = value

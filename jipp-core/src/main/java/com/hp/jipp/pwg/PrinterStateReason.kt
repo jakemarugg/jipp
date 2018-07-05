@@ -11,14 +11,14 @@ import com.hp.jipp.encoding.Keyword
 import com.hp.jipp.encoding.KeywordType
 
 /**
- * "printer-state-reasons" keyword as defined in:
- *   * [HPINC20180215](http://www.pwg.org/pipermail/ipp/2018/019504.html)
- *   * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
- *   * [PWG5100.18](http://ftp.pwg.org/pub/pwg/candidates/cs-ippinfra10-20150619-5100.18.pdf)
- *   * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
- *   * [PWG5100.9](http://ftp.pwg.org/pub/pwg/candidates/cs-ippstate10-20090731-5100.9.pdf)
- *   * [RFC3998](http://www.iana.org/go/rfc3998)
- *   * [RFC8011](http://www.iana.org/go/rfc8011)
+ * "printer-state-reasons" keyword as defined in
+ * [HPINC20180215](http://www.pwg.org/pipermail/ipp/2018/019504.html),
+ * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf),
+ * [PWG5100.18](http://ftp.pwg.org/pub/pwg/candidates/cs-ippinfra10-20150619-5100.18.pdf),
+ * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf),
+ * [PWG5100.9](http://ftp.pwg.org/pub/pwg/candidates/cs-ippstate10-20090731-5100.9.pdf),
+ * [RFC3998](http://www.iana.org/go/rfc3998),
+ * [RFC8011](http://www.iana.org/go/rfc8011).
  */
 data class PrinterStateReason(
     override val value: String

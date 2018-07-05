@@ -11,9 +11,9 @@ import com.hp.jipp.encoding.Keyword
 import com.hp.jipp.encoding.KeywordType
 
 /**
- * "print-color-mode" keyword as defined in:
- *   * [APPLE20171101](http://www.pwg.org/pipermail/ipp/2017/019392.html)
- *   * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
+ * "print-color-mode" keyword as defined in
+ * [APPLE20171101](http://www.pwg.org/pipermail/ipp/2017/019392.html),
+ * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf).
  *
  * Also used by:
  *   * `print-color-mode-default`

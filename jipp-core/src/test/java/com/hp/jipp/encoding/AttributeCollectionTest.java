@@ -151,21 +151,22 @@ public class AttributeCollectionTest {
         assertEquals(details, result.getValue());
     }
 
-    @Test
-    public void generatedBuilder() throws IOException {
-        DocumentFormatDetails details = new DocumentFormatDetails.Builder()
-                .documentFormat("format")
-                .documentFormatDeviceId("format-device-id")
-                .documentFormatVersion("format-version")
-                .documentNaturalLanguage(Collections.singletonList("en"))
-                .documentSourceApplicationName("source-app-name")
-                .documentSourceApplicationVersion("source-app-version")
-                .documentSourceOsName("source-os-name")
-                .documentSourceOsVersion("source-os-version")
-                .build();
-
-        DocumentFormatDetails details2 =
-                cycle(OperationGroup.documentFormatDetails, OperationGroup.documentFormatDetails.of(details)).getValue();
-        assertEquals(details, details2);
-    }
+    // TODO: Replace when/if we have builders
+//    @Test
+//    public void generatedBuilder() throws IOException {
+//        DocumentFormatDetails details = new DocumentFormatDetails.Builder()
+//                .documentFormat("format")
+//                .documentFormatDeviceId("format-device-id")
+//                .documentFormatVersion("format-version")
+//                .documentNaturalLanguage(Collections.singletonList("en"))
+//                .documentSourceApplicationName("source-app-name")
+//                .documentSourceApplicationVersion("source-app-version")
+//                .documentSourceOsName("source-os-name")
+//                .documentSourceOsVersion("source-os-version")
+//                .build();
+//
+//        DocumentFormatDetails details2 =
+//                cycle(OperationGroup.documentFormatDetails, OperationGroup.documentFormatDetails.of(details)).getValue();
+//        assertEquals(details, details2);
+//    }
 }

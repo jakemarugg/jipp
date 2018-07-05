@@ -144,18 +144,14 @@ object JobTemplateGroup {
     /**
      * "job-cover-back" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
-     *
-     * See [JobTemplateGroup.CoverBack] for allowed collection members.
      */
-    @JvmField val jobCoverBack = JobCoverBack.Type("job-cover-back")
+    @JvmField val jobCoverBack = CoverBack.Type("job-cover-back")
 
     /**
      * "job-cover-front" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
-     *
-     * See [JobTemplateGroup.CoverFront] for allowed collection members.
      */
-    @JvmField val jobCoverFront = JobCoverFront.Type("job-cover-front")
+    @JvmField val jobCoverFront = CoverFront.Type("job-cover-front")
 
     /**
      * "job-delay-output-until" as defined in:
@@ -190,10 +186,8 @@ object JobTemplateGroup {
     /**
      * "job-finishings-col" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
-     *
-     * See [JobTemplateGroup.FinishingsCol] for allowed collection members.
      */
-    @JvmField val jobFinishingsCol = JobFinishingsCol.Type("job-finishings-col")
+    @JvmField val jobFinishingsCol = FinishingsCol.Type("job-finishings-col")
 
     /**
      * "job-hold-until" as defined in:

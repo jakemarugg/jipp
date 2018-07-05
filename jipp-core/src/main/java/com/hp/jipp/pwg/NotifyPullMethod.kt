@@ -11,9 +11,9 @@ import com.hp.jipp.encoding.Keyword
 import com.hp.jipp.encoding.KeywordType
 
 /**
- * "notify-pull-method" keyword as defined in:
- *   * [RFC3995](http://www.iana.org/go/rfc3995)
- *   * [RFC3996](http://www.iana.org/go/rfc3996)
+ * "notify-pull-method" keyword as defined in
+ * [RFC3995](http://www.iana.org/go/rfc3995),
+ * [RFC3996](http://www.iana.org/go/rfc3996).
  *
  * Also used by:
  *   * `notify-pull-method-supported`

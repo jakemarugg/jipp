@@ -11,8 +11,8 @@ import com.hp.jipp.encoding.Keyword
 import com.hp.jipp.encoding.KeywordType
 
 /**
- * "document-format-varying-attributes" keyword as defined in:
- *   * [RFC3380](http://www.iana.org/go/rfc3380)
+ * "document-format-varying-attributes" keyword as defined in
+ * [RFC3380](http://www.iana.org/go/rfc3380).
  */
 data class DocumentFormatVaryingAttribute(
     override val value: String

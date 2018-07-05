@@ -11,9 +11,9 @@ import com.hp.jipp.encoding.Keyword
 import com.hp.jipp.encoding.KeywordType
 
 /**
- * "sheet-collate" keyword as defined in:
- *   * [APPLE20150505-1](http://www.pwg.org/pipermail/ipp/2015/018517.html)
- *   * [RFC3381](http://www.iana.org/go/rfc3381)
+ * "sheet-collate" keyword as defined in
+ * [APPLE20150505-1](http://www.pwg.org/pipermail/ipp/2015/018517.html),
+ * [RFC3381](http://www.iana.org/go/rfc3381).
  *
  * Also used by:
  *   * `sheet-collate-default`

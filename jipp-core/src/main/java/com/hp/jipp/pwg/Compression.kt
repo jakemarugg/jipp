@@ -11,8 +11,8 @@ import com.hp.jipp.encoding.Keyword
 import com.hp.jipp.encoding.KeywordType
 
 /**
- * "compression" keyword as defined in:
- *   * [RFC8011](http://www.iana.org/go/rfc8011)
+ * "compression" keyword as defined in
+ * [RFC8011](http://www.iana.org/go/rfc8011).
  *
  * Also used by:
  *   * `compression-accepted`

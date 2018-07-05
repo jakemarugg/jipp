@@ -102,10 +102,8 @@ object PrinterDescriptionGroup {
     /**
      * "cover-back-default" as defined in:
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
-     *
-     * See [JobTemplateGroup.CoverBack] for allowed collection members.
      */
-    @JvmField val coverBackDefault = CoverBackDefault.Type("cover-back-default")
+    @JvmField val coverBackDefault = CoverBack.Type("cover-back-default")
 
     /**
      * "cover-back-supported" as defined in:
@@ -116,10 +114,8 @@ object PrinterDescriptionGroup {
     /**
      * "cover-front-default" as defined in:
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
-     *
-     * See [JobTemplateGroup.CoverFront] for allowed collection members.
      */
-    @JvmField val coverFrontDefault = CoverFrontDefault.Type("cover-front-default")
+    @JvmField val coverFrontDefault = CoverFront.Type("cover-front-default")
 
     /**
      * "cover-front-supported" as defined in:
@@ -130,10 +126,8 @@ object PrinterDescriptionGroup {
     /**
      * "cover-sheet-info-default" as defined in:
      * [PWG5100.15](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfaxout10-20131115-5100.15.pdf)
-     *
-     * See [JobTemplateGroup.CoverSheetInfo] for allowed collection members.
      */
-    @JvmField val coverSheetInfoDefault = CoverSheetInfoDefault.Type("cover-sheet-info-default")
+    @JvmField val coverSheetInfoDefault = CoverSheetInfo.Type("cover-sheet-info-default")
 
     /**
      * "cover-sheet-info-supported" as defined in:
@@ -192,10 +186,8 @@ object PrinterDescriptionGroup {
     /**
      * "document-format-details-default" as defined in:
      * [PWG5100.7](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobext10-20031031-5100.7.pdf)
-     *
-     * See [OperationGroup.DocumentFormatDetails] for allowed collection members.
      */
-    @JvmField val documentFormatDetailsDefault = DocumentFormatDetailsDefault.Type("document-format-details-default")
+    @JvmField val documentFormatDetailsDefault = DocumentFormatDetails.Type("document-format-details-default")
 
     /**
      * "document-format-details-supported" as defined in:
@@ -258,26 +250,16 @@ object PrinterDescriptionGroup {
     @JvmField val finishingTemplateSupported = NameType("finishing-template-supported")
 
     /**
-     * "finishings-col-database" as defined in:
-     * [PWG5100.1](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfinishings10-20010205-5100.1.pdf)
-     */
-    @JvmField val finishingsColDatabase = FinishingsColDatabase.Type("finishings-col-database")
-
-    /**
      * "finishings-col-default" as defined in:
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
-     *
-     * See [JobTemplateGroup.FinishingsCol] for allowed collection members.
      */
-    @JvmField val finishingsColDefault = FinishingsColDefault.Type("finishings-col-default")
+    @JvmField val finishingsColDefault = FinishingsCol.Type("finishings-col-default")
 
     /**
      * "finishings-col-ready" as defined in:
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
-     *
-     * See [JobTemplateGroup.FinishingsCol] for allowed collection members.
      */
-    @JvmField val finishingsColReady = FinishingsColReady.Type("finishings-col-ready")
+    @JvmField val finishingsColReady = FinishingsCol.Type("finishings-col-ready")
 
     /**
      * "finishings-col-supported" as defined in:
@@ -382,12 +364,6 @@ object PrinterDescriptionGroup {
     @JvmField val impositionTemplateSupported = ImpositionTemplate.Type("imposition-template-supported")
 
     /**
-     * "input-attributes-default" as defined in:
-     * [PWG5100.15](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfaxout10-20131115-5100.15.pdf)
-     */
-    @JvmField val inputAttributesDefault = InputAttributesDefault.Type("input-attributes-default")
-
-    /**
      * "input-color-mode-supported" as defined in:
      * [PWG5100.15](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfaxout10-20131115-5100.15.pdf)
      */
@@ -462,10 +438,8 @@ object PrinterDescriptionGroup {
     /**
      * "insert-sheet-default" as defined in:
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
-     *
-     * See [JobTemplateGroup.InsertSheet] for allowed collection members.
      */
-    @JvmField val insertSheetDefault = InsertSheetDefault.Type("insert-sheet-default")
+    @JvmField val insertSheetDefault = InsertSheet.Type("insert-sheet-default")
 
     /**
      * "ipp-features-supported" as defined in:
@@ -512,10 +486,8 @@ object PrinterDescriptionGroup {
     /**
      * "job-accounting-sheets-default" as defined in:
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
-     *
-     * See [JobTemplateGroup.JobAccountingSheets] for allowed collection members.
      */
-    @JvmField val jobAccountingSheetsDefault = JobAccountingSheetsDefault.Type("job-accounting-sheets-default")
+    @JvmField val jobAccountingSheetsDefault = JobAccountingSheets.Type("job-accounting-sheets-default")
 
     /**
      * "job-accounting-sheets-supported" as defined in:
@@ -562,10 +534,8 @@ object PrinterDescriptionGroup {
     /**
      * "job-cover-back-default" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
-     *
-     * See [JobTemplateGroup.CoverBack] for allowed collection members.
      */
-    @JvmField val jobCoverBackDefault = JobCoverBackDefault.Type("job-cover-back-default")
+    @JvmField val jobCoverBackDefault = CoverBack.Type("job-cover-back-default")
 
     /**
      * "job-cover-back-supported" as defined in:
@@ -576,10 +546,8 @@ object PrinterDescriptionGroup {
     /**
      * "job-cover-front-default" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
-     *
-     * See [JobTemplateGroup.CoverFront] for allowed collection members.
      */
-    @JvmField val jobCoverFrontDefault = JobCoverFrontDefault.Type("job-cover-front-default")
+    @JvmField val jobCoverFrontDefault = CoverFront.Type("job-cover-front-default")
 
     /**
      * "job-cover-front-supported" as defined in:
@@ -626,10 +594,8 @@ object PrinterDescriptionGroup {
     /**
      * "job-error-sheet-default" as defined in:
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
-     *
-     * See [JobTemplateGroup.JobErrorSheet] for allowed collection members.
      */
-    @JvmField val jobErrorSheetDefault = JobErrorSheetDefault.Type("job-error-sheet-default")
+    @JvmField val jobErrorSheetDefault = JobErrorSheet.Type("job-error-sheet-default")
 
     /**
      * "job-error-sheet-supported" as defined in:
@@ -640,18 +606,14 @@ object PrinterDescriptionGroup {
     /**
      * "job-finishings-col-default" as defined in:
      * [PWG5100.5](http://ftp.pwg.org/pub/pwg/candidates/cs-ippdocobject10-20031031-5100.5.pdf)
-     *
-     * See [JobTemplateGroup.FinishingsCol] for allowed collection members.
      */
-    @JvmField val jobFinishingsColDefault = JobFinishingsColDefault.Type("job-finishings-col-default")
+    @JvmField val jobFinishingsColDefault = FinishingsCol.Type("job-finishings-col-default")
 
     /**
      * "job-finishings-col-ready" as defined in:
      * [PWG5100.7](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobext10-20031031-5100.7.pdf)
-     *
-     * See [JobTemplateGroup.FinishingsCol] for allowed collection members.
      */
-    @JvmField val jobFinishingsColReady = JobFinishingsColReady.Type("job-finishings-col-ready")
+    @JvmField val jobFinishingsColReady = FinishingsCol.Type("job-finishings-col-ready")
 
     /**
      * "job-finishings-col-supported" as defined in:
@@ -830,10 +792,8 @@ object PrinterDescriptionGroup {
     /**
      * "job-sheets-col-default" as defined in:
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
-     *
-     * See [JobTemplateGroup.JobSheetsCol] for allowed collection members.
      */
-    @JvmField val jobSheetsColDefault = JobSheetsColDefault.Type("job-sheets-col-default")
+    @JvmField val jobSheetsColDefault = JobSheetsCol.Type("job-sheets-col-default")
 
     /**
      * "job-sheets-default" as defined in:
@@ -956,28 +916,10 @@ object PrinterDescriptionGroup {
     @JvmField val materialTypeSupported = MaterialType.Type("material-type-supported")
 
     /**
-     * "materials-col-database" as defined in:
-     * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
-     */
-    @JvmField val materialsColDatabase = MaterialsColDatabase.Type("materials-col-database")
-
-    /**
-     * "materials-col-default" as defined in:
-     * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
-     */
-    @JvmField val materialsColDefault = MaterialsColDefault.Type("materials-col-default")
-
-    /**
-     * "materials-col-ready" as defined in:
-     * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
-     */
-    @JvmField val materialsColReady = MaterialsColReady.Type("materials-col-ready")
-
-    /**
      * "materials-col-supported" as defined in:
      * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
      */
-    @JvmField val materialsColSupported = MaterialsColSupported.Type("materials-col-supported")
+    @JvmField val materialsColSupported = MaterialsCol.Keywords.Type("materials-col-supported")
 
     /**
      * "max-materials-col-supported" as defined in:
@@ -1013,27 +955,21 @@ object PrinterDescriptionGroup {
      * "media-col-database" as defined in:
      * [PWG5100.11](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext10-20101030-5100.11.pdf),
      * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
-     *
-     * See [JobTemplateGroup.MediaCol] for allowed collection members.
      */
-    @JvmField val mediaColDatabase = MediaColDatabase.Type("media-col-database")
+    @JvmField val mediaColDatabase = MediaCol.Type("media-col-database")
 
     /**
      * "media-col-default" as defined in:
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
-     *
-     * See [JobTemplateGroup.MediaCol] for allowed collection members.
      */
-    @JvmField val mediaColDefault = MediaColDefault.Type("media-col-default")
+    @JvmField val mediaColDefault = MediaCol.Type("media-col-default")
 
     /**
      * "media-col-ready" as defined in:
      * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf),
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
-     *
-     * See [JobTemplateGroup.MediaCol] for allowed collection members.
      */
-    @JvmField val mediaColReady = MediaColReady.Type("media-col-ready")
+    @JvmField val mediaColReady = MediaCol.Type("media-col-ready")
 
     /**
      * "media-col-supported" as defined in:
@@ -1318,12 +1254,6 @@ object PrinterDescriptionGroup {
     @JvmField val orientationRequestedSupported = Orientation.Type("orientation-requested-supported")
 
     /**
-     * "output-attributes-default" as defined in:
-     * [PWG5100.17](http://ftp.pwg.org/pub/pwg/candidates/cs-ippscan10-20140918-5100.17.pdf)
-     */
-    @JvmField val outputAttributesDefault = OutputAttributesDefault.Type("output-attributes-default")
-
-    /**
      * "output-bin-default" as defined in:
      * [PWG5100.2](http://ftp.pwg.org/pub/pwg/candidates/cs-ippoutputbin10-20010207-5100.2.pdf)
      */
@@ -1410,10 +1340,8 @@ object PrinterDescriptionGroup {
     /**
      * "pdl-init-file-default" as defined in:
      * [PWG5100.11](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext10-20101030-5100.11.pdf)
-     *
-     * See [JobTemplateGroup.PdlInitFile] for allowed collection members.
      */
-    @JvmField val pdlInitFileDefault = PdlInitFileDefault.Type("pdl-init-file-default")
+    @JvmField val pdlInitFileDefault = PdlInitFile.Type("pdl-init-file-default")
 
     /**
      * "pdl-init-file-entry-supported" as defined in:
@@ -1539,7 +1467,7 @@ object PrinterDescriptionGroup {
      * "print-objects-supported" as defined in:
      * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
      */
-    @JvmField val printObjectsSupported = PrintObjectsSupported.Type("print-objects-supported")
+    @JvmField val printObjectsSupported = PrintObjects.Keywords.Type("print-objects-supported")
 
     /**
      * "print-quality-default" as defined in:
@@ -1772,10 +1700,8 @@ object PrinterDescriptionGroup {
     /**
      * "proof-print-default" as defined in:
      * [PWG5100.11](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext10-20101030-5100.11.pdf)
-     *
-     * See [JobTemplateGroup.ProofPrint] for allowed collection members.
      */
-    @JvmField val proofPrintDefault = ProofPrintDefault.Type("proof-print-default")
+    @JvmField val proofPrintDefault = ProofPrint.Type("proof-print-default")
 
     /**
      * "proof-print-supported" as defined in:
@@ -1906,10 +1832,8 @@ object PrinterDescriptionGroup {
     /**
      * "separator-sheets-default" as defined in:
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
-     *
-     * See [JobTemplateGroup.SeparatorSheets] for allowed collection members.
      */
-    @JvmField val separatorSheetsDefault = SeparatorSheetsDefault.Type("separator-sheets-default")
+    @JvmField val separatorSheetsDefault = SeparatorSheets.Type("separator-sheets-default")
 
     /**
      * "separator-sheets-supported" as defined in:

@@ -12,10 +12,10 @@ import com.hp.jipp.encoding.KeywordType
 import com.hp.jipp.encoding.Tag
 
 /**
- * "finishing-template" keyword as defined in:
- *   * [CANON-PUNCHING](http://www.pwg.org/pipermail/ipp/2016/018825.html)
- *   * [IPP-JOG-OFFSET](http://ftp.pwg.org/pub/pwg/ipp/minutes/ippv2-f2f-minutes-20170214.pdf)
- *   * [PWG5100.1](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfinishings10-20010205-5100.1.pdf)
+ * "finishing-template" keyword as defined in
+ * [CANON-PUNCHING](http://www.pwg.org/pipermail/ipp/2016/018825.html),
+ * [IPP-JOG-OFFSET](http://ftp.pwg.org/pub/pwg/ipp/minutes/ippv2-f2f-minutes-20170214.pdf),
+ * [PWG5100.1](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfinishings10-20010205-5100.1.pdf).
  *
  * Also used by:
  *   * `finishing-template-supported`
@@ -26,6 +26,7 @@ data class FinishingTemplate(
     override val language: String? = null
 ) : KeywordOrName() {
 
+    /** Construct a [Tag.keyword] form of this preset */
     constructor(value: String): this(value, Tag.keyword)
 
     override fun toString() = value

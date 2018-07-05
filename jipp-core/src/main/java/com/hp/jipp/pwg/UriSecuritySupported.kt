@@ -11,8 +11,8 @@ import com.hp.jipp.encoding.Keyword
 import com.hp.jipp.encoding.KeywordType
 
 /**
- * "uri-security-supported" keyword as defined in:
- *   * [RFC8011](http://www.iana.org/go/rfc8011)
+ * "uri-security-supported" keyword as defined in
+ * [RFC8011](http://www.iana.org/go/rfc8011).
  */
 data class UriSecuritySupported(
     override val value: String

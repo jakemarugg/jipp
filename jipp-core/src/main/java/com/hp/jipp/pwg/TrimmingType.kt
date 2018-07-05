@@ -12,9 +12,9 @@ import com.hp.jipp.encoding.KeywordType
 import com.hp.jipp.encoding.Tag
 
 /**
- * "trimming-type" keyword as defined in:
- *   * [IPPWG20160325](http://www.pwg.org/pipermail/ipp/2016/018744.html)
- *   * [PWG5100.1](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfinishings10-20010205-5100.1.pdf)
+ * "trimming-type" keyword as defined in
+ * [IPPWG20160325](http://www.pwg.org/pipermail/ipp/2016/018744.html),
+ * [PWG5100.1](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfinishings10-20010205-5100.1.pdf).
  *
  * Also used by:
  *   * `trimming-type-supported`
@@ -25,6 +25,7 @@ data class TrimmingType(
     override val language: String? = null
 ) : KeywordOrName() {
 
+    /** Construct a [Tag.keyword] form of this preset */
     constructor(value: String): this(value, Tag.keyword)
 
     override fun toString() = value

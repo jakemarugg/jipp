@@ -18,8 +18,8 @@ import com.hp.jipp.encoding.KeywordType
 {%- endif %}
 
 /**
- * "{{ keyword.fullname }}" keyword as defined in:{%- for spec in keyword.specs | sort %}
- *   * [{{ spec | upper }}]({{ specs[spec] }}){%- endfor %}{%- if keyword['refs']%}
+ * "{{ keyword.fullname }}" keyword as defined in {%- for spec in keyword.specs | sort %}
+ * [{{ spec | upper }}]({{ specs[spec] }}){{ "," if not loop.last }}{%- endfor %}.{%- if keyword['refs']%}
  *
  * Also used by:{%- for ref in keyword['refs'] | sort %}
  *   * `{{ ref }}`{%- endfor%}{%- endif %}
@@ -30,6 +30,7 @@ data class {{ keyword.name | camel_class }}(
     override val language: String? = null
 ) : KeywordOrName() {
 
+    /** Construct a [Tag.keyword] form of this preset */
     constructor(value: String): this(value, Tag.keyword)
 {%- else %}
 ) : Keyword() {

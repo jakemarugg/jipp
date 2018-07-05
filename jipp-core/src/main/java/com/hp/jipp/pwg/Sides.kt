@@ -11,8 +11,8 @@ import com.hp.jipp.encoding.Keyword
 import com.hp.jipp.encoding.KeywordType
 
 /**
- * "sides" keyword as defined in:
- *   * [RFC8011](http://www.iana.org/go/rfc8011)
+ * "sides" keyword as defined in
+ * [RFC8011](http://www.iana.org/go/rfc8011).
  *
  * Also used by:
  *   * `input-sides`

@@ -11,10 +11,10 @@ import com.hp.jipp.encoding.Keyword
 import com.hp.jipp.encoding.KeywordType
 
 /**
- * "ipp-versions-supported" keyword as defined in:
- *   * [PWG5100.10](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp20-20090731-5100.10.pdf)
- *   * [PWG5100.12](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp20-20110214-5100.12.pdf)
- *   * [RFC8011](http://www.iana.org/go/rfc8011)
+ * "ipp-versions-supported" keyword as defined in
+ * [PWG5100.10](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp20-20090731-5100.10.pdf),
+ * [PWG5100.12](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp20-20110214-5100.12.pdf),
+ * [RFC8011](http://www.iana.org/go/rfc8011).
  */
 data class IppVersionsSupported(
     override val value: String
