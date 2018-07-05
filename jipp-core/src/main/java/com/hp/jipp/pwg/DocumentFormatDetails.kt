@@ -11,8 +11,9 @@ import com.hp.jipp.encoding.* // ktlint-disable no-wildcard-imports
 
 /**
  * Data object corresponding to a "document-format-details" collection as defined in:
- *   * [PWG5100.7](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobext10-20031031-5100.7.pdf)
+ * [PWG5100.7](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobext10-20031031-5100.7.pdf).
  */
+@Suppress("RedundantCompanionReference", "unused")
 data class DocumentFormatDetails
 @JvmOverloads constructor(
     val documentFormat: String? = null,

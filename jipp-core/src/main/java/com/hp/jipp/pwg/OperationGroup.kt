@@ -131,7 +131,7 @@ object OperationGroup {
 
     /**
      * "document-natural-language" as defined in:
-     * [PWG5100.7](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobext10-20031031-5100.7.pdf)
+     * [PWG5100.7](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobext10-20031031-5100.7.pdf),
      * [RFC8011](http://www.iana.org/go/rfc8011)
      */
     @JvmField val documentNaturalLanguage = StringType(Tag.naturalLanguage, "document-natural-language")

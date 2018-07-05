@@ -11,8 +11,9 @@ import com.hp.jipp.encoding.* // ktlint-disable no-wildcard-imports
 
 /**
  * Data object corresponding to a "job-save-disposition" collection as defined in:
- *   * [PWG5100.11](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext10-20101030-5100.11.pdf)
+ * [PWG5100.11](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext10-20101030-5100.11.pdf).
  */
+@Suppress("RedundantCompanionReference", "unused")
 data class JobSaveDisposition
 @JvmOverloads constructor(
     val saveDisposition: SaveDisposition? = null,
@@ -75,6 +76,7 @@ data class JobSaveDisposition
     /**
      * Data object corresponding to a "save-info" collection.
      */
+    @Suppress("RedundantCompanionReference", "unused")
     data class SaveInfo
     @JvmOverloads constructor(
         val saveDocumentFormat: String? = null,

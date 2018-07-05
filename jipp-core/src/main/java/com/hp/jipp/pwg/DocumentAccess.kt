@@ -11,8 +11,9 @@ import com.hp.jipp.encoding.* // ktlint-disable no-wildcard-imports
 
 /**
  * Data object corresponding to a "document-access" collection as defined in:
- *   * [PWG5100.18](http://ftp.pwg.org/pub/pwg/candidates/cs-ippinfra10-20150619-5100.18.pdf)
+ * [PWG5100.18](http://ftp.pwg.org/pub/pwg/candidates/cs-ippinfra10-20150619-5100.18.pdf).
  */
+@Suppress("RedundantCompanionReference", "unused")
 data class DocumentAccess
 @JvmOverloads constructor(
     val accessOauthToken: List<ByteArray>? = null,

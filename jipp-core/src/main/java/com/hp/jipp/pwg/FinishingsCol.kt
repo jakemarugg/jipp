@@ -11,9 +11,10 @@ import com.hp.jipp.encoding.* // ktlint-disable no-wildcard-imports
 
 /**
  * Data object corresponding to a "finishings-col" collection as defined in:
- *   * [PWG5100.1](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfinishings10-20010205-5100.1.pdf)
- *   * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
+ * [PWG5100.1](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfinishings10-20010205-5100.1.pdf),
+ * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf).
  */
+@Suppress("RedundantCompanionReference", "unused")
 data class FinishingsCol
 @JvmOverloads constructor(
     val baling: Baling? = null,
@@ -184,13 +185,14 @@ data class FinishingsCol
     /**
      * Data object corresponding to a "baling" collection.
      */
+    @Suppress("RedundantCompanionReference", "unused")
     data class Baling
     @JvmOverloads constructor(
         val balingType: BalingType? = null,
         val balingWhen: BalingWhen? = null,
         val _extras: List<Attribute<*>> = listOf()
     ) : HasAttributeCollection {
-
+    
         /** Generate attribute list */
         override val attributes: AttributeCollection by lazy {
             AttributeCollection(mutableListOf<Attribute<*>>().apply {
@@ -202,10 +204,10 @@ data class FinishingsCol
                 }
             } + _extras)
         }
-
+    
         /** Type for attributes of this collection */
         class Type(name: String): TypedCollectionType<Baling>(Members, name)
-
+    
         companion object Members : CollectionParser<Baling> {
             override val typeName = Baling::class.java.simpleName!!
             override fun fromAttributes(attributes: List<Attribute<*>>): Baling {
@@ -220,7 +222,7 @@ data class FinishingsCol
             /** "baling-when" member type */
             @JvmField val balingWhen = BalingWhen.Type("baling-when")
         }
-
+    
         /**
          * All allowed member names in keyword form.
          */
@@ -230,13 +232,13 @@ data class FinishingsCol
             override fun toString() = value
             /** An attribute type for [Baling] member names as keywords */
             class Type(name: String) : KeywordType<Keywords>(Encoder, name)
-
+    
             companion object {
                 /** "baling-type" member type */
                 @JvmField val balingType = Keywords(Members.balingType.name)
                 /** "baling-when" member type */
                 @JvmField val balingWhen = Keywords(Members.balingWhen.name)
-
+    
                 @JvmField val Encoder = KeywordType.encoderOf(Keywords::class.java) { value, _, _ ->
                     Keywords(value)
                 }
@@ -247,13 +249,14 @@ data class FinishingsCol
     /**
      * Data object corresponding to a "binding" collection.
      */
+    @Suppress("RedundantCompanionReference", "unused")
     data class Binding
     @JvmOverloads constructor(
         val bindingReferenceEdge: BindingReferenceEdge? = null,
         val bindingType: BindingType? = null,
         val _extras: List<Attribute<*>> = listOf()
     ) : HasAttributeCollection {
-
+    
         /** Generate attribute list */
         override val attributes: AttributeCollection by lazy {
             AttributeCollection(mutableListOf<Attribute<*>>().apply {
@@ -265,10 +268,10 @@ data class FinishingsCol
                 }
             } + _extras)
         }
-
+    
         /** Type for attributes of this collection */
         class Type(name: String): TypedCollectionType<Binding>(Members, name)
-
+    
         companion object Members : CollectionParser<Binding> {
             override val typeName = Binding::class.java.simpleName!!
             override fun fromAttributes(attributes: List<Attribute<*>>): Binding {
@@ -283,7 +286,7 @@ data class FinishingsCol
             /** "binding-type" member type */
             @JvmField val bindingType = BindingType.Type("binding-type")
         }
-
+    
         /**
          * All allowed member names in keyword form.
          */
@@ -293,13 +296,13 @@ data class FinishingsCol
             override fun toString() = value
             /** An attribute type for [Binding] member names as keywords */
             class Type(name: String) : KeywordType<Keywords>(Encoder, name)
-
+    
             companion object {
                 /** "binding-reference-edge" member type */
                 @JvmField val bindingReferenceEdge = Keywords(Members.bindingReferenceEdge.name)
                 /** "binding-type" member type */
                 @JvmField val bindingType = Keywords(Members.bindingType.name)
-
+    
                 @JvmField val Encoder = KeywordType.encoderOf(Keywords::class.java) { value, _, _ ->
                     Keywords(value)
                 }
@@ -310,13 +313,14 @@ data class FinishingsCol
     /**
      * Data object corresponding to a "coating" collection.
      */
+    @Suppress("RedundantCompanionReference", "unused")
     data class Coating
     @JvmOverloads constructor(
         val coatingSides: CoatingSides? = null,
         val coatingType: CoatingType? = null,
         val _extras: List<Attribute<*>> = listOf()
     ) : HasAttributeCollection {
-
+    
         /** Generate attribute list */
         override val attributes: AttributeCollection by lazy {
             AttributeCollection(mutableListOf<Attribute<*>>().apply {
@@ -328,10 +332,10 @@ data class FinishingsCol
                 }
             } + _extras)
         }
-
+    
         /** Type for attributes of this collection */
         class Type(name: String): TypedCollectionType<Coating>(Members, name)
-
+    
         companion object Members : CollectionParser<Coating> {
             override val typeName = Coating::class.java.simpleName!!
             override fun fromAttributes(attributes: List<Attribute<*>>): Coating {
@@ -346,7 +350,7 @@ data class FinishingsCol
             /** "coating-type" member type */
             @JvmField val coatingType = CoatingType.Type("coating-type")
         }
-
+    
         /**
          * All allowed member names in keyword form.
          */
@@ -356,13 +360,13 @@ data class FinishingsCol
             override fun toString() = value
             /** An attribute type for [Coating] member names as keywords */
             class Type(name: String) : KeywordType<Keywords>(Encoder, name)
-
+    
             companion object {
                 /** "coating-sides" member type */
                 @JvmField val coatingSides = Keywords(Members.coatingSides.name)
                 /** "coating-type" member type */
                 @JvmField val coatingType = Keywords(Members.coatingType.name)
-
+    
                 @JvmField val Encoder = KeywordType.encoderOf(Keywords::class.java) { value, _, _ ->
                     Keywords(value)
                 }
@@ -373,12 +377,13 @@ data class FinishingsCol
     /**
      * Data object corresponding to a "covering" collection.
      */
+    @Suppress("RedundantCompanionReference", "unused")
     data class Covering
     @JvmOverloads constructor(
         val coveringName: CoveringName? = null,
         val _extras: List<Attribute<*>> = listOf()
     ) : HasAttributeCollection {
-
+    
         /** Generate attribute list */
         override val attributes: AttributeCollection by lazy {
             AttributeCollection(mutableListOf<Attribute<*>>().apply {
@@ -387,10 +392,10 @@ data class FinishingsCol
                 }
             } + _extras)
         }
-
+    
         /** Type for attributes of this collection */
         class Type(name: String): TypedCollectionType<Covering>(Members, name)
-
+    
         companion object Members : CollectionParser<Covering> {
             override val typeName = Covering::class.java.simpleName!!
             override fun fromAttributes(attributes: List<Attribute<*>>): Covering {
@@ -402,7 +407,7 @@ data class FinishingsCol
             /** "covering-name" member type */
             @JvmField val coveringName = CoveringName.Type("covering-name")
         }
-
+    
         /**
          * All allowed member names in keyword form.
          */
@@ -412,11 +417,11 @@ data class FinishingsCol
             override fun toString() = value
             /** An attribute type for [Covering] member names as keywords */
             class Type(name: String) : KeywordType<Keywords>(Encoder, name)
-
+    
             companion object {
                 /** "covering-name" member type */
                 @JvmField val coveringName = Keywords(Members.coveringName.name)
-
+    
                 @JvmField val Encoder = KeywordType.encoderOf(Keywords::class.java) { value, _, _ ->
                     Keywords(value)
                 }
@@ -427,6 +432,7 @@ data class FinishingsCol
     /**
      * Data object corresponding to a "folding" collection.
      */
+    @Suppress("RedundantCompanionReference", "unused")
     data class Folding
     @JvmOverloads constructor(
         val foldingDirection: FoldingDirection? = null,
@@ -434,7 +440,7 @@ data class FinishingsCol
         val foldingReferenceEdge: FoldingReferenceEdge? = null,
         val _extras: List<Attribute<*>> = listOf()
     ) : HasAttributeCollection {
-
+    
         /** Generate attribute list */
         override val attributes: AttributeCollection by lazy {
             AttributeCollection(mutableListOf<Attribute<*>>().apply {
@@ -449,10 +455,10 @@ data class FinishingsCol
                 }
             } + _extras)
         }
-
+    
         /** Type for attributes of this collection */
         class Type(name: String): TypedCollectionType<Folding>(Members, name)
-
+    
         companion object Members : CollectionParser<Folding> {
             override val typeName = Folding::class.java.simpleName!!
             override fun fromAttributes(attributes: List<Attribute<*>>): Folding {
@@ -470,7 +476,7 @@ data class FinishingsCol
             /** "folding-reference-edge" member type */
             @JvmField val foldingReferenceEdge = FoldingReferenceEdge.Type("folding-reference-edge")
         }
-
+    
         /**
          * All allowed member names in keyword form.
          */
@@ -480,7 +486,7 @@ data class FinishingsCol
             override fun toString() = value
             /** An attribute type for [Folding] member names as keywords */
             class Type(name: String) : KeywordType<Keywords>(Encoder, name)
-
+    
             companion object {
                 /** "folding-direction" member type */
                 @JvmField val foldingDirection = Keywords(Members.foldingDirection.name)
@@ -488,7 +494,7 @@ data class FinishingsCol
                 @JvmField val foldingOffset = Keywords(Members.foldingOffset.name)
                 /** "folding-reference-edge" member type */
                 @JvmField val foldingReferenceEdge = Keywords(Members.foldingReferenceEdge.name)
-
+    
                 @JvmField val Encoder = KeywordType.encoderOf(Keywords::class.java) { value, _, _ ->
                     Keywords(value)
                 }
@@ -499,13 +505,14 @@ data class FinishingsCol
     /**
      * Data object corresponding to a "laminating" collection.
      */
+    @Suppress("RedundantCompanionReference", "unused")
     data class Laminating
     @JvmOverloads constructor(
         val laminatingSides: LaminatingSides? = null,
         val laminatingType: LaminatingType? = null,
         val _extras: List<Attribute<*>> = listOf()
     ) : HasAttributeCollection {
-
+    
         /** Generate attribute list */
         override val attributes: AttributeCollection by lazy {
             AttributeCollection(mutableListOf<Attribute<*>>().apply {
@@ -517,10 +524,10 @@ data class FinishingsCol
                 }
             } + _extras)
         }
-
+    
         /** Type for attributes of this collection */
         class Type(name: String): TypedCollectionType<Laminating>(Members, name)
-
+    
         companion object Members : CollectionParser<Laminating> {
             override val typeName = Laminating::class.java.simpleName!!
             override fun fromAttributes(attributes: List<Attribute<*>>): Laminating {
@@ -535,7 +542,7 @@ data class FinishingsCol
             /** "laminating-type" member type */
             @JvmField val laminatingType = LaminatingType.Type("laminating-type")
         }
-
+    
         /**
          * All allowed member names in keyword form.
          */
@@ -545,13 +552,13 @@ data class FinishingsCol
             override fun toString() = value
             /** An attribute type for [Laminating] member names as keywords */
             class Type(name: String) : KeywordType<Keywords>(Encoder, name)
-
+    
             companion object {
                 /** "laminating-sides" member type */
                 @JvmField val laminatingSides = Keywords(Members.laminatingSides.name)
                 /** "laminating-type" member type */
                 @JvmField val laminatingType = Keywords(Members.laminatingType.name)
-
+    
                 @JvmField val Encoder = KeywordType.encoderOf(Keywords::class.java) { value, _, _ ->
                     Keywords(value)
                 }
@@ -562,13 +569,14 @@ data class FinishingsCol
     /**
      * Data object corresponding to a "media-size" collection.
      */
+    @Suppress("RedundantCompanionReference", "unused")
     data class MediaSize
     @JvmOverloads constructor(
         val xDimension: Int? = null,
         val yDimension: Int? = null,
         val _extras: List<Attribute<*>> = listOf()
     ) : HasAttributeCollection {
-
+    
         /** Generate attribute list */
         override val attributes: AttributeCollection by lazy {
             AttributeCollection(mutableListOf<Attribute<*>>().apply {
@@ -580,10 +588,10 @@ data class FinishingsCol
                 }
             } + _extras)
         }
-
+    
         /** Type for attributes of this collection */
         class Type(name: String): TypedCollectionType<MediaSize>(Members, name)
-
+    
         companion object Members : CollectionParser<MediaSize> {
             override val typeName = MediaSize::class.java.simpleName!!
             override fun fromAttributes(attributes: List<Attribute<*>>): MediaSize {
@@ -598,7 +606,7 @@ data class FinishingsCol
             /** "y-dimension" member type */
             @JvmField val yDimension = IntegerType("y-dimension")
         }
-
+    
         /**
          * All allowed member names in keyword form.
          */
@@ -608,13 +616,13 @@ data class FinishingsCol
             override fun toString() = value
             /** An attribute type for [MediaSize] member names as keywords */
             class Type(name: String) : KeywordType<Keywords>(Encoder, name)
-
+    
             companion object {
                 /** "x-dimension" member type */
                 @JvmField val xDimension = Keywords(Members.xDimension.name)
                 /** "y-dimension" member type */
                 @JvmField val yDimension = Keywords(Members.yDimension.name)
-
+    
                 @JvmField val Encoder = KeywordType.encoderOf(Keywords::class.java) { value, _, _ ->
                     Keywords(value)
                 }
@@ -625,6 +633,7 @@ data class FinishingsCol
     /**
      * Data object corresponding to a "punching" collection.
      */
+    @Suppress("RedundantCompanionReference", "unused")
     data class Punching
     @JvmOverloads constructor(
         val punchingLocations: List<Int>? = null,
@@ -632,7 +641,7 @@ data class FinishingsCol
         val punchingReferenceEdge: PunchingReferenceEdge? = null,
         val _extras: List<Attribute<*>> = listOf()
     ) : HasAttributeCollection {
-
+    
         /** Generate attribute list */
         override val attributes: AttributeCollection by lazy {
             AttributeCollection(mutableListOf<Attribute<*>>().apply {
@@ -647,10 +656,10 @@ data class FinishingsCol
                 }
             } + _extras)
         }
-
+    
         /** Type for attributes of this collection */
         class Type(name: String): TypedCollectionType<Punching>(Members, name)
-
+    
         companion object Members : CollectionParser<Punching> {
             override val typeName = Punching::class.java.simpleName!!
             override fun fromAttributes(attributes: List<Attribute<*>>): Punching {
@@ -668,7 +677,7 @@ data class FinishingsCol
             /** "punching-reference-edge" member type */
             @JvmField val punchingReferenceEdge = PunchingReferenceEdge.Type("punching-reference-edge")
         }
-
+    
         /**
          * All allowed member names in keyword form.
          */
@@ -678,7 +687,7 @@ data class FinishingsCol
             override fun toString() = value
             /** An attribute type for [Punching] member names as keywords */
             class Type(name: String) : KeywordType<Keywords>(Encoder, name)
-
+    
             companion object {
                 /** "punching-locations" member type */
                 @JvmField val punchingLocations = Keywords(Members.punchingLocations.name)
@@ -686,7 +695,7 @@ data class FinishingsCol
                 @JvmField val punchingOffset = Keywords(Members.punchingOffset.name)
                 /** "punching-reference-edge" member type */
                 @JvmField val punchingReferenceEdge = Keywords(Members.punchingReferenceEdge.name)
-
+    
                 @JvmField val Encoder = KeywordType.encoderOf(Keywords::class.java) { value, _, _ ->
                     Keywords(value)
                 }
@@ -697,6 +706,7 @@ data class FinishingsCol
     /**
      * Data object corresponding to a "stitching" collection.
      */
+    @Suppress("RedundantCompanionReference", "unused")
     data class Stitching
     @JvmOverloads constructor(
         val stitchingAngle: Int? = null,
@@ -706,7 +716,7 @@ data class FinishingsCol
         val stitchingReferenceEdge: StitchingReferenceEdge? = null,
         val _extras: List<Attribute<*>> = listOf()
     ) : HasAttributeCollection {
-
+    
         /** Generate attribute list */
         override val attributes: AttributeCollection by lazy {
             AttributeCollection(mutableListOf<Attribute<*>>().apply {
@@ -727,10 +737,10 @@ data class FinishingsCol
                 }
             } + _extras)
         }
-
+    
         /** Type for attributes of this collection */
         class Type(name: String): TypedCollectionType<Stitching>(Members, name)
-
+    
         companion object Members : CollectionParser<Stitching> {
             override val typeName = Stitching::class.java.simpleName!!
             override fun fromAttributes(attributes: List<Attribute<*>>): Stitching {
@@ -754,7 +764,7 @@ data class FinishingsCol
             /** "stitching-reference-edge" member type */
             @JvmField val stitchingReferenceEdge = StitchingReferenceEdge.Type("stitching-reference-edge")
         }
-
+    
         /**
          * All allowed member names in keyword form.
          */
@@ -764,7 +774,7 @@ data class FinishingsCol
             override fun toString() = value
             /** An attribute type for [Stitching] member names as keywords */
             class Type(name: String) : KeywordType<Keywords>(Encoder, name)
-
+    
             companion object {
                 /** "stitching-angle" member type */
                 @JvmField val stitchingAngle = Keywords(Members.stitchingAngle.name)
@@ -776,7 +786,7 @@ data class FinishingsCol
                 @JvmField val stitchingOffset = Keywords(Members.stitchingOffset.name)
                 /** "stitching-reference-edge" member type */
                 @JvmField val stitchingReferenceEdge = Keywords(Members.stitchingReferenceEdge.name)
-
+    
                 @JvmField val Encoder = KeywordType.encoderOf(Keywords::class.java) { value, _, _ ->
                     Keywords(value)
                 }
@@ -787,6 +797,7 @@ data class FinishingsCol
     /**
      * Data object corresponding to a "trimming" collection.
      */
+    @Suppress("RedundantCompanionReference", "unused")
     data class Trimming
     @JvmOverloads constructor(
         val trimmingOffset: Int? = null,
@@ -795,7 +806,7 @@ data class FinishingsCol
         val trimmingWhen: TrimmingWhen? = null,
         val _extras: List<Attribute<*>> = listOf()
     ) : HasAttributeCollection {
-
+    
         /** Generate attribute list */
         override val attributes: AttributeCollection by lazy {
             AttributeCollection(mutableListOf<Attribute<*>>().apply {
@@ -813,10 +824,10 @@ data class FinishingsCol
                 }
             } + _extras)
         }
-
+    
         /** Type for attributes of this collection */
         class Type(name: String): TypedCollectionType<Trimming>(Members, name)
-
+    
         companion object Members : CollectionParser<Trimming> {
             override val typeName = Trimming::class.java.simpleName!!
             override fun fromAttributes(attributes: List<Attribute<*>>): Trimming {
@@ -837,7 +848,7 @@ data class FinishingsCol
             /** "trimming-when" member type */
             @JvmField val trimmingWhen = TrimmingWhen.Type("trimming-when")
         }
-
+    
         /**
          * All allowed member names in keyword form.
          */
@@ -847,7 +858,7 @@ data class FinishingsCol
             override fun toString() = value
             /** An attribute type for [Trimming] member names as keywords */
             class Type(name: String) : KeywordType<Keywords>(Encoder, name)
-
+    
             companion object {
                 /** "trimming-offset" member type */
                 @JvmField val trimmingOffset = Keywords(Members.trimmingOffset.name)
@@ -857,7 +868,7 @@ data class FinishingsCol
                 @JvmField val trimmingType = Keywords(Members.trimmingType.name)
                 /** "trimming-when" member type */
                 @JvmField val trimmingWhen = Keywords(Members.trimmingWhen.name)
-
+    
                 @JvmField val Encoder = KeywordType.encoderOf(Keywords::class.java) { value, _, _ ->
                     Keywords(value)
                 }

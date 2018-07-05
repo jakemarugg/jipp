@@ -11,8 +11,9 @@ import com.hp.jipp.encoding.* // ktlint-disable no-wildcard-imports
 
 /**
  * Data object corresponding to a "destination-accesses" collection as defined in:
- *   * [PWG5100.17](http://ftp.pwg.org/pub/pwg/candidates/cs-ippscan10-20140918-5100.17.pdf)
+ * [PWG5100.17](http://ftp.pwg.org/pub/pwg/candidates/cs-ippscan10-20140918-5100.17.pdf).
  */
+@Suppress("RedundantCompanionReference", "unused")
 data class DestinationAccesses
 @JvmOverloads constructor(
     val accessOauthToken: List<ByteArray>? = null,

@@ -1011,7 +1011,7 @@ object PrinterDescriptionGroup {
 
     /**
      * "media-col-database" as defined in:
-     * [PWG5100.11](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext10-20101030-5100.11.pdf)
+     * [PWG5100.11](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext10-20101030-5100.11.pdf),
      * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
      *
      * See [JobTemplateGroup.MediaCol] for allowed collection members.
@@ -1028,7 +1028,7 @@ object PrinterDescriptionGroup {
 
     /**
      * "media-col-ready" as defined in:
-     * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
+     * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf),
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
      *
      * See [JobTemplateGroup.MediaCol] for allowed collection members.

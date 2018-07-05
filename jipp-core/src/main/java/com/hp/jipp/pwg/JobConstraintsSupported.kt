@@ -11,8 +11,9 @@ import com.hp.jipp.encoding.* // ktlint-disable no-wildcard-imports
 
 /**
  * Data object corresponding to a "job-constraints-supported" collection as defined in:
- *   * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
+ * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf).
  */
+@Suppress("RedundantCompanionReference", "unused")
 data class JobConstraintsSupported
 @JvmOverloads constructor(
     val resolverName: String? = null,

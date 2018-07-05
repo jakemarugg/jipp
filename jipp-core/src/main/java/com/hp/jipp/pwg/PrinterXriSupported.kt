@@ -11,8 +11,9 @@ import com.hp.jipp.encoding.* // ktlint-disable no-wildcard-imports
 
 /**
  * Data object corresponding to a "printer-xri-supported" collection as defined in:
- *   * [RFC3380](http://www.iana.org/go/rfc3380)
+ * [RFC3380](http://www.iana.org/go/rfc3380).
  */
+@Suppress("RedundantCompanionReference", "unused")
 data class PrinterXriSupported
 @JvmOverloads constructor(
     val xriAuthentication: XriAuthenticationSupported? = null,

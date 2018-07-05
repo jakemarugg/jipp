@@ -11,8 +11,9 @@ import com.hp.jipp.encoding.* // ktlint-disable no-wildcard-imports
 
 /**
  * Data object corresponding to a "print-accuracy" collection as defined in:
- *   * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
+ * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf).
  */
+@Suppress("RedundantCompanionReference", "unused")
 data class PrintAccuracy
 @JvmOverloads constructor(
     val accuracyUnits: AccuracyUnit? = null,

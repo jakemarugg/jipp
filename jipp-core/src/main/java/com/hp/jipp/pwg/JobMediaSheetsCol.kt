@@ -11,8 +11,9 @@ import com.hp.jipp.encoding.* // ktlint-disable no-wildcard-imports
 
 /**
  * Data object corresponding to a "job-media-sheets-col" collection as defined in:
- *   * [APRIL2015F2F](http://ftp.pwg.org/pub/pwg/ipp/minutes/ippv2-f2f-minutes-20150429.pdf)
+ * [APRIL2015F2F](http://ftp.pwg.org/pub/pwg/ipp/minutes/ippv2-f2f-minutes-20150429.pdf).
  */
+@Suppress("RedundantCompanionReference", "unused")
 data class JobMediaSheetsCol
 @JvmOverloads constructor(
     val blank: Int? = null,

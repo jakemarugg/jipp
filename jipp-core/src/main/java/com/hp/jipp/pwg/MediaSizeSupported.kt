@@ -11,8 +11,9 @@ import com.hp.jipp.encoding.* // ktlint-disable no-wildcard-imports
 
 /**
  * Data object corresponding to a "media-size-supported" collection as defined in:
- *   * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
+ * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf).
  */
+@Suppress("RedundantCompanionReference", "unused")
 data class MediaSizeSupported
 @JvmOverloads constructor(
     val xDimension: IntRangeOrInt? = null,

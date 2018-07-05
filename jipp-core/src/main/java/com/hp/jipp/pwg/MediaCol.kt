@@ -11,10 +11,11 @@ import com.hp.jipp.encoding.* // ktlint-disable no-wildcard-imports
 
 /**
  * Data object corresponding to a "media-col" collection as defined in:
- *   * [PWG5100.11](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext10-20101030-5100.11.pdf)
- *   * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
- *   * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
+ * [PWG5100.11](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext10-20101030-5100.11.pdf),
+ * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf),
+ * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf).
  */
+@Suppress("RedundantCompanionReference", "unused")
 data class MediaCol
 @JvmOverloads constructor(
     val mediaBackCoating: MediaBackCoating? = null,
@@ -248,6 +249,7 @@ data class MediaCol
     /**
      * Data object corresponding to a "media-size" collection.
      */
+    @Suppress("RedundantCompanionReference", "unused")
     data class MediaSize
     @JvmOverloads constructor(
         val xDimension: Int? = null,

@@ -11,8 +11,9 @@ import com.hp.jipp.encoding.* // ktlint-disable no-wildcard-imports
 
 /**
  * Data object corresponding to a "print-objects" collection as defined in:
- *   * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf)
+ * [PWG5100.21](http://ftp.pwg.org/pub/pwg/candidates/cs-ipp3d10-20170210-5100.21.pdf).
  */
+@Suppress("RedundantCompanionReference", "unused")
 data class PrintObjects
 @JvmOverloads constructor(
     val documentNumber: Int? = null,
@@ -93,6 +94,7 @@ data class PrintObjects
     /**
      * Data object corresponding to a "object-offset" collection.
      */
+    @Suppress("RedundantCompanionReference", "unused")
     data class ObjectOffset
     @JvmOverloads constructor(
         val xOffset: Int? = null,
@@ -165,6 +167,7 @@ data class PrintObjects
     /**
      * Data object corresponding to a "object-size" collection.
      */
+    @Suppress("RedundantCompanionReference", "unused")
     data class ObjectSize
     @JvmOverloads constructor(
         val xDimension: Int? = null,

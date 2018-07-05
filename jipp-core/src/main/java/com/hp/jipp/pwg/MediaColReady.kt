@@ -11,9 +11,10 @@ import com.hp.jipp.encoding.* // ktlint-disable no-wildcard-imports
 
 /**
  * Data object corresponding to a "media-col-ready" collection as defined in:
- *   * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
- *   * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
+ * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf),
+ * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf).
  */
+@Suppress("RedundantCompanionReference", "unused")
 data class MediaColReady
 @JvmOverloads constructor(
     val mediaSourceProperties: MediaSourceProperties? = null,
@@ -67,6 +68,7 @@ data class MediaColReady
     /**
      * Data object corresponding to a "media-source-properties" collection.
      */
+    @Suppress("RedundantCompanionReference", "unused")
     data class MediaSourceProperties
     @JvmOverloads constructor(
         val mediaSourceFeedDirection: FeedOrientation? = null,

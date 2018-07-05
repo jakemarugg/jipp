@@ -11,8 +11,9 @@ import com.hp.jipp.encoding.* // ktlint-disable no-wildcard-imports
 
 /**
  * Data object corresponding to a "destination-statuses" collection as defined in:
- *   * [PWG5100.15](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfaxout10-20131115-5100.15.pdf)
+ * [PWG5100.15](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfaxout10-20131115-5100.15.pdf).
  */
+@Suppress("RedundantCompanionReference", "unused")
 data class DestinationStatuses
 @JvmOverloads constructor(
     val destinationUri: java.net.URI? = null,

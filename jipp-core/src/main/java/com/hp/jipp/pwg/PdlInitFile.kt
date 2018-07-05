@@ -11,8 +11,9 @@ import com.hp.jipp.encoding.* // ktlint-disable no-wildcard-imports
 
 /**
  * Data object corresponding to a "pdl-init-file" collection as defined in:
- *   * [PWG5100.11](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext10-20101030-5100.11.pdf)
+ * [PWG5100.11](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext10-20101030-5100.11.pdf).
  */
+@Suppress("RedundantCompanionReference", "unused")
 data class PdlInitFile
 @JvmOverloads constructor(
     val pdlInitFileEntry: String? = null,

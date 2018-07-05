@@ -29,14 +29,14 @@ object JobTemplateGroup {
 
     /**
      * "cover-back" as defined in:
-     * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
+     * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf),
      * [RFC8011](http://www.iana.org/go/rfc8011)
      */
     @JvmField val coverBack = CoverBack.Type("cover-back")
 
     /**
      * "cover-front" as defined in:
-     * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
+     * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf),
      * [RFC8011](http://www.iana.org/go/rfc8011)
      */
     @JvmField val coverFront = CoverFront.Type("cover-front")
@@ -55,7 +55,7 @@ object JobTemplateGroup {
 
     /**
      * "destination-uris" as defined in:
-     * [PWG5100.15](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfaxout10-20131115-5100.15.pdf)
+     * [PWG5100.15](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfaxout10-20131115-5100.15.pdf),
      * [PWG5100.17](http://ftp.pwg.org/pub/pwg/candidates/cs-ippscan10-20140918-5100.17.pdf)
      */
     @JvmField val destinationUris = DestinationUris.Type("destination-uris")
@@ -74,7 +74,7 @@ object JobTemplateGroup {
 
     /**
      * "finishings-col" as defined in:
-     * [PWG5100.1](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfinishings10-20010205-5100.1.pdf)
+     * [PWG5100.1](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfinishings10-20010205-5100.1.pdf),
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
      */
     @JvmField val finishingsCol = FinishingsCol.Type("finishings-col")
@@ -105,7 +105,7 @@ object JobTemplateGroup {
 
     /**
      * "insert-sheet" as defined in:
-     * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
+     * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf),
      * [RFC8011](http://www.iana.org/go/rfc8011)
      */
     @JvmField val insertSheet = InsertSheet.Type("insert-sheet")
@@ -124,7 +124,7 @@ object JobTemplateGroup {
 
     /**
      * "job-accounting-sheets" as defined in:
-     * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
+     * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf),
      * [RFC8011](http://www.iana.org/go/rfc8011)
      */
     @JvmField val jobAccountingSheets = JobAccountingSheets.Type("job-accounting-sheets")
@@ -257,7 +257,7 @@ object JobTemplateGroup {
 
     /**
      * "job-sheets-col" as defined in:
-     * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
+     * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf),
      * [RFC8011](http://www.iana.org/go/rfc8011)
      */
     @JvmField val jobSheetsCol = JobSheetsCol.Type("job-sheets-col")
@@ -276,8 +276,8 @@ object JobTemplateGroup {
 
     /**
      * "media-col" as defined in:
-     * [PWG5100.11](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext10-20101030-5100.11.pdf)
-     * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
+     * [PWG5100.11](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext10-20101030-5100.11.pdf),
+     * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf),
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
      */
     @JvmField val mediaCol = MediaCol.Type("media-col")
@@ -458,7 +458,7 @@ object JobTemplateGroup {
 
     /**
      * "separator-sheets" as defined in:
-     * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
+     * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf),
      * [RFC8011](http://www.iana.org/go/rfc8011)
      */
     @JvmField val separatorSheets = SeparatorSheets.Type("separator-sheets")

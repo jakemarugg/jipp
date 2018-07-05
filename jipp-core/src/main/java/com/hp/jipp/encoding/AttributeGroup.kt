@@ -69,6 +69,7 @@ data class AttributeGroup(val tag: Tag, val attributes: List<Attribute<*>>) : Pr
     companion object {
 
         /** Default encoders available to parse incoming data. */
+        // TODO: KeywordOrName?
         @JvmField val encoders = listOf(
             IntegerType.Encoder, UriType.Encoder, NameType.Encoder, TextType.Encoder, StringType.Encoder,
             BooleanType.Encoder, DateTimeType.Encoder, CollectionType.Encoder, IntegerOrRangeOfIntegerType.Encoder,

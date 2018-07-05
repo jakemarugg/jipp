@@ -492,11 +492,15 @@ def emit_attributes(env):
             type = copy.deepcopy(desc)
             fix_intro(type, type['syntax'], type['name'])
             if 'intro' not in type:
+                # fix_intro already warns
                 continue
 
             # Fix members
             for member in type['members'].values():
                 fix_member(member)
+
+            if type['name'] == 'finishings-col-actual':
+                warn("Something wrong with", type)
 
             types.append(type)
 
@@ -508,6 +512,7 @@ def emit_collection(env, type):
     collection_template = env.get_template('collection.kt.tmpl')
     type = copy.deepcopy(type)
 
+    # TODO: CoverBack, CoverFront are examples of duplicates -- these should refer to the same base collection type.
     for member in type['members'].values():
         fix_member(member)
         if 'ktype' not in member:
@@ -520,13 +525,13 @@ def emit_collection(env, type):
             member['inner'] = '    ' + collection_template.render(name=member['name'], collection=member,
                                        app=os.path.basename(sys.argv[0]), updated=updated,
                                        specs=specs, noheader=True).replace('\n', '\n    ').strip()
-    colName = type['name']
+    col_name = type['name']
 
     # TODO: media-col-database has members AND a ref so these need to be combined
     # TODO: if `set` is true, emit the member in List form
-    with open(prep_file(colName), 'w') as file:
+    with open(prep_file(col_name), 'w') as file:
         file.write(collection_template.render(
-            name=colName, collection=type, app=os.path.basename(sys.argv[0]),
+            name=col_name, collection=type, app=os.path.basename(sys.argv[0]),
             updated=updated, specs=specs))
 
 # For each member recursively find and apply its intro
@@ -534,10 +539,12 @@ def fix_member(member):
     fix_syntax(member)
     fix_intro(member, member['syntax'], member['name'])
     if 'intro' in member:
-        if member['members']:
-            member['ktype'] = camel_class(member['name'])
-            for submember in member['members'].values():
-                fix_member(submember)
+        if member['syntax'] == 'collection':
+            if 'ktype' not in member:
+                member['ktype'] = camel_class(member['name'])
+            if member['members']:
+                for submember in member['members'].values():
+                    fix_member(submember)
 
 # For the type given, select decorators that help when generating code.
 # 'intro' - string required to begin instantiation of the type
@@ -619,6 +626,9 @@ def fix_intro(type, syntax, name):
     if re.search('^octetString\(([0-9]+)\)$', syntax):
         m = re.search('octetString\(([0-9]+)\)', syntax)
         intro = "OctetStringType(" + m.group(1) + ", "
+    if type['name'] == 'destination-attributes':
+        intro = 'CollectionType('
+        type['ktype'] = 'AttributeCollection'
 
     if not intro:
         warn("No type for attribute " + name + " with syntax '" + original_syntax + "'", type)
