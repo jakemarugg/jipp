@@ -16,7 +16,7 @@ import static com.hp.jipp.encoding.Tag.*;
 import static com.hp.jipp.model.Types.*;
 
 class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         if (args.length != 2) {
             throw new IllegalArgumentException("Arguments [PRINTER_PATH] [FILE] are required, received: " +
                     Arrays.asList(args));
@@ -33,13 +33,9 @@ class Main {
                         documentFormat.of("application/octet-stream")));
 
         System.out.println("Sending " + printRequest.prettyPrint(1200, "  "));
-        try {
-            IppClientTransport transport = new HttpIppClientTransport();
-            IppPacketData request = new IppPacketData(printRequest, new FileInputStream(inputFile));
-            IppPacketData response = transport.sendData(uri, request);
-            System.out.println("Received: " + response.getPacket().prettyPrint(100, "  "));
-        } catch (IOException e) {
-            throw new RuntimeException("Failed to print", e);
-        }
+        IppClientTransport transport = new HttpIppClientTransport();
+        IppPacketData request = new IppPacketData(printRequest, new FileInputStream(inputFile));
+        IppPacketData response = transport.sendData(uri, request);
+        System.out.println("Received: " + response.getPacket().prettyPrint(100, "  "));
     }
 }
