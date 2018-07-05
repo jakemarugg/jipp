@@ -34,6 +34,12 @@ object PrinterStatusGroup {
     @JvmField val documentFormatVaryingAttributes = DocumentFormatVaryingAttribute.Type("document-format-varying-attributes")
 
     /**
+     * "job-settable-attributes-supported" as defined in:
+     * [RFC3380](http://www.iana.org/go/rfc3380)
+     */
+    @JvmField val jobSettableAttributesSupported = JobSettableAttributesSupported.Type("job-settable-attributes-supported")
+
+    /**
      * "pages-per-minute" as defined in:
      * [RFC8011](http://www.iana.org/go/rfc8011)
      */
@@ -140,6 +146,12 @@ object PrinterStatusGroup {
      * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
      */
     @JvmField val printerOutputTray = OctetStringType("printer-output-tray")
+
+    /**
+     * "printer-settable-attributes-supported" as defined in:
+     * [RFC3380](http://www.iana.org/go/rfc3380)
+     */
+    @JvmField val printerSettableAttributesSupported = PrinterSettableAttributesSupported.Type("printer-settable-attributes-supported")
 
     /**
      * "printer-state" as defined in:

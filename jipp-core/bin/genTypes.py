@@ -449,8 +449,15 @@ def fuzzy_get(map, name):
         # XML fix: try to find the relevant keyword/enum by trimming
         if name.endswith("-default"):
             return fuzzy_get(map, name[:-len("-default")])
+        # TODO: Try removing this
         if name.endswith("-supported"):
-            return fuzzy_get(map, name[:-len("-supported")])
+            short_name = name[:-len('-supported')]
+            if short_name in collections:
+                # XML fix: If it's a collection, refer to its members
+                return { 'ref_members': short_name }
+            else:
+                # XML fix: If not, try to find a base (keyword|enum) type of the same name
+                return fuzzy_get(map, name[:-len("-supported")])
         if name.endswith("-actual"):
             return fuzzy_get(map, name[:-len("-actual")])
         if name.endswith("-supplied"):
@@ -740,11 +747,6 @@ for elem in tree.iter('{*}registry'):
 parse_records(tree, "Enum Attribute Values", parse_enum)
 parse_records(tree, "Keyword Attribute Values", parse_keyword)
 
-# XML Fixes
-# input-attributes-supported should probably be "any input-attributes member attribute name"
-# document-access-supported should probably be "any document-access member attribute name"
-# *-supported a lot of cases actually
-
 # XML Fix: missing printer-kind keyword
 keywords['printer-kind'] = {
     'name': 'printer-kind',
@@ -787,6 +789,24 @@ keywords['destination-attributes-supported'] = {
     'syntax': 'keyword',
     'values': [ ],
     'empty_ok': True
+}
+
+# printer-settable-attributes-supported keyword includes 'none' and the names of all possible
+# settiable attributes of the printer; too many to list here.
+keywords['printer-settable-attributes-supported'] = {
+    'name': 'printer-settable-attributes-supported',
+    'specs': [ 'RFC3380' ],
+    'syntax': 'keyword',
+    'values': [ 'none' ]
+}
+
+# job-settable-attributes-supported keyword includes 'none' and the names of all possible
+# attributes which can be set on a job operation; too many to list here.
+keywords['job-settable-attributes-supported'] = {
+    'name': 'job-settable-attributes-supported',
+    'specs': [ 'RFC3380' ],
+    'syntax': 'keyword',
+    'values': [ 'none' ]
 }
 
 parse_records(tree, "Attributes", parse_attribute)

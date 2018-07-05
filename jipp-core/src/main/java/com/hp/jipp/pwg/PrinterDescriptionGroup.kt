@@ -142,6 +142,12 @@ object PrinterDescriptionGroup {
     @JvmField val coveringNameSupported = CoveringName.Type("covering-name-supported")
 
     /**
+     * "destination-accesses-supported" as defined in:
+     * [PWG5100.17](http://ftp.pwg.org/pub/pwg/candidates/cs-ippscan10-20140918-5100.17.pdf)
+     */
+    @JvmField val destinationAccessesSupported = DestinationAccesses.Keywords.Type("destination-accesses-supported")
+
+    /**
      * "destination-uri-ready" as defined in:
      * [PWG5100.17](http://ftp.pwg.org/pub/pwg/candidates/cs-ippscan10-20140918-5100.17.pdf)
      */
@@ -152,6 +158,18 @@ object PrinterDescriptionGroup {
      * [PWG5100.15](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfaxout10-20131115-5100.15.pdf)
      */
     @JvmField val destinationUriSchemesSupported = StringType(Tag.uriScheme, "destination-uri-schemes-supported")
+
+    /**
+     * "destination-uris-supported" as defined in:
+     * [PWG5100.15](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfaxout10-20131115-5100.15.pdf)
+     */
+    @JvmField val destinationUrisSupported = DestinationUris.Keywords.Type("destination-uris-supported")
+
+    /**
+     * "document-access-supported" as defined in:
+     * [PWG5100.18](http://ftp.pwg.org/pub/pwg/candidates/cs-ippinfra10-20150619-5100.18.pdf)
+     */
+    @JvmField val documentAccessSupported = DocumentAccess.Keywords.Type("document-access-supported")
 
     /**
      * "document-charset-default" as defined in:
@@ -364,6 +382,12 @@ object PrinterDescriptionGroup {
     @JvmField val impositionTemplateSupported = ImpositionTemplate.Type("imposition-template-supported")
 
     /**
+     * "input-attributes-supported" as defined in:
+     * [PWG5100.15](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfaxout10-20131115-5100.15.pdf)
+     */
+    @JvmField val inputAttributesSupported = InputAttributes.Keywords.Type("input-attributes-supported")
+
+    /**
      * "input-color-mode-supported" as defined in:
      * [PWG5100.15](http://ftp.pwg.org/pub/pwg/candidates/cs-ippfaxout10-20131115-5100.15.pdf)
      */
@@ -442,6 +466,12 @@ object PrinterDescriptionGroup {
     @JvmField val insertSheetDefault = InsertSheet.Type("insert-sheet-default")
 
     /**
+     * "insert-sheet-supported" as defined in:
+     * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
+     */
+    @JvmField val insertSheetSupported = InsertSheet.Keywords.Type("insert-sheet-supported")
+
+    /**
      * "ipp-features-supported" as defined in:
      * [PWG5100.13](http://ftp.pwg.org/pub/pwg/candidates/cs-ippjobprinterext3v10-20120727-5100.13.pdf)
      */
@@ -493,7 +523,7 @@ object PrinterDescriptionGroup {
      * "job-accounting-sheets-supported" as defined in:
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
      */
-    @JvmField val jobAccountingSheetsSupported = JobAccountingSheetsType.Type("job-accounting-sheets-supported")
+    @JvmField val jobAccountingSheetsSupported = JobAccountingSheets.Keywords.Type("job-accounting-sheets-supported")
 
     /**
      * "job-accounting-user-id-default" as defined in:
@@ -601,7 +631,7 @@ object PrinterDescriptionGroup {
      * "job-error-sheet-supported" as defined in:
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
      */
-    @JvmField val jobErrorSheetSupported = JobErrorSheetType.Type("job-error-sheet-supported")
+    @JvmField val jobErrorSheetSupported = JobErrorSheet.Keywords.Type("job-error-sheet-supported")
 
     /**
      * "job-finishings-col-default" as defined in:
@@ -794,6 +824,12 @@ object PrinterDescriptionGroup {
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
      */
     @JvmField val jobSheetsColDefault = JobSheetsCol.Type("job-sheets-col-default")
+
+    /**
+     * "job-sheets-col-supported" as defined in:
+     * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
+     */
+    @JvmField val jobSheetsColSupported = JobSheetsCol.Keywords.Type("job-sheets-col-supported")
 
     /**
      * "job-sheets-default" as defined in:
@@ -1254,6 +1290,12 @@ object PrinterDescriptionGroup {
     @JvmField val orientationRequestedSupported = Orientation.Type("orientation-requested-supported")
 
     /**
+     * "output-attributes-supported" as defined in:
+     * [PWG5100.17](http://ftp.pwg.org/pub/pwg/candidates/cs-ippscan10-20140918-5100.17.pdf)
+     */
+    @JvmField val outputAttributesSupported = OutputAttributes.Keywords.Type("output-attributes-supported")
+
+    /**
      * "output-bin-default" as defined in:
      * [PWG5100.2](http://ftp.pwg.org/pub/pwg/candidates/cs-ippoutputbin10-20010207-5100.2.pdf)
      */
@@ -1276,6 +1318,12 @@ object PrinterDescriptionGroup {
      * [PWG5100.18](http://ftp.pwg.org/pub/pwg/candidates/cs-ippinfra10-20150619-5100.18.pdf)
      */
     @JvmField val outputDeviceUuidSupported = UriType("output-device-uuid-supported")
+
+    /**
+     * "overrides-supported" as defined in:
+     * [PWG5100.6](http://ftp.pwg.org/pub/pwg/candidates/cs-ipppageoverride10-20031031-5100.6.pdf)
+     */
+    @JvmField val overridesSupported = Overrides.Keywords.Type("overrides-supported")
 
     /**
      * "page-delivery-default" as defined in:
@@ -1839,7 +1887,7 @@ object PrinterDescriptionGroup {
      * "separator-sheets-supported" as defined in:
      * [PWG5100.3](http://ftp.pwg.org/pub/pwg/candidates/cs-ippprodprint10-20010212-5100.3.pdf)
      */
-    @JvmField val separatorSheetsSupported = SeparatorSheetsType.Type("separator-sheets-supported")
+    @JvmField val separatorSheetsSupported = SeparatorSheets.Keywords.Type("separator-sheets-supported")
 
     /**
      * "sheet-collate-default" as defined in:
