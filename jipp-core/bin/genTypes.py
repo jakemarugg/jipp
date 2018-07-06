@@ -562,6 +562,9 @@ def find_collection_ref(group, type):
     warn('no members found for collection', type)
 
 def emit_collection(env, type):
+
+    # TODO: We don't always need the Keywords part and it makes the JAR larger. Can we omit it in such cases?
+
     collection_template = env.get_template('collection.kt.tmpl')
     name = type['name']
     if name in collections:
